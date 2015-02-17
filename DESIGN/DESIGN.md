@@ -5,6 +5,7 @@ In this project we are creating a simplified SLogo parser and visualization prog
 We designed our program with the intention of having it be very flexible in the following areas: adding more commands (via use of a factory), adding turtles to the “turtle playground,” adding buttons and functionality to the view, changing the language of the program, changing the dimensions of the turtle playground, and being able to parse complicated commands/user programs.  
 
 Regarding architecture, the parts of our program that are closed include the parser, the “statement” (command) hierarchy (described below), the structure of the program, and internal management of the turtles.  Specifically, the parser is generic in that it functions the same way no matter what commands are available to the user or how they are given to the parser.  The hierarchy we will create for the commands available to the user is also closed, as the parent classes and functionality of the current classes won’t change no matter what commands are added.  The model-view-controller and control flow within the program will also remain the same for any extensions made, as well as how the internal API updates or changes the turtles.  
+
 The parts of our program that remain open are the user interaction with turtles, such as number of turtles on the screen and their functionality, as well as possible language preferences and the appearance of the view.  Our program would be able to support more turtles, as well as more functionality of each turtle.  The command hierarchy is also open to extension.
 
 Overview
@@ -13,13 +14,19 @@ Overview
 
 <img src="https://raw.githubusercontent.com/duke-compsci308-spring2015/slogo_team02/master/DESIGN/hierachyCommands.JPG?token=AIax0FZW9NL8pnUaaTPDJeyWckE3Ixkaks5U6m9hwA%3D%3D">
 
-Our project is divided into two major sections, view and model. The view is the front-end of the IDE that deals with the visualization of the scene and the user interface; the model is the back-end the processes the user commands and manages the states and behaviors of the turtles. The two sections are separated from each other and server their goals as public APIs. As we designed the APIs in a way that each API is independent of use of the calling party, both APIs are compatible with platforms other than the ones specified in the project. The model class acts on the turtles (or the designated objects) in response to the user commands passed from the view class and updates the current states of the turtles. By calling the public methods of the view class, the model class is then able to display the state of each turtle on the scene. To facilitate the communication between the model class and the view class, we have a controller class designed to manage the flow of the whole command interpreting process and passes data from the view to the model class. 
+Our project is divided into two major sections, view and model. The view is the front-end of the IDE that deals with the visualization of the scene and the user interface; the model is the back-end that processes the user commands and manages the states and behaviors of the turtles. The two sections are separated from each other and serve their goals as public APIs. We designed the APIs in a way that each API is independent of use of the calling party, so both APIs are compatible with platforms other than the ones specified in the project. The model class acts on the turtles (or the designated objects) in response to the user commands passed from the view class and updates the current states of the turtles. By calling the public methods of the view class, the model class is then able to display the state of each turtle on the scene. To facilitate the communication between the model class and the view class, we have a controller class designed to manage the flow of the whole command interpreting process and passes data from the view to the model class. 
 
-The model class serves as the external API of the back-end. It has a processCommand() method and a changeLanguage() method. The processCommand() method is the main method that parses the string and applies the command to the turtles. The changeLanguage() method changes the default language of the parser. The parser class serves as the internal API that interprets and executes the commands. 
+Controller part of the program functions as a mediator between view and model parts, and contains both view and model objects as instances. It has clearScreen() method, which calls the clearScreen() method in the View object, execute() method, which directly receives the String command from the user and passes it to either View object, Model object, or both depending on its type, and changeLanguage() method, which takes in external resource file for translation.  The controller class is also the main class (containing main()) used to run the program.  
 
-The view class serves as the external API of the front-end. It has specific methods that display the effects of different commands and presents the current state of the turtle to the user. In more details, it has drawTurtle() and moveTurtle() method to visualize forward and backward movement, and rotate() method to visualize rotation. In addition, it provides a user interface including dropdown menus and other setting buttons for the user to interact with the IDE. 
+The model class serves as the external API of the back-end.  It has an instance of the view so that it can update the view in response to commands entered by the user, and also keeps track of all of the turtle objects in the current SLogo environment.  It has a processCommand() method and a changeLanguage() method. The processCommand() method is the main method that parses the string and applies the command to the turtles. The changeLanguage() method changes the default language of the parser. The parser class serves as the internal API that interprets and executes the commands. 
 
-In terms of the inputs of the program, there are various resource files needed to support the functionality of the IDE. For the front-end, text files are needed to fill in the texts on the buttons and other interactive components on the screen; for the back-end, a syntax properties file and a library of language translations are needed for the parser.
+Internal API of the model class contains parse() method, which is called by the processCommand(), that creates a Program object according to the String parameter passed on as a command instruction. Its execute() method takes in a Program object and calls the execute() method on the program.  The Program object contains a list of Command/Statement objects (pictured in their hierarchy above) which are executed in order, each of which calls methods on turtles, the view, and/or the model depending on it’s functionality.  
+
+The view class serves as the external API of the front-end. It has specific methods that display the effects of different commands and presents the current state of the turtle to the user. In more detail, it has drawTurtle() and moveTurtle() methods to visualize forward and backward movement, and the rotate() method to visualize rotation. In addition, it provides a user interface including dropdown menus and other setting buttons for the user to interact with the IDE. 
+
+Internal API of the View class contains methods called by the methods in the external API of the View class to help visualize the movement of the ViewTurtle objects. It contains lineDraw() method that draws the line along the turtle’s movement when the pen is up and removeViewTurtle() and initializeViewTurtle() methods that alter the ArrayList<ViewTurtle>, which is the private storage of ViewTurtle objects inside the View class. Printing the message on console and sending the command is also done in this part of the view class.
+
+In terms of the inputs of the program, there are various resource files needed to support the functionality of the IDE. For the front-end, text files are needed to fill in the texts on the buttons and other interactive components on the screen; for the back-end, a syntax properties file and a library of language translations are needed for the parser. 
 
 Exceptions are handled within the main sections of our project. For the front-end, exceptions will be thrown for input errors such as invalid file path or invalid color. The back-end will throw exceptions if the input command line is invalid or the chosen language is not supported by the library.  
 
@@ -39,11 +46,11 @@ The User interface is represented by the figure above. The user interface has se
     * The black window on the lower right side represents the output window. This window displays the results from the user’s print statement or displays error messages which were caught in the model.
 
 * Button Pane
-	* Change Language allows the user to switch between the avaliable language to code in. At final product, this will be represented by a scroll down instead of a button.
-	* Background allows the user to customise the background based on an image. When clicked, it will open a file chooser for the user to pick their color.
-	* Image allows the user to change either the color or the image of the turtle. When clicked it will open a popup box asking for the new color or to open a file chooser to select the new shape.
-	* Help allows the user to open up a HTML webpage where there will be a [help guide](http://www.cs.duke.edu/courses/compsci308/spring15/assign/03_slogo/commands.php) for the user to see before being able to code in the program.
-	* Enter allows the user to submit their code. When enter is clicked, the code inside the codeBox is sent to the controller as a string to be parsed in the model.
+    * Change Language allows the user to switch between the available language to code in. At final product, this will be represented by a scroll down instead of a button.
+    * Background allows the user to customise the background based on an image. When clicked, it will open a file chooser for the user to pick their color.
+    * Image allows the user to change either the color or the image of the turtle. When clicked it will open a popup box asking for the new color or to open a file chooser to select the new shape.
+    * Help allows the user to open up a HTML webpage where there will be a [help guide](http://www.cs.duke.edu/courses/compsci308/spring15/assign/03_slogo/commands.php) for the user to see before being able to code in the program.
+    * Enter allows the user to submit their code. When enter is clicked, the code inside the codeBox is sent to the controller as a string to be parsed in the model.
 
 * CodeBox
     * This is represented by the white text area in the lower left of the scene. This is where the user can input their code. 
@@ -51,7 +58,16 @@ The User interface is represented by the figure above. The user interface has se
 Design Details
 ==========
 ###Model
+The Model is the main class that takes in and executes SLogo commands.  It uses and works with many other classes to do this, as described above, including Parser, Turtle, Statement/Command, and Program.  It’s internal and external APIs are relatively short, with only two methods each, because the Model currently only has two main functions: to take in an execute a program and also to change the language if the user requests, and it delegates a lot of this work to other classes.  
+
+The control flow within the Model API is straightforward: when processCommand() from the external API is called, this method then calls the parse() method from the internal API of the Parser class to parse the string and add the commands to a Program.  Then execute() is called, which calls execute on the program, in which each command will be executed according the the user’s code, and the commands will call methods in the view to update the turtles in the SLogo window.  This implementation is very open to the extension of new commands because the process of parsing and the control flow is generic and would remain the same no matter what commands are available to the user.  
+
+Each command object is responsible for implementing the function of a command available to the user.  These commands make calls on the model itself, model turtle objects, and the view based on what their functionality is.  The design of the command hierarchy is such that each command object implements a method called execute() that it inherits from the super command class (called Statement).  Thus, any number of new commands could be added to the hierarchy that implement execute differently to perform a different function.
+
+The method changeLanguage() from the external API takes in a String that represents the language to change to, and calls a method on the parser to update the patterns of the commands that it looks for in the user code.  The model thus depends on resource files that contain the commands in different languages.  This method also allows our program to be compatible with any number of language files that may be added in the future.
+
 The explanation of each of the Model API is listed below.  
+
 #####Model External API
 
 public void changeLanguage(String language)
@@ -71,7 +87,7 @@ This method takes in a Program object and calls execute on that program.
 ###View
 ViewAbstract is an abstract class which has the public API methods. This is so if the user wants to create their view in Swing, they would be able to access this abstract class to implement the methods in a difference GUI language other than JavaFX. ViewFX is the concrete class that has the implementations of ViewAbstract for JavaFX.
 
-Aside from that, there are multiple classes to help create the view. This is done to help divide the view code to make it more organized instead of setting up all panes and buttons in the view class. An example would be the ButtonPane class which sets up all the buttons in a grid pane in the scene.
+Aside from that, there are multiple classes to help create the view. This is done to help divide the view code to make it more organized instead of setting up all panes and buttons in the view class. An example would be the ButtonPane class which sets up all the buttons in a grid pane in the scene.  In this SLogo project, the view also collaborates with the Controller class, as mentioned above, sending it signals to send to the model when the user runs a program.
 
 The explanation of each of the View API is listed below
 #####View External API
@@ -95,8 +111,6 @@ Calls printConsole(String text) by passing the ‘message’ to print on the con
 
 public void addTurtle( Point2D point, String ID )
 Calls initializeViewTurtle() by passing the parameters and creates a ViewTurtle object at the specified 2D point with given ID and stores it in the ArrayList<ViewTurtle>.
-
-
 
 #####View Internal API
 The internal view API contains all the public methods used by the external View API that is not displayed to the user while using it. The methods and their description are as follows:-
@@ -122,11 +136,13 @@ This method takes the string text and fills it up in the console to show display
 
 API Example Code
 ==============
-When the method fd 50 is typed, and the run button is hit, the following commands are executed:-
+When the method fd 50 is typed, and the run button is hit, the following methods are executed:-
 
-* executeCommand is called in my Controller to send the String to the parser in model
-* Model.
-* move() which is a public View API is called by the model. It then moves the turtle by 50px and creates a 50px line
+* executeCommand is called in my Controller to send the String to model
+* processCommand is called in the Model by the controller, passing it the string of code to be executed.  
+* parse from the model internal API is called by processCommand in the Model to parse the string into SLogo commands
+* executeProgram (from model internal API) is called by processCommand once parse has completed.
+* move() which is a public View API is called by the model/backend (specifically the forward command object). It then moves the turtle by 50px and creates a 50px line
 
 
 Design Considerations
@@ -141,7 +157,7 @@ We also had a design consideration over how we should implement model view contr
 Team Responsibilities
 ================
 
-During our first team meeting, we decided to set up two different groups to work on the project. There is the model group (backend) and view group (front end). The frontend and the backend group would work seperately and convene together twice a week to merge the code together.
+During our first team meeting, we decided to set up two different groups to work on the project. There is the model group (backend) and view group (front end). The frontend and the backend group would work separately and convene together at least twice a week to merge the code together.
 
 * View
     * Jangsoon - Turtle Playground and View Turtle
