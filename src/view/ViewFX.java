@@ -32,7 +32,6 @@ public class ViewFX extends ViewAbstract {
 	@Override
 	public void clearScreen() {
 		//TODO Clear the group that contains the lines
-		
 		codeElements.clearTerminal();
 	}
 
@@ -48,6 +47,12 @@ public class ViewFX extends ViewAbstract {
 
 	@Override
 	public void addTurtle(double[] newLocation, int ID) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addVariable(String variableName, Double value) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -19,5 +19,7 @@ public abstract class ViewAbstract {
 	
 	public abstract void addTurtle(double[] newLocation, int ID);
 	
+	public abstract void addVariable(String variableName, Double value);
+	
 	public abstract Scene initializeView();
 }
