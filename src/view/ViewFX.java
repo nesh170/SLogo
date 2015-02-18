@@ -10,7 +10,6 @@ public class ViewFX extends ViewAbstract {
 	
 	@Override
 	public Scene initializeView(){
-		//TODO Refactor this later
 		myRoot = new Group();
 		Scene viewScene = new Scene(myRoot,VIEW_WIDTH,VIEW_HEIGHT);
 		codeElements = new CodePane();
@@ -32,8 +31,9 @@ public class ViewFX extends ViewAbstract {
 
 	@Override
 	public void clearScreen() {
-		// TODO Auto-generated method stub
+		//TODO Clear the group that contains the lines
 		
+		codeElements.clearTerminal();
 	}
 
 	@Override

@@ -28,12 +28,12 @@ public class CodePane {
 		VALUE_MAP.put("TerminalHeight", 200);
 		VALUE_MAP.put("ButtonWidth", 50);
 		VALUE_MAP.put("ButtonHeight", 230);
-		VALUE_MAP.put("codePaneY",568);
+		VALUE_MAP.put("CodePaneY",568);
 	}
 	private TextArea myCodeArea;
 	private TextFlow myTerminal;
 	private Button myEnterButton;
-	private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.ViewText.ViewText",new Locale("en", "US"));
+	private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",new Locale("en", "US"));
 	private int myTerminalLineNumber=1;
 	
 	public GridPane initializeCodePane(){
@@ -43,12 +43,11 @@ public class CodePane {
 		for(int col=0;col<nodeArray.length;col++){
 			codePane.add(nodeArray[col], col, 1);
 		}
-		codePane.setTranslateY(VALUE_MAP.get("codePaneY"));
+		codePane.setTranslateY(VALUE_MAP.get("CodePaneY"));
 		return codePane;
 	}
 	
 	private void generateCodeArea(){
-		//TODO figure out the need for a scrollbar
 		myCodeArea = new TextArea();
 		myCodeArea.setPromptText(myStringResources.getString("codeAreaPrompt"));
 		myCodeArea.setMinWidth(VALUE_MAP.get("CodeAreaWidth"));myCodeArea.setMinHeight(VALUE_MAP.get("CodeAreaHeight"));
