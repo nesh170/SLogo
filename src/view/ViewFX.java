@@ -1,44 +1,12 @@
 package view;
 
-import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.text.TextFlow;
+import javafx.scene.paint.Color;
 
 public class ViewFX extends ViewAbstract {
 	private Group myRoot;
 	private CodePane codeElements;
-	
-
-	@Override
-	public void drawTurtle(Point2D newLocation, String ID) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void moveTurtle(Point2D newLocation, String ID) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void clearScreen(TextFlow terminal) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void printToConsole(TextFlow terminal, String message) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void addTurtle(Point2D newLocation, String ID) {
-		// TODO Auto-generated method stub
-
-	}
 	
 	@Override
 	public Scene initializeView(){
@@ -49,5 +17,42 @@ public class ViewFX extends ViewAbstract {
 		myRoot.getChildren().add(codeElements.initializeCodePane());
 		return viewScene;
 	}
+
+	@Override
+	public void drawTurtle(double[] newLocation, int ID) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void moveTurtle(double[] newLocation, int ID) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clearScreen() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void printError(String message) {
+		codeElements.addTerminalText(message, Color.RED);
+	}
+
+	@Override
+	public void printMessage(String message) {
+		codeElements.addTerminalText(message, Color.YELLOW);
+	}
+
+	@Override
+	public void addTurtle(double[] newLocation, int ID) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
 	
 }

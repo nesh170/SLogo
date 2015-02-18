@@ -77,18 +77,13 @@ public class CodePane {
 		return myCodeArea.getText();
 	}
 	
-	public void addTerminalText(String text){
+	public void addTerminalText(String text, Color color){
 		StringBuilder tempBuilder = new StringBuilder(Integer.toString(myTerminalLineNumber));
 		tempBuilder.append(". ");
 		tempBuilder.append(text);
 		tempBuilder.append("\n"); //Adds a newLine character to ensure it goes to the next line
 		Text TerminalText = new Text(tempBuilder.toString());
-		if(text.toString().startsWith(myStringResources.getString("error"))){
-			TerminalText.setFill(Color.RED); //Sets color to red if it is an error
-		}
-		else{
-			TerminalText.setFill(Color.YELLOW);
-		}
+		TerminalText.setFill(color);
 		myTerminal.getChildren().add(TerminalText);
 		myTerminalLineNumber++;
 	}
