@@ -4,7 +4,8 @@ import javafx.scene.Scene;
 
 public abstract class ViewAbstract {
 	public static final int VIEW_HEIGHT=768;
-	public static final int VIEW_WIDTH=1024;
+	public static final int VIEW_WIDTH=1366;
+
 	
 	//TODO: figure out if return line or add it to root
 	public abstract void drawTurtle(double[] newLocation, int ID);
@@ -19,5 +20,8 @@ public abstract class ViewAbstract {
 	
 	public abstract void addTurtle(double[] newLocation, int ID);
 	
+	public abstract void addVariable(String variableName, Double value);
+	
 	public abstract Scene initializeView();
+	
 }
