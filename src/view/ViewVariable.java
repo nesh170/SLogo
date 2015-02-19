@@ -1,13 +1,9 @@
 package view;
 
-import java.util.Locale;
-import java.util.ResourceBundle;
-
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
@@ -16,14 +12,14 @@ public class ViewVariable {
 	private double myVariableValue;
 	private HBox myBox;
 	private TextField myVariableValueField;
-	private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",new Locale("en", "US"));
+	private Text myValueText;
 	
 	public ViewVariable(String VariableName, double VariableValue){
 		myVariableName=VariableName;
 		myVariableValue=VariableValue;
 	}
 	
-	public HBox generateVisualVariable(EventHandler<ActionEvent> handler){
+	public HBox generateVisualVariable(EventHandler<KeyEvent> handler){
 		myBox = new HBox();
 		myBox.setPadding(new Insets(15, 12, 15, 12));
 	    myBox.setSpacing(VariablePane.TABLE_SPACING);
@@ -31,17 +27,16 @@ public class ViewVariable {
 	    return myBox;
 	}
 	
-	private void generateField(EventHandler<ActionEvent> handler) {
+	private void generateField(EventHandler<KeyEvent> handler) {
 		myVariableValueField = new TextField();
-		myVariableValueField.setPromptText(Double.toString(myVariableValue));
-		Button Enter = new Button(myStringResources.getString("update"));
-		Enter.setOnAction(handler);
-		myBox.getChildren().addAll(new Text(myVariableName + ":"),myVariableValueField,Enter);
+		myValueText=new Text(Double.toString(myVariableValue));
+		myVariableValueField.setOnKeyReleased(handler);
+		myBox.getChildren().addAll(new Text(myVariableName + ":"),myValueText,myVariableValueField);
 	}
 
 	public void updateValue(Double value) {
 		myVariableValue=value;
-		myVariableValueField.setPromptText(Double.toString(myVariableValue));
+		myValueText.setText(Double.toString(myVariableValue));
 	}
 	
 	public Double getValueInField(){

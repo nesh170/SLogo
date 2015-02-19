@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 
 public class ViewFX extends ViewAbstract {
@@ -23,7 +24,7 @@ public class ViewFX extends ViewAbstract {
 		myCodeElements = new CodePane();
 		myVariableElements = new VariablePane();
 		myRoot.getChildren().addAll(myCodeElements.initializeCodePane(),myVariableElements.generateVariablePane());
-//		addVariable("lol", 62.0);
+		addVariable("lol", 62.0);
 		return viewScene;
 	}
 
@@ -68,7 +69,11 @@ public class ViewFX extends ViewAbstract {
 		}
 		else{
 			ViewVariable tempVariable = new ViewVariable(variableName, value);
-			myVariableElements.add(tempVariable.generateVisualVariable(e->updateVariableFromView(variableName)));
+			myVariableElements.add(tempVariable.generateVisualVariable(e->{
+				if(e.getCode().equals(KeyCode.ENTER)){
+					updateVariableFromView(variableName);
+				}
+			}));
 			myVariableMap.put(variableName, tempVariable);
 		}
 		
