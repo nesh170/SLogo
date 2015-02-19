@@ -1,42 +1,53 @@
 package view;
 
-import javafx.scene.Group;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
 public class ViewVariable {
 	private String myVariableName;
 	private double myVariableValue;
-	private Group myRoot;
-	public static final int SIDE_SPACE=10;
+	private HBox myBox;
+	private TextField myVariableValueField;
+	private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",new Locale("en", "US"));
 	
 	public ViewVariable(String VariableName, double VariableValue){
 		myVariableName=VariableName;
 		myVariableValue=VariableValue;
 	}
 	
-	private void generateVisualVariable(){
-		myRoot = new Group();
-		createVariableNameText();
+	public HBox generateVisualVariable(EventHandler<ActionEvent> handler){
+		myBox = new HBox();
+		myBox.setPadding(new Insets(15, 12, 15, 12));
+	    myBox.setSpacing(VariablePane.TABLE_SPACING);
+	    generateField(handler);
+	    return myBox;
 	}
 	
-	private void createVariableNameText(){
-		Text variableText = new Text(myVariableName + ":");
-		//TODO adjust the size and stuff later
-		myRoot.getChildren().add(variableText);
+	private void generateField(EventHandler<ActionEvent> handler) {
+		myVariableValueField = new TextField();
+		myVariableValueField.setPromptText(Double.toString(myVariableValue));
+		Button Enter = new Button(myStringResources.getString("update"));
+		Enter.setOnAction(handler);
+		myBox.getChildren().addAll(new Text(myVariableName + ":"),myVariableValueField,Enter);
+	}
+
+	public void updateValue(Double value) {
+		myVariableValue=value;
+		myVariableValueField.setPromptText(Double.toString(myVariableValue));
 	}
 	
-	private Group generateTextField() {
-		TextField ParamText = new TextField();
-		ParamText.setPrefColumnCount(5);
-		ParamText.setPromptText(Double.toString(myVariableValue));
-		Button Enter = new Button();
-		Enter.setTranslateX(ParamText.getLayoutX() + SIDE_SPACE);
-		Enter.setTranslateY(ParamText.getLayoutY());
-		Enter.setOnAction(event -> updateValue(ParamText));
-		root.getChildren().addAll(FieldName, ParamText, Enter);
-		return root;
+	public Double getValueInField(){
+		updateValue(Double.parseDouble(myVariableValueField.getText()));
+		myVariableValueField.clear();
+		return this.myVariableValue;
 	}
 	
 }
