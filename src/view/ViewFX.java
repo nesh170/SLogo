@@ -1,7 +1,9 @@
 package view;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -11,7 +13,8 @@ public class ViewFX extends ViewAbstract {
 	private Group myRoot;
 	private CodePane myCodeElements;
 	private VariablePane myVariableElements;
-	private Map<String,ViewVariable> myVariableMap=new HashMap<String, ViewVariable>();;
+	private Map<String,ViewVariable> myVariableMap=new HashMap<String, ViewVariable>();
+	private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",new Locale("en", "US"));
 	
 	@Override
 	public Scene initializeView(){
@@ -72,8 +75,14 @@ public class ViewFX extends ViewAbstract {
 	}
 	
 	private void updateVariableFromView(String variableName){
+		try{
 		double newVariableValue = myVariableMap.get(variableName).getValueInField();
 //		System.out.println(variableName + " " + newVariableValue);
+		}
+		catch(Exception e){
+			printError(myStringResources.getString("wrongNumberType"));
+		}
+		
 		
 		
 		//TODO add methods to controller for updating variable;

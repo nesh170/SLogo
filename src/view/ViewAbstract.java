@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 public abstract class ViewAbstract {
 	public static final int VIEW_HEIGHT=768;
 	public static final int VIEW_WIDTH=1366;
+	
 
 	
 	//TODO: figure out if return line or add it to root
