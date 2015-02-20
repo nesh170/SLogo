@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -37,15 +38,19 @@ public class CodePane {
 	private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",new Locale("en", "US"));
 	private int myTerminalLineNumber=1;
 	
-	public GridPane initializeCodePane(){
-		GridPane codePane=new GridPane();
-		generateCodeArea();generateTerminal();generateEnterButton();
+	public CodePane(Group root, EventHandler<ActionEvent> handler){
+		initializeCodePane(root,handler);
+	}
+	
+	private void initializeCodePane(Group root,EventHandler<ActionEvent> handler){
+		GridPane gridPane=new GridPane();
+		generateCodeArea();generateTerminal();generateEnterButton(handler);
 		Node[] nodeArray = {myCodeArea,myEnterButton,myTerminal};
 		for(int col=0;col<nodeArray.length;col++){
-			codePane.add(nodeArray[col], col, 1);
+			gridPane.add(nodeArray[col], col, 1);
 		}
-		codePane.setTranslateY(VALUE_MAP.get("CodePaneY"));
-		return codePane;
+		gridPane.setTranslateY(VALUE_MAP.get("CodePaneY"));
+		root.getChildren().add(gridPane);
 	}
 	
 	private void generateCodeArea(){
@@ -63,15 +68,13 @@ public class CodePane {
 		myTerminal.setBackground(termBlack);
 	}
 	
-	private void generateEnterButton(){
+	private void generateEnterButton(EventHandler<ActionEvent> handler){
 		myEnterButton = new Button(myStringResources.getString("enter"));
 		myEnterButton.setMinWidth(VALUE_MAP.get("ButtonWidth"));myEnterButton.setMinHeight(VALUE_MAP.get("ButtonHeight"));
+		myEnterButton.setOnAction(handler);
 		myEnterButton.setStyle(myStringResources.getString("enterButtonStyle"));
 	}
 	
-	public void setEnterButtonAction(EventHandler<ActionEvent> handler){
-		myEnterButton.setOnAction(handler);
-	}
 	
 	public String getCodeData(){
 		return myCodeArea.getText();
@@ -95,5 +98,6 @@ public class CodePane {
 		myTerminal.getChildren().clear();
 		myTerminalLineNumber=1;
 	}
+	
 	
 }

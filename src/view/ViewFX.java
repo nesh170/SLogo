@@ -1,7 +1,5 @@
 package view;
 
-import java.sql.Time;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -38,10 +36,9 @@ public class ViewFX extends ViewAbstract {
 		myTurtleRoot = new Group();
 		myViewTurtles = new HashMap<>();
 		Scene viewScene = new Scene(myRoot,VIEW_WIDTH,VIEW_HEIGHT,Color.ALICEBLUE);
-		myCodeElements = new CodePane();
-		myVariableElements = new VariablePane();
-		myRoot.getChildren().addAll(myCodeElements.initializeCodePane(),myVariableElements.generateVariablePane(), myLineRoot, myTurtleRoot);
-		myCodeElements.setEnterButtonAction(e->pushCodeToController());
+		myCodeElements = new CodePane(myRoot, e->pushCodeToController());
+		myVariableElements = new VariablePane(myRoot);
+		myRoot.getChildren().addAll(myLineRoot, myTurtleRoot);
 		myController.setScene(viewScene);
 		test();
 	}

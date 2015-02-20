@@ -4,6 +4,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -18,7 +19,11 @@ public class VariablePane {
 	
 	private VBox myVariableTable;
 	
-	public VBox generateVariablePane(){
+	public VariablePane(Group root) {
+		generateVariablePane(root);
+	}
+
+	public void generateVariablePane(Group root){
 		myVariableTable = new VBox();
 		myVariableTable.setPadding(new Insets(TABLE_PADDING));
 	    myVariableTable.setSpacing(TABLE_SPACING);
@@ -26,7 +31,7 @@ public class VariablePane {
 		myVariableTable.setMaxWidth(TABLE_WIDTH);
 		myVariableTable.setTranslateX(TABLE_X);
 		myVariableTable.getChildren().add(new Text(myStringResources.getString("variableTableTitle")));
-		return myVariableTable;
+		root.getChildren().add(myVariableTable);
 	}
 
 	public void add(HBox variableBox) {
