@@ -29,6 +29,7 @@ public class CodePane {
 		VALUE_MAP.put("ButtonWidth", 50);
 		VALUE_MAP.put("ButtonHeight", 230);
 		VALUE_MAP.put("CodePaneY",568);
+		VALUE_MAP.put("MaxRows", 11);
 	}
 	private TextArea myCodeArea;
 	private TextFlow myTerminal;
@@ -77,6 +78,9 @@ public class CodePane {
 	}
 	
 	public void addTerminalText(String text, Color color){
+		if(myTerminalLineNumber==VALUE_MAP.get("MaxRows")){
+			clearTerminal();
+		}
 		StringBuilder tempBuilder = new StringBuilder(Integer.toString(myTerminalLineNumber));
 		tempBuilder.append(". ");
 		tempBuilder.append(text);
@@ -89,7 +93,7 @@ public class CodePane {
 
 	public void clearTerminal(){
 		myTerminal.getChildren().clear();
-		myTerminalLineNumber=0;
+		myTerminalLineNumber=1;
 	}
 	
 }
