@@ -34,7 +34,7 @@ public class ViewFX extends ViewAbstract {
 		myCodeElements = new CodePane();
 		myVariableElements = new VariablePane();
 		myRoot.getChildren().addAll(myCodeElements.initializeCodePane(),myVariableElements.generateVariablePane(), myLineRoot, myTurtleRoot);
-//		test();
+		test();
 		return viewScene;
 	}
 
@@ -42,9 +42,9 @@ public class ViewFX extends ViewAbstract {
 	private void test(){
 		addTurtle(0,0, 0);
 		drawTurtle(100,150,0);
-		clearScreen();
-		addTurtle(0,0,0);
-		addVariable("lol", 62.0);
+//		clearScreen();
+//		addTurtle(0,0,0);
+//		addVariable("lol", 62.0);
 	}
 
 
