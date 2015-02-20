@@ -43,7 +43,7 @@ public class ViewFX extends ViewAbstract {
 		myRoot.getChildren().addAll(myCodeElements.initializeCodePane(),myVariableElements.generateVariablePane(), myLineRoot, myTurtleRoot);
 		myCodeElements.setEnterButtonAction(e->pushCodeToController());
 		myController.setScene(viewScene);
-//		test();
+		test();
 	}
 
 	
