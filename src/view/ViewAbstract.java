@@ -25,6 +25,4 @@ public abstract class ViewAbstract {
 	
 	public abstract void addVariable(String variableName, Double value);
 	
-	public abstract Scene initializeView();
-	
 }

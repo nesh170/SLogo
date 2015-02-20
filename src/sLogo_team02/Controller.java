@@ -3,11 +3,13 @@ package sLogo_team02;
 import Model.Model;
 import view.ViewAbstract;
 import view.ViewFX;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Controller {
 	public static final String TITLE ="SLOGO Team_02";
 	private Stage myStage;
+	private Scene myScene;
 	private ViewAbstract myView;
 	private Model myModel;
 	
@@ -22,18 +24,17 @@ public class Controller {
 	
 	public void setUpStage(){
 		initializeViewAndModel();
-		myStage.setScene(myView.initializeView());
+		myStage.setScene(myScene);
 		myStage.setTitle(TITLE);
 		myStage.show();
-		test();
 	}
 	
-	public void test(){
-		myModel.processCommand("FirstTry");
+	public void setScene(Scene s){
+		myScene = s;
 	}
 
 	public void executeCommand(String codeData) {
+		myModel.processCommand("FirstTry");
 		System.out.println(codeData);
-		
 	}
 }
