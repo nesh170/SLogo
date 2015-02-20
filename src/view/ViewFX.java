@@ -24,7 +24,7 @@ public class ViewFX extends ViewAbstract {
 		myCodeElements = new CodePane();
 		myVariableElements = new VariablePane();
 		myRoot.getChildren().addAll(myCodeElements.initializeCodePane(),myVariableElements.generateVariablePane());
-		addVariable("lol", 62.0);
+//		addVariable("lol", 62.0);
 		return viewScene;
 	}
 
