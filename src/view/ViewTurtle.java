@@ -12,7 +12,6 @@ public class ViewTurtle {
 	private Shape myShape;
 	private Color penColor;
 	
-	
 	public ViewTurtle(Point2D point) {
 		myShape = new Circle(ORIGIN_X,ORIGIN_Y, 10, Color.BLACK);
 		penColor = Color.BLACK;
@@ -37,7 +36,15 @@ public class ViewTurtle {
 	public Color getColor() {
 		return (Color)myShape.getFill();
 	}
+	
+	public void setColor(Color color) {
+		myShape.setFill(color);
+	}
 
+	public void setPenColor(Color color) {
+		penColor = color;
+	}
+	
 	public Node getViewTurtles() {
 		return myShape;
 	}
