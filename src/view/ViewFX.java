@@ -40,13 +40,14 @@ public class ViewFX extends ViewAbstract {
 	
 	@Override
 	public void drawTurtle(double[] newLocation, int ID) {
-		myRoot.getChildren().add(myViewTurtles.get(ID).drawLine(new Point2D(newLocation[0] + 350, newLocation[1] * (-1) + 250)));
+		myRoot.getChildren().add(myViewTurtles.get(ID).drawLine(new Point2D(newLocation[0] + 350, -1*newLocation[1] + 250)));
 		moveTurtle(newLocation, ID);
 	}
 
 	@Override
 	public void moveTurtle(double[] newLocation, int ID) {
-		Point2D point = new Point2D(newLocation[0] + 350, newLocation[1] * (-1) + 250);
+		Point2D point = new Point2D(newLocation[0], -1*newLocation[1]);
+		System.out.println(point.getX() + " " + point.getY());
 		myViewTurtles.get(ID).setNewLocation(point);
 	}
 
@@ -68,9 +69,9 @@ public class ViewFX extends ViewAbstract {
 
 	@Override
 	public void addTurtle(double[] newLocation, int ID) {
-		// TODO Auto-generated method stub
 		Point2D point = new Point2D(newLocation[0], newLocation[1]*(-1));
 		ViewTurtle vt = new ViewTurtle(point);
+		vt.setNewLocation(point);
 		myViewTurtles.add(vt);
 		myRoot.getChildren().add(vt.getViewTurtles());
 	}
