@@ -17,9 +17,7 @@ public class Controller {
 		view = new ViewFX(this);
 	}
 	
-	public void executeCommand(String codeParse){
-		
-	}
+
 	
 	public void setUpStage(){
 		initializeViewAndModel();
