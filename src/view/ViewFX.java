@@ -11,8 +11,10 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 
 public class ViewFX extends ViewAbstract {
+	public static final int REVERSE_DIRECTION = -1;
 	private Group myRoot;
 	private Group myLineRoot;
 	private Group myTurtleRoot;
@@ -32,39 +34,40 @@ public class ViewFX extends ViewAbstract {
 		myCodeElements = new CodePane();
 		myVariableElements = new VariablePane();
 		myRoot.getChildren().addAll(myCodeElements.initializeCodePane(),myVariableElements.generateVariablePane(), myLineRoot, myTurtleRoot);
-		test();
+//		test();
 		return viewScene;
 	}
 
 	
-	private void test() {
-		double[] temp = new double[2];
-		addTurtle(temp, 0);
-		temp[0] = 100;
-		temp[1] = 150;
-		drawTurtle(temp, 0);
+	private void test(){
+		addTurtle(0,0, 0);
+		drawTurtle(100,150,0);
 		clearScreen();
-		addTurtle(new double[2], 0);
+		addTurtle(0,0,0);
 		addVariable("lol", 62.0);
 	}
 
 
 	@Override
-	public void drawTurtle(double[] newLocation, int ID) {
-		//TODO refactor he line below
-		myLineRoot.getChildren().add(myViewTurtles.get(ID).drawLine(new Point2D(newLocation[0] + 350, -1*newLocation[1] + 250)));
-		moveTurtle(newLocation, ID);
+	public void drawTurtle(double X, double Y, int ID) {
+		Line tempLine = myViewTurtles.get(ID).drawLine(new Point2D(X + ViewTurtle.ORIGIN_X, REVERSE_DIRECTION*Y + ViewTurtle.ORIGIN_Y));
+		myLineRoot.getChildren().add(tempLine);
+		moveTurtle(X,Y,ID);
 	}
 
 	@Override
-	public void moveTurtle(double[] newLocation, int ID) {
-		Point2D point = new Point2D(newLocation[0], -1*newLocation[1]);
+	public void moveTurtle(double X, double Y, int ID){
+		Point2D point = new Point2D(X, REVERSE_DIRECTION*Y);
 		myViewTurtles.get(ID).setNewLocation(point);
 	}
+	
+	@Override
+	public void rotateTurtle(double angle, int ID) {
+		//TODO figure out if model is storing the old angle? or should we have set heading ):
+	}
 
 	@Override
-	public void clearScreen() {
-		//TODO Clear the group that contains the lines
+	public void clearScreen(){
 		myLineRoot.getChildren().clear();
 		myTurtleRoot.getChildren().clear();
 		myCodeElements.clearTerminal();
@@ -81,8 +84,8 @@ public class ViewFX extends ViewAbstract {
 	}
 
 	@Override
-	public void addTurtle(double[] newLocation, int ID) {
-		Point2D point = new Point2D(newLocation[0], newLocation[1]*(-1));
+	public void addTurtle(double X, double Y, int ID){
+		Point2D point = new Point2D(X, Y);
 		ViewTurtle vt = new ViewTurtle(point);
 		vt.setNewLocation(point);
 		myViewTurtles.add(vt);
@@ -114,15 +117,8 @@ public class ViewFX extends ViewAbstract {
 		catch(Exception e){
 			printError(myStringResources.getString("wrongNumberType"));
 		}
-		
-		
-		
 		//TODO add methods to controller for updating variable;
 	}
-	
-	
-
-
 
 
 	
