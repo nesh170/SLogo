@@ -41,7 +41,7 @@ public class ViewFX extends ViewAbstract {
 		myVariableElements = new VariablePane(myRoot);
 		myRoot.getChildren().addAll(myLineRoot, myTurtleRoot);
 		myController.setScene(viewScene);
-		test();
+//		test();
 	}
 
 	
