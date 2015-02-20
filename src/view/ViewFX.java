@@ -22,19 +22,19 @@ public class ViewFX extends ViewAbstract {
 	private VariablePane myVariableElements;
 	private Map<String,ViewVariable> myVariableMap=new HashMap<String, ViewVariable>();
 	private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",new Locale("en", "US"));
-	private ArrayList<ViewTurtle> myViewTurtles;
+	private Map<Integer,ViewTurtle> myViewTurtles;
 	
 	@Override
 	public Scene initializeView(){
 		myRoot = new Group();
 		myLineRoot = new Group();
 		myTurtleRoot = new Group();
-		myViewTurtles = new ArrayList<ViewTurtle>();
+		myViewTurtles = new HashMap<>();
 		Scene viewScene = new Scene(myRoot,VIEW_WIDTH,VIEW_HEIGHT,Color.ALICEBLUE);
 		myCodeElements = new CodePane();
 		myVariableElements = new VariablePane();
 		myRoot.getChildren().addAll(myCodeElements.initializeCodePane(),myVariableElements.generateVariablePane(), myLineRoot, myTurtleRoot);
-		test();
+//		test();
 		return viewScene;
 	}
 
@@ -42,9 +42,9 @@ public class ViewFX extends ViewAbstract {
 	private void test(){
 		addTurtle(0,0, 0);
 		drawTurtle(100,150,0);
-//		clearScreen();
-//		addTurtle(0,0,0);
-//		addVariable("lol", 62.0);
+		clearScreen();
+		addTurtle(0,0,0);
+		addVariable("lol", 62.0);
 	}
 
 
@@ -88,7 +88,7 @@ public class ViewFX extends ViewAbstract {
 		Point2D point = new Point2D(X, Y);
 		ViewTurtle vt = new ViewTurtle(point);
 		vt.setNewLocation(point);
-		myViewTurtles.add(vt);
+		myViewTurtles.put(ID,vt);
 		myTurtleRoot.getChildren().add(vt.getViewTurtles());
 	}
 
