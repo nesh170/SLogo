@@ -120,7 +120,7 @@ public class ViewFX extends ViewAbstract {
 	}
 	
 	private void pushCodeToController(){
-		myCodeElements.getCodeData();
+		myController.executeCommand(myCodeElements.getCodeData());
 	}
 	
 	private void updateVariableFromView(String variableName){

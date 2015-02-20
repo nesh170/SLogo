@@ -20,17 +20,20 @@ public class Controller {
 		myModel = new Model(myView);
 	}
 	
-
-	
 	public void setUpStage(){
 		initializeViewAndModel();
 		myStage.setScene(myView.initializeView());
 		myStage.setTitle(TITLE);
 		myStage.show();
-		//test();
+		test();
 	}
 	
 	public void test(){
 		myModel.processCommand("FirstTry");
+	}
+
+	public void executeCommand(String codeData) {
+		System.out.println(codeData);
+		
 	}
 }
