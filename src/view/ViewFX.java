@@ -51,7 +51,7 @@ public class ViewFX extends ViewAbstract {
 		rotateTurtle(235,0);
 		drawTurtle(100,100,0);
 		
-//		drawTurtle(15, 18, 0);
+		drawTurtle(15, 18, 0);
 //		clearScreen();
 //		addTurtle(0,0,0);
 		addVariable("lol", 62.0);
@@ -126,8 +126,7 @@ public class ViewFX extends ViewAbstract {
 	private void updateVariableFromView(String variableName){
 		try{
 		double newVariableValue = myVariableMap.get(variableName).getValueInField();
-		System.out.println(variableName + " " + newVariableValue);
-		//TODO add methods to controller for updating variable;
+		myController.updateVariable(variableName, newVariableValue);
 		}
 		catch(Exception e){
 			printError(myStringResources.getString("wrongNumberType"));

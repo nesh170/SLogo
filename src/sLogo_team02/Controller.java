@@ -32,6 +32,11 @@ public class Controller {
 	public void setScene(Scene s){
 		myScene = s;
 	}
+	
+	public void updateVariable(String variableName,double value){
+		//TODO calls model to update the variable
+		System.out.println(variableName + " " + value);
+	}
 
 	public void executeCommand(String codeData) {
 		myModel.processCommand("FirstTry");
