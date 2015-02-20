@@ -1,10 +1,12 @@
 package view;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -16,10 +18,17 @@ public class ViewFX extends ViewAbstract {
 	private VariablePane myVariableElements;
 	private Map<String,ViewVariable> myVariableMap=new HashMap<String, ViewVariable>();
 	private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",new Locale("en", "US"));
+	private ArrayList<ViewTurtle> myViewTurtles;
 	
 	@Override
 	public Scene initializeView(){
 		myRoot = new Group();
+		myViewTurtles = new ArrayList<ViewTurtle>();
+		double[] temp = new double[2];
+		addTurtle(temp, 0);
+		temp[0] = 100;
+		temp[1] = 150;
+		drawTurtle(temp, 0);
 		Scene viewScene = new Scene(myRoot,VIEW_WIDTH,VIEW_HEIGHT,Color.ALICEBLUE);
 		myCodeElements = new CodePane();
 		myVariableElements = new VariablePane();
@@ -28,16 +37,17 @@ public class ViewFX extends ViewAbstract {
 		return viewScene;
 	}
 
+	
 	@Override
 	public void drawTurtle(double[] newLocation, int ID) {
-		// TODO Auto-generated method stub
-		
+		myRoot.getChildren().add(myViewTurtles.get(ID).drawLine(new Point2D(newLocation[0] + 350, newLocation[1] * (-1) + 250)));
+		moveTurtle(newLocation, ID);
 	}
 
 	@Override
 	public void moveTurtle(double[] newLocation, int ID) {
-		// TODO Auto-generated method stub
-		
+		Point2D point = new Point2D(newLocation[0] + 350, newLocation[1] * (-1) + 250);
+		myViewTurtles.get(ID).setNewLocation(point);
 	}
 
 	@Override
@@ -59,7 +69,10 @@ public class ViewFX extends ViewAbstract {
 	@Override
 	public void addTurtle(double[] newLocation, int ID) {
 		// TODO Auto-generated method stub
-		
+		Point2D point = new Point2D(newLocation[0], newLocation[1]*(-1));
+		ViewTurtle vt = new ViewTurtle(point);
+		myViewTurtles.add(vt);
+		myRoot.getChildren().add(vt.getViewTurtles());
 	}
 
 	@Override
