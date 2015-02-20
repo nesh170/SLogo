@@ -39,9 +39,9 @@ public class ViewFX extends ViewAbstract {
 		myViewTurtles = new HashMap<>();
 		Scene viewScene = new Scene(myRoot,VIEW_WIDTH,VIEW_HEIGHT,Color.ALICEBLUE);
 		myCodeElements = new CodePane();
-		myCodeElements.setEnterButtonAction(e-> pushCodeToController());
 		myVariableElements = new VariablePane();
 		myRoot.getChildren().addAll(myCodeElements.initializeCodePane(),myVariableElements.generateVariablePane(), myLineRoot, myTurtleRoot);
+		myCodeElements.setEnterButtonAction(e->pushCodeToController());
 //		test();
 		return viewScene;
 	}
