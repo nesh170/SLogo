@@ -2,14 +2,17 @@ package Statements;
 
 import java.util.List;
 
+import Model.TurtleManager;
 import view.ViewAbstract;
 
 public abstract class ActionCommand extends Command{
-
+	
 	//turtle manager object
-	public ActionCommand(List<Statement> statements, ViewAbstract view) {
+	protected TurtleManager myTurtleManager;
+	
+	public ActionCommand(List<Statement> statements, ViewAbstract view, TurtleManager turtleManager) {
 		super(statements, view);
-		// TODO Auto-generated constructor stub
+		myTurtleManager = turtleManager;
 	}
 
 }

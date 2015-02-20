@@ -17,11 +17,24 @@ public class TurtleManager {
 	public void setActiveTurtles(List<Integer> activeTurtleIDs){
 		clearActiveTurtles();
 		for(Integer i: activeTurtleIDs){
-			//check if its in the list, if not create it, then add all to active list
+			myActiveTurtles.add(i);
 		}
 	}
 	
 	private void clearActiveTurtles(){
 		myActiveTurtles = new ArrayList<>();
+	}
+	
+	//should return immutable list instead
+	public List<Integer> getActiveTurtles(){
+		return myActiveTurtles;
+	}
+	
+	public void addTurtle(Integer turtleID){
+		myTurtles.put(turtleID, new ModelTurtle(turtleID));
+	}
+	
+	public ModelTurtle getTurtle(Integer ID){
+		return myTurtles.get(ID);
 	}
 }
