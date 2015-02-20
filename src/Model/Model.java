@@ -22,6 +22,7 @@ public class Model {
 		myActiveTurtles = new ArrayList<>();
 		myTurtleManager = new TurtleManager();
 		myView.addTurtle(0, 0, 0);
+		myTurtleManager.addTurtle(0);
 	}
 
 	public void processCommand(String program) {
@@ -29,7 +30,6 @@ public class Model {
 		List<Statement> subList = new ArrayList<>();
 		subList.add(value);
 		Statement fw = new Forward(subList, myView, myTurtleManager);
-		myTurtleManager.addTurtle(0);
 		List<Integer> turtleID = new ArrayList<>();
 		turtleID.add(0);
 		myTurtleManager.setActiveTurtles(turtleID);
