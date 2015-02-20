@@ -6,14 +6,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 
 public class ViewTurtle {
-	public static final int ORIGIN_X=350;
-	public static final int ORIGIN_Y=250;
+	public static final double ORIGIN_X=350.0;
+	public static final double ORIGIN_Y=250.0;
 	
 	private Shape myShape;
 	private Color penColor;
 	
-	public ViewTurtle(Point2D point) {
-		myShape = new Circle(ORIGIN_X,ORIGIN_Y, 10, Color.BLACK);
+	public ViewTurtle(Point2D point,double size) {
+		myShape = new Polygon();
+		((Polygon) myShape).getPoints().addAll(new Double[]{ORIGIN_X+size, ORIGIN_Y+size, ORIGIN_X-size, ORIGIN_Y+size, ORIGIN_X, ORIGIN_Y-size});
 		penColor = Color.BLACK;
 	}
 	
@@ -25,6 +26,10 @@ public class ViewTurtle {
 	public void setNewLocation(Point2D point) {
 		myShape.setTranslateX(point.getX());
 		myShape.setTranslateY(point.getY());
+	}
+	
+	public void rotate(double angle){
+		myShape.rotateProperty().set(myShape.rotateProperty().get()+angle);
 	}
 	
 	public Line drawLine(Point2D point) {

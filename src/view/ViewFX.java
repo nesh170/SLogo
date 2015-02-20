@@ -15,6 +15,7 @@ import javafx.scene.shape.Line;
 
 public class ViewFX extends ViewAbstract {
 	public static final int REVERSE_DIRECTION = -1;
+	private static final double TURTLE_SIZE = 10;
 	private Group myRoot;
 	private Group myLineRoot;
 	private Group myTurtleRoot;
@@ -22,7 +23,7 @@ public class ViewFX extends ViewAbstract {
 	private VariablePane myVariableElements;
 	private Map<String,ViewVariable> myVariableMap=new HashMap<String, ViewVariable>();
 	private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",new Locale("en", "US"));
-	private Map<Integer,ViewTurtle> myViewTurtles;
+	private Map<Integer,ViewTurtle> myViewTurtlesMap;
 	private Controller myController;
 	
 	public ViewFX(Controller controller){
@@ -34,7 +35,7 @@ public class ViewFX extends ViewAbstract {
 		myRoot = new Group();
 		myLineRoot = new Group();
 		myTurtleRoot = new Group();
-		myViewTurtles = new HashMap<>();
+		myViewTurtlesMap = new HashMap<>();
 		Scene viewScene = new Scene(myRoot,VIEW_WIDTH,VIEW_HEIGHT,Color.ALICEBLUE);
 		myCodeElements = new CodePane(myRoot, e->pushCodeToController());
 		myVariableElements = new VariablePane(myRoot);
@@ -47,8 +48,10 @@ public class ViewFX extends ViewAbstract {
 	private void test(){
 		addTurtle(0,0, 0);
 		drawTurtle(350,250,0);
+		rotateTurtle(235,0);
 		drawTurtle(100,100,0);
-		drawTurtle(15, 18, 0);
+		
+//		drawTurtle(15, 18, 0);
 //		clearScreen();
 //		addTurtle(0,0,0);
 		addVariable("lol", 62.0);
@@ -57,7 +60,7 @@ public class ViewFX extends ViewAbstract {
 
 	@Override
 	public void drawTurtle(double X, double Y, int ID) {
-		Line tempLine = myViewTurtles.get(ID).drawLine(new Point2D(X + ViewTurtle.ORIGIN_X, REVERSE_DIRECTION*Y + ViewTurtle.ORIGIN_Y));
+		Line tempLine = myViewTurtlesMap.get(ID).drawLine(new Point2D(X + ViewTurtle.ORIGIN_X, REVERSE_DIRECTION*Y + ViewTurtle.ORIGIN_Y));
 		myLineRoot.getChildren().add(tempLine);
 		moveTurtle(X,Y,ID);
 	}
@@ -65,12 +68,12 @@ public class ViewFX extends ViewAbstract {
 	@Override
 	public void moveTurtle(double X, double Y, int ID){
 		Point2D point = new Point2D(X, REVERSE_DIRECTION*Y);
-		myViewTurtles.get(ID).setNewLocation(point);
+		myViewTurtlesMap.get(ID).setNewLocation(point);
 	}
 	
 	@Override
 	public void rotateTurtle(double angle, int ID) {
-		//TODO figure out if model is storing the old angle? or should we have set heading ):
+		myViewTurtlesMap.get(ID).rotate(angle);
 	}
 
 	@Override
@@ -93,9 +96,9 @@ public class ViewFX extends ViewAbstract {
 	@Override
 	public void addTurtle(double X, double Y, int ID){
 		Point2D point = new Point2D(X, Y);
-		ViewTurtle vt = new ViewTurtle(point);
+		ViewTurtle vt = new ViewTurtle(point, TURTLE_SIZE);
 		vt.setNewLocation(point);
-		myViewTurtles.put(ID,vt);
+		myViewTurtlesMap.put(ID,vt);
 		myTurtleRoot.getChildren().add(vt.getViewTurtles());
 	}
 
