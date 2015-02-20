@@ -21,6 +21,7 @@ public class Model {
 		myTurtleList = new ArrayList<>();
 		myActiveTurtles = new ArrayList<>();
 		myTurtleManager = new TurtleManager();
+		myView.addTurtle(0, 0, 0);
 	}
 
 	public void processCommand(String program) {
@@ -35,7 +36,6 @@ public class Model {
 		List<Statement> statementList = new ArrayList<>();
 		statementList.add(fw);
 		Program localProgram = new Program(statementList);
-		myView.addTurtle(0, 0, 0);
 		localProgram.execute();
 	}
 
