@@ -25,8 +25,8 @@ public class ModelTurtle {
 		myCurY += Math.cos(angle) * distance;
 		myTotalDistance += distance;
 	}
-	
-	public int getID(){
+
+	public int getID() {
 		return myID;
 	}
 
@@ -42,32 +42,32 @@ public class ModelTurtle {
 	public double getY() {
 		return myCurY;
 	}
-	
-	public double getTotalDistance(){
+
+	public double getTotalDistance() {
 		return myTotalDistance;
 	}
 
 	public double getX() {
 		return myCurX;
 	}
-	
-	public boolean isHiding(){
+
+	public boolean isHiding() {
 		return myHiding;
 	}
-	
-	public void setHiding(boolean hiding){
+
+	public void setHiding(boolean hiding) {
 		myHiding = hiding;
 	}
-	
-	public double getAngle(){
+
+	public double getAngle() {
 		return myAngle;
 	}
-	
-	public void setPenUp(boolean penUp){
+
+	public void setPenUp(boolean penUp) {
 		myPenUp = penUp;
 	}
-	
-	public boolean isPenUp(){
+
+	public boolean isPenUp() {
 		return myPenUp;
 	}
 
