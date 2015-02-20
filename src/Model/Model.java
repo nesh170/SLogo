@@ -35,6 +35,7 @@ public class Model {
 		List<Statement> statementList = new ArrayList<>();
 		statementList.add(fw);
 		Program localProgram = new Program(statementList);
+		myView.addTurtle(0, 0, 0);
 		localProgram.execute();
 	}
 

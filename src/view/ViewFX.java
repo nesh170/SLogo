@@ -42,8 +42,8 @@ public class ViewFX extends ViewAbstract {
 	private void test(){
 		addTurtle(0,0, 0);
 		drawTurtle(100,150,0);
-		clearScreen();
-		addTurtle(0,0,0);
+//		clearScreen();
+//		addTurtle(0,0,0);
 		addVariable("lol", 62.0);
 	}
 

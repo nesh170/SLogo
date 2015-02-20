@@ -20,10 +20,11 @@ public class Forward extends ActionCommand {
 		for(Integer ID: myTurtleManager.getActiveTurtles()){
 			ModelTurtle currentTurtle = myTurtleManager.getTurtle(ID);
 			currentTurtle.moveTurtle(executeResult, Constants.FORWARD_ANGLE);
+			System.out.println("X is "+currentTurtle.getX()+" Y is "+currentTurtle.getY());
 			if(currentTurtle.isPenUp()){
-				//myView.moveTurtle(currentTurtle.getX(), currentTurtle.getY(), currentTurtle.getID());
+				myView.moveTurtle(currentTurtle.getX(), currentTurtle.getY(), currentTurtle.getID());
 			} else {
-				//myView.drawTurtle(currentTurtle.getX(), curentTurtle.getY(), currentTurtle.getID());
+				myView.drawTurtle(currentTurtle.getX(), currentTurtle.getY(), currentTurtle.getID());
 			}
 		}
 		return executeResult;
