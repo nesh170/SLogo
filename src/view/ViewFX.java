@@ -14,6 +14,8 @@ import javafx.scene.paint.Color;
 
 public class ViewFX extends ViewAbstract {
 	private Group myRoot;
+	private Group myLineRoot;
+	private Group myTurtleRoot;
 	private CodePane myCodeElements;
 	private VariablePane myVariableElements;
 	private Map<String,ViewVariable> myVariableMap=new HashMap<String, ViewVariable>();
@@ -23,37 +25,48 @@ public class ViewFX extends ViewAbstract {
 	@Override
 	public Scene initializeView(){
 		myRoot = new Group();
+		myLineRoot = new Group();
+		myTurtleRoot = new Group();
 		myViewTurtles = new ArrayList<ViewTurtle>();
+		Scene viewScene = new Scene(myRoot,VIEW_WIDTH,VIEW_HEIGHT,Color.ALICEBLUE);
+		myCodeElements = new CodePane();
+		myVariableElements = new VariablePane();
+		myRoot.getChildren().addAll(myCodeElements.initializeCodePane(),myVariableElements.generateVariablePane(), myLineRoot, myTurtleRoot);
+		test();
+		return viewScene;
+	}
+
+	
+	private void test() {
 		double[] temp = new double[2];
 		addTurtle(temp, 0);
 		temp[0] = 100;
 		temp[1] = 150;
 		drawTurtle(temp, 0);
-		Scene viewScene = new Scene(myRoot,VIEW_WIDTH,VIEW_HEIGHT,Color.ALICEBLUE);
-		myCodeElements = new CodePane();
-		myVariableElements = new VariablePane();
-		myRoot.getChildren().addAll(myCodeElements.initializeCodePane(),myVariableElements.generateVariablePane());
-//		addVariable("lol", 62.0);
-		return viewScene;
+		clearScreen();
+		addTurtle(new double[2], 0);
+		addVariable("lol", 62.0);
 	}
 
-	
+
 	@Override
 	public void drawTurtle(double[] newLocation, int ID) {
-		myRoot.getChildren().add(myViewTurtles.get(ID).drawLine(new Point2D(newLocation[0] + 350, -1*newLocation[1] + 250)));
+		//TODO refactor he line below
+		myLineRoot.getChildren().add(myViewTurtles.get(ID).drawLine(new Point2D(newLocation[0] + 350, -1*newLocation[1] + 250)));
 		moveTurtle(newLocation, ID);
 	}
 
 	@Override
 	public void moveTurtle(double[] newLocation, int ID) {
 		Point2D point = new Point2D(newLocation[0], -1*newLocation[1]);
-		System.out.println(point.getX() + " " + point.getY());
 		myViewTurtles.get(ID).setNewLocation(point);
 	}
 
 	@Override
 	public void clearScreen() {
 		//TODO Clear the group that contains the lines
+		myLineRoot.getChildren().clear();
+		myTurtleRoot.getChildren().clear();
 		myCodeElements.clearTerminal();
 	}
 
@@ -73,7 +86,7 @@ public class ViewFX extends ViewAbstract {
 		ViewTurtle vt = new ViewTurtle(point);
 		vt.setNewLocation(point);
 		myViewTurtles.add(vt);
-		myRoot.getChildren().add(vt.getViewTurtles());
+		myTurtleRoot.getChildren().add(vt.getViewTurtles());
 	}
 
 	@Override
