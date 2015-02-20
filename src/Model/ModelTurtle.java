@@ -22,7 +22,9 @@ public class ModelTurtle {
 
 	public void moveTurtle(double distance, double angle) {
 		myCurX += Math.sin(angle) * distance;
+		System.out.println("myCurX is "+myCurX);
 		myCurY += Math.cos(angle) * distance;
+		System.out.println("myCurY is "+myCurY);
 		myTotalDistance += distance;
 	}
 

@@ -29,10 +29,10 @@ public class ViewFX extends ViewAbstract {
 	
 	public ViewFX(Controller controller){
 		myController = controller;
+		initializeView();
 	}
 	
-	@Override
-	public Scene initializeView(){
+	private void initializeView(){
 		myRoot = new Group();
 		myLineRoot = new Group();
 		myTurtleRoot = new Group();
@@ -42,8 +42,8 @@ public class ViewFX extends ViewAbstract {
 		myVariableElements = new VariablePane();
 		myRoot.getChildren().addAll(myCodeElements.initializeCodePane(),myVariableElements.generateVariablePane(), myLineRoot, myTurtleRoot);
 		myCodeElements.setEnterButtonAction(e->pushCodeToController());
+		myController.setScene(viewScene);
 //		test();
-		return viewScene;
 	}
 
 	
