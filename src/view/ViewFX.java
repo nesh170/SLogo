@@ -1,11 +1,13 @@
 package view;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import sLogo_team02.Controller;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -23,6 +25,11 @@ public class ViewFX extends ViewAbstract {
 	private Map<String,ViewVariable> myVariableMap=new HashMap<String, ViewVariable>();
 	private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",new Locale("en", "US"));
 	private Map<Integer,ViewTurtle> myViewTurtles;
+	private Controller myController;
+	
+	public ViewFX(Controller controller){
+		myController = controller;
+	}
 	
 	@Override
 	public Scene initializeView(){
@@ -32,6 +39,7 @@ public class ViewFX extends ViewAbstract {
 		myViewTurtles = new HashMap<>();
 		Scene viewScene = new Scene(myRoot,VIEW_WIDTH,VIEW_HEIGHT,Color.ALICEBLUE);
 		myCodeElements = new CodePane();
+		myCodeElements.setEnterButtonAction(e-> push);
 		myVariableElements = new VariablePane();
 		myRoot.getChildren().addAll(myCodeElements.initializeCodePane(),myVariableElements.generateVariablePane(), myLineRoot, myTurtleRoot);
 //		test();
@@ -41,9 +49,11 @@ public class ViewFX extends ViewAbstract {
 	
 	private void test(){
 		addTurtle(0,0, 0);
-		drawTurtle(100,150,0);
-		clearScreen();
-		addTurtle(0,0,0);
+		drawTurtle(350,250,0);
+		drawTurtle(100,100,0);
+		drawTurtle(15, 18, 0);
+//		clearScreen();
+//		addTurtle(0,0,0);
 		addVariable("lol", 62.0);
 	}
 
@@ -106,6 +116,10 @@ public class ViewFX extends ViewAbstract {
 			}));
 			myVariableMap.put(variableName, tempVariable);
 		}
+		
+	}
+	
+	private void pushCodeToController(){
 		
 	}
 	
