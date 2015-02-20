@@ -25,7 +25,7 @@ public class Controller {
 		myStage.setScene(myView.initializeView());
 		myStage.setTitle(TITLE);
 		myStage.show();
-		test();
+		
 	}
 	
 	public void test(){
@@ -33,7 +33,7 @@ public class Controller {
 	}
 
 	public void executeCommand(String codeData) {
-		System.out.println(codeData);
+		test();
 		
 	}
 }

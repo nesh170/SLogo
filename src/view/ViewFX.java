@@ -111,7 +111,7 @@ public class ViewFX extends ViewAbstract {
 			ViewVariable tempVariable = new ViewVariable(variableName, value);
 			myVariableElements.add(tempVariable.generateVisualVariable(e->{
 				if(e.getCode().equals(KeyCode.ENTER)){
-					updateVariableFromView(variableName);
+					double newVariableValue = myVariableMap.get(variableName).getValueInField();
 				}
 			}));
 			myVariableMap.put(variableName, tempVariable);
@@ -127,11 +127,12 @@ public class ViewFX extends ViewAbstract {
 		try{
 		double newVariableValue = myVariableMap.get(variableName).getValueInField();
 //		System.out.println(variableName + " " + newVariableValue);
+		//TODO add methods to controller for updating variable;
 		}
 		catch(Exception e){
 			printError(myStringResources.getString("wrongNumberType"));
 		}
-		//TODO add methods to controller for updating variable;
+		
 	}
 
 
