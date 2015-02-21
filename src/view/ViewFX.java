@@ -44,12 +44,13 @@ public class ViewFX extends ViewAbstract {
 				changeLanuageinController(newValue.intValue());
 			}	
 		});
+		TurtlePlayground playground = new TurtlePlayground(myRoot);
 		Scene viewScene = new Scene(myRoot,ViewConstants.STAGE_WIDTH.getVal(),ViewConstants.STAGE_HEIGHT.getVal(),Color.ALICEBLUE);
 		myCodeElements = new CodePane(myRoot, e->pushCodeToController());
 		myVariableElements = new VariablePane(myRoot);
 		myRoot.getChildren().addAll(myLineRoot, myTurtleRoot);
 		myController.setScene(viewScene);
-//		test();
+		test();
 	}
 
 	
