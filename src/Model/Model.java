@@ -24,10 +24,14 @@ public class Model {
 		Statement value = new Value(50);
 //		Statement value2 = new Value(2);
 //		Statement value3 = new Value(3);
+		Statement var = new Variable("Test", myVariableManager);
 		List<Statement> subList = new ArrayList<>();
+		List<Statement> subList8 = new ArrayList<>();
 //		List<Statement> subList2 = new ArrayList<>();
 //		List<Statement> subList3 = new ArrayList<>();
 		subList.add(value);
+		subList8.add(var);
+		subList8.add(value);
 //		subList2.add(value2);
 //		subList2.add(value3);
 //		subList3.add(new Value(90));
@@ -55,6 +59,8 @@ public class Model {
 		subList5.add(value6);
 		subList5.add(value7);
 		Statement towardsPosition = new SetXY(subList5, myView, myTurtleManager);
+		
+//		Statement make = new Make(subList8, myView, myVariableManager);
 		
 		List<Statement> subList6 = new ArrayList<>();
 		Statement home = new Home(subList6, myView, myTurtleManager);
@@ -99,6 +105,7 @@ public class Model {
 //		statementList.add(rand);
 //		statementList.add(minus);
 //		statementList.add(remainder);
+//		statementList.add(make);
 		Program localProgram = new Program(statementList);
 		localProgram.execute();
 	}
