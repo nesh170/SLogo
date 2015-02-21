@@ -44,7 +44,7 @@ public class Controller {
 	}
 
 	public void changeLanguage(String languagePath) {
-		//TODO add change lanuage stuff here.
+		//TODO add change lanuage stuff here. figure out if model wants a string or a resourcefile.
 		System.out.println(languagePath);
 	}
 }
