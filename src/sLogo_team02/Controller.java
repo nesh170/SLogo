@@ -42,4 +42,9 @@ public class Controller {
 		myModel.processCommand("FirstTry");
 		System.out.println(codeData);
 	}
+
+	public void changeLanguage(String languagePath) {
+		//TODO add change lanuage stuff here.
+		System.out.println(languagePath);
+	}
 }

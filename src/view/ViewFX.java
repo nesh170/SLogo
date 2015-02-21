@@ -1,11 +1,14 @@
 package view;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
 import sLogo_team02.Controller;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -36,6 +39,12 @@ public class ViewFX extends ViewAbstract {
 		myLineRoot = new Group();
 		myTurtleRoot = new Group();
 		myViewTurtlesMap = new HashMap<>();
+		new ButtonPane(myRoot,e-> changeBackgroundImage(),new ChangeListener<Number>(){
+			@Override
+			public void changed(ObservableValue<? extends Number> ov, Number value, Number newValue){
+				changeLanuageinController(newValue.intValue());
+			}	
+		});
 		Scene viewScene = new Scene(myRoot,VIEW_WIDTH,VIEW_HEIGHT,Color.ALICEBLUE);
 		myCodeElements = new CodePane(myRoot, e->pushCodeToController());
 		myVariableElements = new VariablePane(myRoot);
@@ -132,6 +141,15 @@ public class ViewFX extends ViewAbstract {
 			printError(myStringResources.getString("wrongNumberType"));
 		}
 		
+	}
+	
+	private void changeBackgroundImage(){
+		//TODO add code to change the Image of the TurtlePlayGround with turtlePlaygroundBackGround
+	}
+	
+	private void changeLanuageinController(int index){
+		ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",new Locale("en", "US"));
+		myController.changeLanguage(myStringResources.getString("languageFile").split("\\s+")[index]);
 	}
 
 
