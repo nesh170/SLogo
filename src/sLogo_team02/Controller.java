@@ -40,7 +40,6 @@ public class Controller {
 
 	public void executeCommand(String codeData) {
 		myModel.processCommand("FirstTry");
-		System.out.println(codeData);
 	}
 
 	public void changeLanguage(String languagePath) {

@@ -22,7 +22,7 @@ public class ViewVariable {
 	public HBox generateVisualVariable(EventHandler<KeyEvent> handler){
 		myBox = new HBox();
 		myBox.setPadding(new Insets(15, 12, 15, 12));
-	    myBox.setSpacing(VariablePane.TABLE_SPACING);
+	    myBox.setSpacing(ViewConstants.VARIABLE_TABLE_SPACING.getVal());
 	    generateField(handler);
 	    return myBox;
 	}

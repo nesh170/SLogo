@@ -15,9 +15,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
+import view.ViewConstants;
+
 public class ViewFX extends ViewAbstract {
-	public static final int REVERSE_DIRECTION = -1;
-	private static final double TURTLE_SIZE = 10;
 	private Group myRoot;
 	private Group myLineRoot;
 	private Group myTurtleRoot;
@@ -44,12 +44,12 @@ public class ViewFX extends ViewAbstract {
 				changeLanuageinController(newValue.intValue());
 			}	
 		});
-		Scene viewScene = new Scene(myRoot,VIEW_WIDTH,VIEW_HEIGHT,Color.ALICEBLUE);
+		Scene viewScene = new Scene(myRoot,ViewConstants.STAGE_WIDTH.getVal(),ViewConstants.STAGE_HEIGHT.getVal(),Color.ALICEBLUE);
 		myCodeElements = new CodePane(myRoot, e->pushCodeToController());
 		myVariableElements = new VariablePane(myRoot);
 		myRoot.getChildren().addAll(myLineRoot, myTurtleRoot);
 		myController.setScene(viewScene);
-//		test();
+		test();
 	}
 
 	
@@ -68,14 +68,14 @@ public class ViewFX extends ViewAbstract {
 
 	@Override
 	public void drawTurtle(double X, double Y, int ID) {
-		Line tempLine = myViewTurtlesMap.get(ID).drawLine(new Point2D(X + ViewTurtle.ORIGIN_X, REVERSE_DIRECTION*Y + ViewTurtle.ORIGIN_Y));
+		Line tempLine = myViewTurtlesMap.get(ID).drawLine(new Point2D(X + ViewTurtle.ORIGIN_X, ViewConstants.REVERSE_DIRECTION.getVal()*Y + ViewTurtle.ORIGIN_Y));
 		myLineRoot.getChildren().add(tempLine);
 		moveTurtle(X,Y,ID);
 	}
 
 	@Override
 	public void moveTurtle(double X, double Y, int ID){
-		Point2D point = new Point2D(X, REVERSE_DIRECTION*Y);
+		Point2D point = new Point2D(X, ViewConstants.REVERSE_DIRECTION.getVal()*Y);
 		myViewTurtlesMap.get(ID).setNewLocation(point);
 	}
 	
@@ -104,7 +104,7 @@ public class ViewFX extends ViewAbstract {
 	@Override
 	public void addTurtle(double X, double Y, int ID){
 		Point2D point = new Point2D(X, Y);
-		ViewTurtle vt = new ViewTurtle(point, TURTLE_SIZE);
+		ViewTurtle vt = new ViewTurtle(point, ViewConstants.TURTLE_SIZE.getVal());
 		vt.setNewLocation(point);
 		myViewTurtlesMap.put(ID,vt);
 		myTurtleRoot.getChildren().add(vt.getViewTurtles());

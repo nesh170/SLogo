@@ -19,9 +19,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.GridPane;
 
 public class ButtonPane {
-	public static final int START_Y = 500;
-	public static final int BUTTON_WIDTH = 700 / 3;
-	public static final int BUTTON_HEIGHT = 68;
 
 	private Group myRoot;
 	private ResourceBundle myStringResources = ResourceBundle.getBundle(
@@ -47,7 +44,7 @@ public class ButtonPane {
 			buttonPane.add(nodeArray[col], col, 1);
 		}
 
-		buttonPane.setTranslateY(START_Y);
+		buttonPane.setTranslateY(ViewConstants.BUTTON_START_Y.getVal());
 		myRoot.getChildren().add(buttonPane);
 	}
 
@@ -58,8 +55,8 @@ public class ButtonPane {
 		ChoiceBox<String> languageBox = new ChoiceBox<String>(
 				FXCollections.observableArrayList(languageArray));
 		languageBox.setValue(languageArray.get(1));
-		languageBox.setMinHeight(BUTTON_HEIGHT);
-		languageBox.setMinWidth(BUTTON_WIDTH);
+		languageBox.setMinHeight(ViewConstants.BUTTON_HEIGHT.getVal());
+		languageBox.setMinWidth(ViewConstants.BUTTON_WIDTH.getVal());
 		languageBox.getSelectionModel().selectedIndexProperty()
 				.addListener(listener);
 		return languageBox;
@@ -69,8 +66,8 @@ public class ButtonPane {
 		// TODO change Button Style
 		Button button = new Button(text);
 		button.setStyle(myStringResources.getString("buttonStyle"));
-		button.setMinHeight(BUTTON_HEIGHT);
-		button.setMinWidth(BUTTON_WIDTH);
+		button.setMinHeight(ViewConstants.BUTTON_HEIGHT.getVal());
+		button.setMinWidth(ViewConstants.BUTTON_WIDTH.getVal());
 		button.setOnAction(handler);
 		return button;
 	}
