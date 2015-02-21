@@ -9,6 +9,7 @@ public class Constants {
 	public static final double PEN_DOWN_VALUE = 1;
 	public static final double SHOWING_VALUE = 1;
 	public static final double HIDING_VALUE = 0;
+	public static final double REVERSE_SIGN = -1;
 
 	
 }

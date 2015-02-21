@@ -11,5 +11,4 @@ public abstract class Command extends Operator{
 		super(statements);
 		myView = view;
 	}
-
 }
