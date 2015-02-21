@@ -26,4 +26,8 @@ public class VariableManager {
 		return myVariables.get(varName);
 	}
 	
+	public boolean containsVariable(String s){
+		return myVariables.containsKey(s);
+	}
+	
 }
