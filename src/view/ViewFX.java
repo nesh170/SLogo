@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import sLogo_team02.Controller;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -13,9 +15,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
+import view.ViewConstants;
+
 public class ViewFX extends ViewAbstract {
-	public static final int REVERSE_DIRECTION = -1;
-	private static final double TURTLE_SIZE = 10;
 	private Group myRoot;
 	private Group myLineRoot;
 	private Group myTurtleRoot;
@@ -36,7 +38,13 @@ public class ViewFX extends ViewAbstract {
 		myLineRoot = new Group();
 		myTurtleRoot = new Group();
 		myViewTurtlesMap = new HashMap<>();
-		Scene viewScene = new Scene(myRoot,VIEW_WIDTH,VIEW_HEIGHT,Color.ALICEBLUE);
+		new ButtonPane(myRoot,e-> changeBackgroundImage(),new ChangeListener<Number>(){
+			@Override
+			public void changed(ObservableValue<? extends Number> ov, Number value, Number newValue){
+				changeLanuageinController(newValue.intValue());
+			}	
+		});
+		Scene viewScene = new Scene(myRoot,ViewConstants.STAGE_WIDTH.getVal(),ViewConstants.STAGE_HEIGHT.getVal(),Color.ALICEBLUE);
 		myCodeElements = new CodePane(myRoot, e->pushCodeToController());
 		myVariableElements = new VariablePane(myRoot);
 		myRoot.getChildren().addAll(myLineRoot, myTurtleRoot);
@@ -60,14 +68,14 @@ public class ViewFX extends ViewAbstract {
 
 	@Override
 	public void drawTurtle(double X, double Y, int ID) {
-		Line tempLine = myViewTurtlesMap.get(ID).drawLine(new Point2D(X + ViewTurtle.ORIGIN_X, REVERSE_DIRECTION*Y + ViewTurtle.ORIGIN_Y));
+		Line tempLine = myViewTurtlesMap.get(ID).drawLine(new Point2D(X + ViewTurtle.ORIGIN_X, ViewConstants.REVERSE_DIRECTION.getVal()*Y + ViewTurtle.ORIGIN_Y));
 		myLineRoot.getChildren().add(tempLine);
 		moveTurtle(X,Y,ID);
 	}
 
 	@Override
 	public void moveTurtle(double X, double Y, int ID){
-		Point2D point = new Point2D(X, REVERSE_DIRECTION*Y);
+		Point2D point = new Point2D(X, ViewConstants.REVERSE_DIRECTION.getVal()*Y);
 		myViewTurtlesMap.get(ID).setNewLocation(point);
 	}
 	
@@ -96,7 +104,7 @@ public class ViewFX extends ViewAbstract {
 	@Override
 	public void addTurtle(double X, double Y, int ID){
 		Point2D point = new Point2D(X, Y);
-		ViewTurtle vt = new ViewTurtle(point, TURTLE_SIZE);
+		ViewTurtle vt = new ViewTurtle(point, ViewConstants.TURTLE_SIZE.getVal());
 		vt.setNewLocation(point);
 		myViewTurtlesMap.put(ID,vt);
 		myTurtleRoot.getChildren().add(vt.getViewTurtles());
@@ -132,6 +140,15 @@ public class ViewFX extends ViewAbstract {
 			printError(myStringResources.getString("wrongNumberType"));
 		}
 		
+	}
+	
+	private void changeBackgroundImage(){
+		//TODO add code to change the Image of the TurtlePlayGround with turtlePlaygroundBackGround
+	}
+	
+	private void changeLanuageinController(int index){
+		ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",new Locale("en", "US"));
+		myController.changeLanguage(myStringResources.getString("languageFile").split("\\s+")[index]);
 	}
 
 

@@ -40,6 +40,10 @@ public class Controller {
 
 	public void executeCommand(String codeData) {
 		myModel.processCommand("FirstTry");
-		System.out.println(codeData);
+	}
+
+	public void changeLanguage(String languagePath) {
+		//TODO add change lanuage stuff here. figure out if model wants a string or a resourcefile.
+		System.out.println(languagePath);
 	}
 }
