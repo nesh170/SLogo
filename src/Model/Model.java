@@ -60,7 +60,7 @@ public class Model {
 		subList5.add(value7);
 		Statement towardsPosition = new SetXY(subList5, myView, myTurtleManager);
 		
-//		Statement make = new Make(subList8, myView, myVariableManager);
+		Statement make = new Make(subList8, myView, myVariableManager);
 		
 		List<Statement> subList6 = new ArrayList<>();
 		Statement home = new Home(subList6, myView, myTurtleManager);
@@ -84,12 +84,12 @@ public class Model {
 		myTurtleManager.setActiveTurtles(turtleID);
 		List<Statement> statementList = new ArrayList<>();
 		
-		//statementList.add(left);
 		statementList.add(fw);
+		statementList.add(left);
 		//statementList.add(setH);
 		//statementList.add(towardsAngle);
-		statementList.add(towardsPosition);
-		statementList.add(home);
+		//statementList.add(towardsPosition);
+		//statementList.add(home);
 		
 //		statementList.add(xcordCheck);
 //		statementList.add(ycordCheck);
@@ -105,7 +105,7 @@ public class Model {
 //		statementList.add(rand);
 //		statementList.add(minus);
 //		statementList.add(remainder);
-//		statementList.add(make);
+		statementList.add(make);
 		Program localProgram = new Program(statementList);
 		localProgram.execute();
 	}
