@@ -7,19 +7,17 @@ import view.ViewAbstract;
 
 public class Model {
 	private Parser myParser;
-	private List<ModelTurtle> myTurtleList;
-	private List<ModelTurtle> myActiveTurtles;
 	private ViewAbstract myView;
 	private TurtleManager myTurtleManager;
+	private VariableManager myVariableManager;
 
 	public Model(ViewAbstract view) {
 		myView = view;
 		myParser = new Parser();
-		myTurtleList = new ArrayList<>();
-		myActiveTurtles = new ArrayList<>();
 		myTurtleManager = new TurtleManager();
 		myView.addTurtle(0, 0, 0);
 		myTurtleManager.addTurtle(0);
+		myVariableManager = new VariableManager();
 	}
 
 	public void processCommand(String program) {
