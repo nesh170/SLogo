@@ -2,14 +2,11 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import Statements.Forward;
-import Statements.Statement;
-import Statements.Value;
+import Statements.*;
 import view.ViewAbstract;
 
 public class Model {
-	// private Parser myParser;
+	private Parser myParser;
 	private List<ModelTurtle> myTurtleList;
 	private List<ModelTurtle> myActiveTurtles;
 	private ViewAbstract myView;
@@ -17,7 +14,7 @@ public class Model {
 
 	public Model(ViewAbstract view) {
 		myView = view;
-		// myParser = new Parser();
+		myParser = new Parser();
 		myTurtleList = new ArrayList<>();
 		myActiveTurtles = new ArrayList<>();
 		myTurtleManager = new TurtleManager();
@@ -30,11 +27,19 @@ public class Model {
 		List<Statement> subList = new ArrayList<>();
 		subList.add(value);
 		Statement fw = new Forward(subList, myView, myTurtleManager);
+		Statement xcordCheck = new XCor(myView, myTurtleManager);
+		Statement ycordCheck = new YCor(myView, myTurtleManager);
+		Statement pendownCheck = new PenDownP(myView, myTurtleManager);
+		Statement checkShowing = new ShowingP(myView, myTurtleManager);
 		List<Integer> turtleID = new ArrayList<>();
 		turtleID.add(0);
 		myTurtleManager.setActiveTurtles(turtleID);
 		List<Statement> statementList = new ArrayList<>();
 		statementList.add(fw);
+		statementList.add(xcordCheck);
+		statementList.add(ycordCheck);
+		statementList.add(pendownCheck);
+		statementList.add(checkShowing);
 		Program localProgram = new Program(statementList);
 		localProgram.execute();
 	}

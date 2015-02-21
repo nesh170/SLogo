@@ -1,9 +1,10 @@
 package Statements;
 
 import view.ViewAbstract;
+import Constants.Constants;
 import Model.TurtleManager;
 
-public class PenDownP extends Query{
+public class PenDownP extends Query {
 
 	public PenDownP(ViewAbstract view, TurtleManager manager) {
 		super(view, manager);
@@ -11,12 +12,13 @@ public class PenDownP extends Query{
 
 	@Override
 	public double execute() {
-		if (myTurtleManager.getTurtle(myTurtleManager.getActiveTurtles().get(0)).isPenUp()){
-			myView.printMessage("0");
-			return 0;
+		if (myTurtleManager
+				.getTurtle(myTurtleManager.getActiveTurtles().get(0)).isPenUp()) {
+			myView.printMessage(Constants.PEN_UP_VALUE + "");
+			return Constants.PEN_UP_VALUE;
 		}
-		myView.printMessage("1");
-		return 1;
+		myView.printMessage(Constants.PEN_DOWN_VALUE + "");
+		return Constants.PEN_DOWN_VALUE;
 	}
 
 }

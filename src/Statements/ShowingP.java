@@ -4,7 +4,7 @@ import view.ViewAbstract;
 import Constants.Constants;
 import Model.TurtleManager;
 
-public class ShowingP extends Query{
+public class ShowingP extends Query {
 
 	public ShowingP(ViewAbstract view, TurtleManager manager) {
 		super(view, manager);
@@ -12,12 +12,14 @@ public class ShowingP extends Query{
 
 	@Override
 	public double execute() {
-		if (myTurtleManager.getTurtle(myTurtleManager.getActiveTurtles().get(0)).isHiding()){
+		if (myTurtleManager
+				.getTurtle(myTurtleManager.getActiveTurtles().get(0))
+				.isHiding()) {
 			myView.printMessage(Constants.HIDING_VALUE + "");
-			return 0;
+			return Constants.HIDING_VALUE;
 		}
 		myView.printMessage(Constants.SHOWING_VALUE + "");
-		return 1;
+		return Constants.SHOWING_VALUE;
 	}
 
 }
