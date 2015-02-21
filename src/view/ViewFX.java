@@ -8,9 +8,12 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import sLogo_team02.Controller;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -27,6 +30,13 @@ public class ViewFX extends ViewAbstract {
 	private Map<Integer,ViewTurtle> myViewTurtles;
 	private Controller myController;
 	
+	public ObservableList<String> colors = FXCollections.observableArrayList(
+			"Black",
+			"Cyan",
+			"Red",
+			"Blue"
+	);
+	public ChoiceBox<String> cb = new ChoiceBox<String>(colors);
 	public ViewFX(Controller controller){
 		myController = controller;
 		initializeView();
