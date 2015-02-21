@@ -29,7 +29,7 @@ public class ViewTurtle {
 	}
 	
 	public void rotate(double angle){
-		myShape.rotateProperty().set(myShape.rotateProperty().get()+angle);
+		myShape.rotateProperty().set(angle);
 	}
 	
 	public Line drawLine(Point2D point) {
