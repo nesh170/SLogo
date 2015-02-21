@@ -52,6 +52,14 @@ public class ModelTurtle {
 	public double getX() {
 		return myCurX;
 	}
+	
+	public void setX(double xCor){
+		myCurX = xCor;
+	}
+	
+	public void setY(double yCor){
+		myCurY = yCor;
+	}
 
 	public boolean isHiding() {
 		return myHiding;
@@ -59,6 +67,10 @@ public class ModelTurtle {
 
 	public void setHiding(boolean hiding) {
 		myHiding = hiding;
+	}
+	
+	public void setAngle(double angle){
+		myAngle = angle % Constants.FULL_CIRCLE;
 	}
 
 	public double getAngle() {
