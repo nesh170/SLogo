@@ -76,12 +76,12 @@ public class ButtonPane {
 	}
 
 	private void loadHelpPage() {
-			try {
-				File htmlFile = new File(myStringResources.getString("helpPage"));
-				Desktop.getDesktop().browse(htmlFile.toURI());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+//			try {
+//				File htmlFile = new File(myStringResources.getString("helpPage"));
+//				Desktop.getDesktop().browse(htmlFile.toURI());
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
 	}
 
 }
