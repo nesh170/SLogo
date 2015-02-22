@@ -1,8 +1,14 @@
 package view;
 
+import java.io.File;
+
+import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.image.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.*;
 
 public class ViewTurtle {
@@ -16,6 +22,16 @@ public class ViewTurtle {
 		myShape = new Polygon();
 		((Polygon) myShape).getPoints().addAll(new Double[]{ORIGIN_X+size, ORIGIN_Y+size, ORIGIN_X-size, ORIGIN_Y+size, ORIGIN_X, ORIGIN_Y-size});
 		penColor = Color.BLACK;
+	}
+	
+	public void setShape(String path) {
+		//TODO error checking
+		File imageFile = new File(path);
+		myShape.setFill(new ImagePattern(new Image(imageFile.toURI().toString())));
+	}
+	
+	public void setEventHandler(EventHandler<MouseEvent> handler){
+		myShape.setOnMouseClicked(handler);
 	}
 	
 	public Point2D getCoordinate() {
@@ -37,15 +53,11 @@ public class ViewTurtle {
 		turtleLine.setFill(penColor);
 		return turtleLine;
 	}
-	
-	public Color getColor() {
-		return (Color)myShape.getFill();
-	}
-	
-	public void setColor(Color color) {
-		myShape.setFill(color);
-	}
 
+	public Color getPenColor() {
+		return penColor;
+	}
+	
 	public void setPenColor(Color color) {
 		penColor = color;
 	}
