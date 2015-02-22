@@ -80,7 +80,6 @@ public class ViewFX extends ViewAbstract {
 		myVariableElements = new VariablePane(myRoot, new ChangeListener<String>() {
 					@Override
 					public void changed(ObservableValue<? extends String> ov, String oldString, String newString) {
-						System.out.println(newString);
 						myCodeElements.fillCodeArea(myVariableElements.getFullMethod(newString));
 					}
 				}, new EventHandler<ListView.EditEvent<Double>>() {
