@@ -1,8 +1,5 @@
 package view;
 
-import java.awt.Desktop;
-import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -32,7 +29,6 @@ public class ButtonPane {
 
 	private void initializeButtonPane(ChangeListener<Number> listener,
 			EventHandler<ActionEvent> handler) {
-		// TODO Auto-generated method stub
 		GridPane buttonPane = new GridPane();
 		Node[] nodeArray = {
 				generateLanguageBox(listener),
@@ -63,7 +59,6 @@ public class ButtonPane {
 	}
 
 	private Button createButton(EventHandler<ActionEvent> handler, String text) {
-		// TODO change Button Style
 		Button button = new Button(text);
 		button.setStyle(myStringResources.getString("buttonStyle"));
 		button.setMinHeight(ViewConstants.BUTTON_HEIGHT.getVal());
@@ -73,12 +68,7 @@ public class ButtonPane {
 	}
 
 	private void loadHelpPage() {
-			try {
-				File htmlFile = new File(myStringResources.getString("helpPage"));
-				Desktop.getDesktop().browse(htmlFile.toURI());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		new HelpPage(myStringResources.getString("helpPage"));
 	}
 
 }

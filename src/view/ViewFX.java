@@ -1,5 +1,6 @@
 package view;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -14,7 +15,8 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import view.ViewConstants;
 
 public class ViewFX extends ViewAbstract {
@@ -23,6 +25,7 @@ public class ViewFX extends ViewAbstract {
 	private Group myTurtleRoot;
 	private CodePane myCodeElements;
 	private VariablePane myVariableElements;
+	private TurtlePlayground myPlayground;
 	private Map<String,ViewVariable> myVariableMap=new HashMap<String, ViewVariable>();
 	private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",new Locale("en", "US"));
 	private Map<Integer,ViewTurtle> myViewTurtlesMap;
@@ -44,13 +47,13 @@ public class ViewFX extends ViewAbstract {
 				changeLanuageinController(newValue.intValue());
 			}	
 		});
-		TurtlePlayground playground = new TurtlePlayground(myRoot);
+		myPlayground = new TurtlePlayground(myRoot);
 		Scene viewScene = new Scene(myRoot,ViewConstants.STAGE_WIDTH.getVal(),ViewConstants.STAGE_HEIGHT.getVal(),Color.ALICEBLUE);
 		myCodeElements = new CodePane(myRoot, e->pushCodeToController());
 		myVariableElements = new VariablePane(myRoot);
 		myRoot.getChildren().addAll(myLineRoot, myTurtleRoot);
 		myController.setScene(viewScene);
-//		test();
+		test();
 	}
 
 	
@@ -144,7 +147,15 @@ public class ViewFX extends ViewAbstract {
 	}
 	
 	private void changeBackgroundImage(){
-		//TODO add code to change the Image of the TurtlePlayGround with turtlePlaygroundBackGround
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setInitialDirectory(new File((System.getProperty("user.dir"))));
+		File imageLocation = fileChooser.showOpenDialog(new Stage());
+		try{
+			myPlayground.changeBackground(imageLocation.getPath());
+		}
+		catch(IllegalArgumentException | NullPointerException e){
+			printError(myStringResources.getString("invalidImageType"));
+		}
 	}
 	
 	private void changeLanuageinController(int index){
