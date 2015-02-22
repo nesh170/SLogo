@@ -13,7 +13,8 @@ public enum ViewConstants {
 	CODE_AREA_WIDTH("codeAreaWidth"),CODE_AREA_HEIGHT("codeAreaHeight"),TERMINAL_WIDTH("terminalWidth"),TERMINAL_HEIGHT("terminalHeight"),
 	ENTER_WIDTH("enterWidth"),ENTER_HEIGHT("enterHeight"),CODE_PANE_Y("codePaneY"),
 	TERMINAL_SCROLL_WIDTH_PADDING("terminalScrollWidthPadding"),TERMINAL_SCROLL_HEIGHT_PADDING("terminalScrollHeightPadding"),
-	PLAYGROUND_HEIGHT("playgroundHeight"),PLAYGROUND_WIDTH("playgroundWidth");
+	PLAYGROUND_HEIGHT("playgroundHeight"),PLAYGROUND_WIDTH("playgroundWidth"),
+	WEB_HEIGHT("webHeight"),WEB_WIDTH("webWidth");
 	
 	
 	private String myString;

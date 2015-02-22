@@ -14,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 public class ButtonPane {
 
@@ -68,7 +69,12 @@ public class ButtonPane {
 	}
 
 	private void loadHelpPage() {
-		new HelpPage(myStringResources.getString("helpPage"));
+		HelpPage newPage = new HelpPage(myStringResources.getString("helpPage"));
+		try {
+			newPage.start(new Stage());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
