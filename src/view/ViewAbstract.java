@@ -1,5 +1,8 @@
 package view;
 
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
+
 public abstract class ViewAbstract {
 	
 	//TODO: figure out if return line or add it to root

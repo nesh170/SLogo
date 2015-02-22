@@ -18,7 +18,7 @@ public class Controller {
 	}
 	
 	private void initializeViewAndModel(){
-		myView = new ViewFX(this);
+		myView = new ViewFX(this, myStage);
 		myModel = new Model(myView);
 	}
 	
