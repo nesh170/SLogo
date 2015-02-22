@@ -53,7 +53,7 @@ public class ViewFX extends ViewAbstract {
 		myVariableElements = new VariablePane(myRoot);
 		myRoot.getChildren().addAll(myLineRoot, myTurtleRoot);
 		myController.setScene(viewScene);
-		test();
+//		test();
 	}
 
 	
@@ -147,15 +147,20 @@ public class ViewFX extends ViewAbstract {
 	}
 	
 	private void changeBackgroundImage(){
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setInitialDirectory(new File((System.getProperty("user.dir"))));
-		File imageLocation = fileChooser.showOpenDialog(new Stage());
+		String imageLocation = openFileChooser();
 		try{
-			myPlayground.changeBackground(imageLocation.getPath());
+			myPlayground.changeBackground(imageLocation);
 		}
 		catch(IllegalArgumentException | NullPointerException e){
 			printError(myStringResources.getString("invalidImageType"));
 		}
+	}
+
+	private String openFileChooser() {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setInitialDirectory(new File((System.getProperty("user.dir"))));
+		File imageLocation = fileChooser.showOpenDialog(new Stage());
+		return imageLocation.toString();
 	}
 	
 	private void changeLanuageinController(int index){
