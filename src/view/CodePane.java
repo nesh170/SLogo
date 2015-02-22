@@ -106,7 +106,7 @@ public class CodePane {
 		myTerminalLineNumber=1;
 	}
 	
-	private void fillCodeArea(String newValue) {
+	public void fillCodeArea(String newValue) {
 		myCodeArea.clear();
 		myCodeArea.setText(newValue);
 	}

@@ -45,7 +45,9 @@ public class HistoryCodeBox {
 	}
 	
 	public void addCodeToList(String code){
-		myHistoryShortList.add(code);
+		if(!code.equals("")){
+			myHistoryShortList.add(code);
+		}
 	}
 	
 

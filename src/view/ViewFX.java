@@ -9,10 +9,11 @@ import java.util.ResourceBundle;
 import sLogo_team02.Controller;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
+import javafx.scene.control.ListView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
@@ -26,7 +27,6 @@ public class ViewFX extends ViewAbstract {
 	private CodePane myCodeElements;
 	private VariablePane myVariableElements;
 	private TurtlePlayground myPlayground;
-	private Map<String,ViewVariable> myVariableMap=new HashMap<String, ViewVariable>();
 	private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",new Locale("en", "US"));
 	private Map<Integer,ViewTurtle> myViewTurtlesMap;
 	private Controller myController;
@@ -50,12 +50,27 @@ public class ViewFX extends ViewAbstract {
 		myPlayground = new TurtlePlayground(myRoot);
 		Scene viewScene = new Scene(myRoot,ViewConstants.STAGE_WIDTH.getVal(),ViewConstants.STAGE_HEIGHT.getVal(),Color.ALICEBLUE);
 		myCodeElements = new CodePane(myRoot, e->pushCodeToController());
-		myVariableElements = new VariablePane(myRoot);
+		setUpVariablePane();
 		myRoot.getChildren().addAll(myLineRoot, myTurtleRoot);
 		myController.setScene(viewScene);
 		test();
 	}
 
+	private void setUpVariablePane() {
+		myVariableElements = new VariablePane(myRoot, new ChangeListener<String>() {
+					@Override
+					public void changed(ObservableValue<? extends String> ov, String oldString, String newString) {
+						System.out.println(newString);
+						myCodeElements.fillCodeArea(myVariableElements.getFullMethod(newString));
+					}
+				}, new EventHandler<ListView.EditEvent<Double>>() {
+					@Override
+					public void handle(ListView.EditEvent<Double> t) {
+						updateVariableFromView(t);
+					}
+
+				});
+	}
 	
 	private void test(){
 		addTurtle(0,0, 0);
@@ -67,6 +82,8 @@ public class ViewFX extends ViewAbstract {
 //		clearScreen();
 //		addTurtle(0,0,0);
 		addVariable("lol", 62.0);
+		addVariable("lolcv", 19.0);
+		addMethodVariable("Hibaci", "This method is where the universe ends and another begins with the eviction of the sun");
 	}
 
 
@@ -116,34 +133,26 @@ public class ViewFX extends ViewAbstract {
 
 	@Override
 	public void addVariable(String variableName, Double value) {
-		if(myVariableMap.containsKey(variableName)){
-			myVariableMap.get(variableName).updateValue(value);
-		}
-		else{
-			ViewVariable tempVariable = new ViewVariable(variableName, value);
-			myVariableElements.add(tempVariable.generateVisualVariable(e->{
-				if(e.getCode().equals(KeyCode.ENTER)){
-					updateVariableFromView(variableName);
-				}
-			}));
-			myVariableMap.put(variableName, tempVariable);
-		}
-		
+		myVariableElements.addNumberVariables(variableName, value);
+	}
+	
+	@Override
+	public void addMethodVariable(String methodName, String methodFull) {
+		myVariableElements.addMethodVariable(methodName, methodFull);
 	}
 	
 	private void pushCodeToController(){
 		myController.executeCommand(myCodeElements.getCodeData());
 	}
 	
-	private void updateVariableFromView(String variableName){
+	private void updateVariableFromView(ListView.EditEvent<Double> t){
 		try{
-		double newVariableValue = myVariableMap.get(variableName).getValueInField();
-		myController.updateVariable(variableName, newVariableValue);
+		myVariableElements.setVariableValue(t.getIndex(), t.getNewValue());
+		myController.updateVariable(myVariableElements.getVariableName(t.getIndex()), t.getNewValue());
 		}
-		catch(Exception e){
+		catch(NumberFormatException e){
 			printError(myStringResources.getString("wrongNumberType"));
 		}
-		
 	}
 	
 	private void changeBackgroundImage(){
@@ -162,6 +171,8 @@ public class ViewFX extends ViewAbstract {
 		ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",new Locale("en", "US"));
 		myController.changeLanguage(myStringResources.getString("languageFile").split("\\s+")[index]);
 	}
+
+	
 
 
 	
