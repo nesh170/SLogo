@@ -41,14 +41,16 @@ public class ViewTurtle {
 	public void setImage(String path) {
 		if(path == null)
 			return;
-		List<String> imageExtArray = Arrays.asList(myStringResources.getString(
-				"imageFileExtension").split("\\s+"));
-		if(!imageExtArray.contains(path.substring(path.length() - 4)))
-			return;
+		List<String> imageExtArray = Arrays.asList(myStringResources.getString("imageFileExtension").split("\\s+"));
+		for(String c:imageExtArray){
+		    if(!path.endsWith(c)){
+		        return;
+		    }
+		}
 		File imageFile = new File(path);
 		Image tempImage = new Image(imageFile.toURI().toString());
-		ImagePattern ip = new ImagePattern(tempImage);
-		myShape.setFill(ip);
+		ImagePattern newPattern = new ImagePattern(tempImage);
+		myShape.setFill(newPattern);
 	}
 	
 	

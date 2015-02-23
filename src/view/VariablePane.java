@@ -37,7 +37,7 @@ public class VariablePane {
 	public void generateVariablePane(Group root){
 		myVariableBox = new VBox();
 		myVariableBox.setPadding(new Insets(ViewConstants.VARIABLE_TABLE_PADDING.getVal()));
-	    myVariableBox.setSpacing(ViewConstants.VARIABLE_TABLE_SPACING.getVal());
+		myVariableBox.setSpacing(ViewConstants.VARIABLE_TABLE_SPACING.getVal());
 		myVariableBox.setMaxSize(ViewConstants.VARIABLE_TABLE_WIDTH.getVal(), ViewConstants.VARIABLE_TABLE_HEIGHT.getVal());
 		myVariableBox.setTranslateX(ViewConstants.VARIABLE_TABLE_X.getVal());
 		myVariableBox.getChildren().add(new Text(myStringResources.getString("variableTableTitle")));
