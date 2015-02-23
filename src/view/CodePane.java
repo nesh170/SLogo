@@ -107,8 +107,7 @@ public class CodePane {
 	}
 	
 	public void fillCodeArea(String newValue) {
-		myCodeArea.clear();
-		myCodeArea.setText(newValue);
+		myCodeArea.setText(myCodeArea.getText() + " " + newValue);
 	}
 	
 	

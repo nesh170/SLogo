@@ -56,7 +56,7 @@ public class ViewFX extends ViewAbstract {
         setUpVariablePane();
         myRoot.getChildren().addAll(myLineRoot, myTurtleRoot);
         myController.setScene(viewScene);
-//        test();
+        test();
     }
 
     private void setUpVariablePane () {
@@ -65,7 +65,7 @@ public class ViewFX extends ViewAbstract {
             public void changed (ObservableValue<? extends String> ov,
                                  String oldString,
                                  String newString) {
-                myCodeElements.fillCodeArea(myVariableElements.getFullMethod(newString));
+                myCodeElements.fillCodeArea(newString);
             }
         }, new EventHandler<ListView.EditEvent<Double>>() {
             @Override
@@ -91,8 +91,7 @@ public class ViewFX extends ViewAbstract {
         addTurtle(0, 0, 0);
         addVariable("lol", 62.0);
         addVariable("lolcv", 19.0);
-        addMethodVariable("Hibaci",
-                          "This method is where the universe ends and another begins with the eviction of the sun");
+        addMethodVariable("Hibaci");
     }
 
     @Override
@@ -151,8 +150,8 @@ public class ViewFX extends ViewAbstract {
     }
 
     @Override
-    public void addMethodVariable (String methodName, String methodFull) {
-        myVariableElements.addMethodVariable(methodName, methodFull);
+    public void addMethodVariable (String methodName) {
+        myVariableElements.addMethodVariable(methodName);
     }
 
     private void pushCodeToController () {
@@ -182,11 +181,9 @@ public class ViewFX extends ViewAbstract {
 
     public static String openFileChooser () {
     	FileChooser fileChooser = new FileChooser();
-		fileChooser.setInitialDirectory(new File((System.getProperty("user.dir"))));
-		File file = fileChooser.showOpenDialog(new Stage());
-		if(file != null)
-			return file.toString();
-		return null;
+	fileChooser.setInitialDirectory(new File((System.getProperty("user.dir"))));
+	File file = fileChooser.showOpenDialog(new Stage());
+	return file.toString();
     }
 
     private void changeLanuageinController (int index) {

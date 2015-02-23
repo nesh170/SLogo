@@ -1,8 +1,6 @@
 package view;
 
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 import java.util.ResourceBundle;
 import slogoEnums.ViewConstants;
 import javafx.beans.value.ChangeListener;
@@ -25,7 +23,6 @@ public class VariablePane {
 	private ObservableList<String> myVariableName;
 	private ObservableList<Double> myVariableValue;
 	private ObservableList<String> myMethodList;
-	private Map<String,String> myMethodMap;
 	
 	public VariablePane(Group root,ChangeListener<String> changeListener,EventHandler<ListView.EditEvent<Double>> handler){
 		generateVariablePane(root);
@@ -96,15 +93,13 @@ public class VariablePane {
 	}
 	
 	
-	public void addMethodVariable(String methodKey, String methodValue){
+	public void addMethodVariable(String methodKey){
 		if(!myMethodList.contains(methodKey)){
 			myMethodList.add(methodKey);
 		}
-		myMethodMap.put(methodKey, methodValue);
 	}
 
 	private void initializeMethodList(ChangeListener<String> listener){
-		myMethodMap = new HashMap<String, String>();
 		myMethodList = FXCollections.observableArrayList();
 		ListView<String> methodListView = new ListView<String>(myMethodList);
 		methodListView.getSelectionModel().selectedItemProperty().addListener(listener);
@@ -112,9 +107,7 @@ public class VariablePane {
 	}
 
 
-	public String getFullMethod(String newString) {
-		return myMethodMap.get(newString);
-	}
+
 	
 	
 }
