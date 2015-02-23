@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+
 import slogoEnums.ViewConstants;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -40,15 +41,14 @@ public class ViewTurtle {
 	public void setImage(String path) {
 		if(path == null)
 			return;
+		List<String> imageExtArray = Arrays.asList(myStringResources.getString(
+				"imageFileExtension").split("\\s+"));
+		if(!imageExtArray.contains(path.substring(path.length() - 4)))
+			return;
 		File imageFile = new File(path);
 		Image tempImage = new Image(imageFile.toURI().toString());
-		try{
-			ImagePattern ip = new ImagePattern(tempImage);
-			myShape.setFill(ip);
-		}
-		catch(Exception e){
-			return;
-		}
+		ImagePattern ip = new ImagePattern(tempImage);
+		myShape.setFill(ip);
 	}
 	
 	
@@ -91,7 +91,7 @@ public class ViewTurtle {
         dialogVbox.getChildren().add(shapeButton);
         List<String> colorArray = Arrays.asList(myStringResources.getString("allColors").split("\\s+"));
 		ChoiceBox<String> colorBox = new ChoiceBox<String>(FXCollections.observableArrayList(colorArray));
-	colorBox.setValue(colorBox.getValue());
+		colorBox.setValue(colorBox.getValue());
         colorBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>(){
         	@Override
         	public void changed(ObservableValue<? extends String> ov, String value, String newValue){
