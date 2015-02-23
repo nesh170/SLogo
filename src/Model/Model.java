@@ -3,6 +3,8 @@ package Model;
 import java.util.ArrayList;
 import java.util.List;
 import Statements.*;
+import Constants.*;
+
 import view.ViewAbstract;
 
 public class Model {
@@ -18,6 +20,7 @@ public class Model {
 		myView.addTurtle(0, 0, 0);
 		myTurtleManager.addTurtle(0);
 		myVariableManager = new VariableManager();
+		Constants.initializeMap();
 	}
 
 	public void processCommand(String program) {

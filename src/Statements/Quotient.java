@@ -1,7 +1,7 @@
 package Statements;
 
 import java.util.List;
-
+import Constants.*;
 import view.ViewAbstract;
 
 public class Quotient extends Command{
@@ -19,5 +19,10 @@ public class Quotient extends Command{
 		myView.printMessage("" + result);
 		return result;
 	}
+
+//	@Override
+//	public int getNumParams() {
+//		return Constants.QUOTIENT_PARAMS;
+//	}
 
 }

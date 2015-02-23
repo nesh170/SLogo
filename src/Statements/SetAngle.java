@@ -1,13 +1,12 @@
 package Statements;
 
 import java.util.List;
-
 import view.ViewAbstract;
 import Constants.Constants;
 import Model.ModelTurtle;
 import Model.TurtleManager;
 
-public class SetAngle extends ActionCommand {
+public abstract class SetAngle extends ActionCommand {
 	protected double myExecuteResult;
 	
 	public SetAngle(List<Statement> statements, ViewAbstract view,

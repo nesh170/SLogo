@@ -3,6 +3,7 @@ package Statements;
 import java.util.List;
 
 import view.ViewAbstract;
+import Constants.*;
 
 public class Pi extends Command{
 
@@ -16,5 +17,10 @@ public class Pi extends Command{
 		myView.printMessage("" + pi);
 		return pi;
 	}
+
+//	@Override
+//	public int getNumParams() {
+//		return Constants.PI_PARAMS;
+//	}
 
 }

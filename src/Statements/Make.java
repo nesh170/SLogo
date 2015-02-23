@@ -1,6 +1,7 @@
 package Statements;
 
 import java.util.List;
+import Constants.*;
 
 import Model.VariableManager;
 import view.ViewAbstract;
@@ -20,5 +21,9 @@ public class Make extends Command{
 		myView.addVariable(((Variable)myStatements.get(0)).getName(), value);
 		return value;
 	}
+
+//	public static int getNumParams() {
+//		return Constants.MAKE_PARAMS;
+//	}
 
 }

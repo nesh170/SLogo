@@ -1,6 +1,7 @@
 package Statements;
 
 import java.util.List;
+import Constants.*;
 
 import view.ViewAbstract;
 
@@ -19,5 +20,10 @@ public class Remainder extends Command{
 		myView.printMessage("" + result);
 		return result;
 	}
+
+//	@Override
+//	public int getNumParams() {
+//		return Constants.REMAINDER_PARAMS;
+//	}
 
 }

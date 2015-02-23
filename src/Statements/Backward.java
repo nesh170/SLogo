@@ -12,4 +12,8 @@ public class Backward extends Walking{
 		super(statements, view, turtleManager);
 		myAngle = Constants.BACKWARD_ANGLE;
 	}
+
+//	public static int getNumParams() {
+//		return Constants.BACK_PARAMS;
+//	}
 }
