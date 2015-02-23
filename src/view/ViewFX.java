@@ -183,6 +183,9 @@ public class ViewFX extends ViewAbstract {
     	FileChooser fileChooser = new FileChooser();
 	fileChooser.setInitialDirectory(new File((System.getProperty("user.dir"))));
 	File file = fileChooser.showOpenDialog(new Stage());
+	if(file==null){
+	    return "";
+	}
 	return file.toString();
     }
 
