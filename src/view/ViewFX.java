@@ -65,9 +65,13 @@ public class ViewFX extends ViewAbstract {
 				}, new EventHandler<ListView.EditEvent<Double>>() {
 					@Override
 					public void handle(ListView.EditEvent<Double> t) {
-						updateVariableFromView(t);
+						if(!t.getNewValue().equals(Double.NaN)){
+							updateVariableFromView(t);
+							}	
+						else{
+							printError(myStringResources.getString("wrongNumberType"));
+						}
 					}
-
 				});
 	}
 	
