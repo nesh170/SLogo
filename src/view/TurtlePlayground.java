@@ -1,6 +1,7 @@
 package view;
 
 import java.io.File;
+import slogoEnums.ViewConstants;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;

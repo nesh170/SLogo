@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
-
+import slogoEnums.ViewConstants;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -25,16 +25,13 @@ import javafx.stage.Stage;
 
 public class ViewTurtle {
 	private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",new Locale("en", "US"));
-	public static final double ORIGIN_X=350.0;
-	public static final double ORIGIN_Y=250.0;
-	
 	private Shape myShape;
 	private Color penColor;
 	private int myID;
 	
 	public ViewTurtle(Point2D point,double size, int ID) {
 		myShape = new Polygon();
-		((Polygon) myShape).getPoints().addAll(new Double[]{ORIGIN_X+size, ORIGIN_Y+size, ORIGIN_X-size, ORIGIN_Y+size, ORIGIN_X, ORIGIN_Y-size});
+		((Polygon) myShape).getPoints().addAll(new Double[]{ViewConstants.ORIGIN_X.getVal()+size, ViewConstants.ORIGIN_Y.getVal()+size, ViewConstants.ORIGIN_X.getVal()-size, ViewConstants.ORIGIN_Y.getVal()+size, ViewConstants.ORIGIN_X.getVal(), ViewConstants.ORIGIN_Y.getVal()-size});
 		penColor = Color.BLACK;
 		myID = ID;
 		myShape.setOnMouseClicked(e->setUpDialogBox());
@@ -67,7 +64,7 @@ public class ViewTurtle {
 	}
 	
 	public Line drawLine(Point2D point) {
-		Line turtleLine = new Line(myShape.getTranslateX()+ORIGIN_X, myShape.getTranslateY()+ORIGIN_Y, point.getX(), point.getY());
+		Line turtleLine = new Line(myShape.getTranslateX()+ViewConstants.ORIGIN_X.getVal(), myShape.getTranslateY()+ViewConstants.ORIGIN_Y.getVal(), point.getX(), point.getY());
 		turtleLine.setStroke(penColor);
 		return turtleLine;
 	}
@@ -91,6 +88,7 @@ public class ViewTurtle {
         dialogVbox.getChildren().add(shapeButton);
         List<String> colorArray = Arrays.asList(myStringResources.getString("allColors").split("\\s+"));
 		ChoiceBox<String> colorBox = new ChoiceBox<String>(FXCollections.observableArrayList(colorArray));
+	colorBox.setValue(colorBox.getValue());
         colorBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>(){
         	@Override
         	public void changed(ObservableValue<? extends String> ov, String value, String newValue){

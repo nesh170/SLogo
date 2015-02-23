@@ -1,4 +1,4 @@
-package view;
+package slogoEnums;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
