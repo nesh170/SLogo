@@ -170,11 +170,12 @@ public class ViewFX extends ViewAbstract {
     }
 
     private void changeBackgroundImage () {
-        try {
-            myPlayground.changeBackground(openFileChooser());
+        String imageLocation = openFileChooser();
+        try{
+                myPlayground.changeBackground(imageLocation);
         }
-        catch (IllegalArgumentException | NullPointerException e) {
-            printError(myStringResources.getString("invalidImageType"));
+        catch(IllegalArgumentException | NullPointerException e){
+                printError(myStringResources.getString("invalidImageType"));
         }
     }
 
