@@ -73,7 +73,7 @@ public class ViewFX extends ViewAbstract {
 		setUpVariablePane();
 		myRoot.getChildren().addAll(myLineRoot, myTurtleRoot);
 		myController.setScene(viewScene);
-		test();
+		//test();
 	}
 
 	private void setUpVariablePane() {
@@ -91,7 +91,7 @@ public class ViewFX extends ViewAbstract {
 				});
 	}
 	
-	private void test(){
+	/*private void test(){
 		addTurtle(0,0, 0);
 		drawTurtle(350,250,0);
 		rotateTurtle(180,0);
@@ -103,7 +103,7 @@ public class ViewFX extends ViewAbstract {
 		addVariable("lol", 62.0);
 		addVariable("lolcv", 19.0);
 		addMethodVariable("Hibaci", "This method is where the universe ends and another begins with the eviction of the sun");
-	}
+	}*/
 
 
 	@Override
