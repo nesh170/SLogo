@@ -41,13 +41,16 @@ public class ViewTurtle {
 	}
 	
 	public void setImage(String path) {
-		try{
+		if(path == null)
+			return;
 		File imageFile = new File(path);
 		Image tempImage = new Image(imageFile.toURI().toString());
-		myShape.setFill(new ImagePattern(tempImage));
+		try{
+			ImagePattern ip = new ImagePattern(tempImage);
+			myShape.setFill(ip);
 		}
 		catch(Exception e){
-			
+			return;
 		}
 	}
 	
@@ -87,7 +90,7 @@ public class ViewTurtle {
         dialogVbox.getChildren().add(new Text(myStringResources.getString("idText") + myID));
         Button shapeButton = new Button();
         shapeButton.setText(myStringResources.getString("chooseImage"));
-        shapeButton.setOnAction(e-> setShape(ViewFX.openFileChooser()));
+        shapeButton.setOnAction(e-> setImage(ViewFX.openFileChooser()));
         dialogVbox.getChildren().add(shapeButton);
         List<String> colorArray = Arrays.asList(myStringResources.getString("allColors").split("\\s+"));
 		ChoiceBox<String> colorBox = new ChoiceBox<String>(FXCollections.observableArrayList(colorArray));

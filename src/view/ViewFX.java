@@ -168,7 +168,9 @@ public class ViewFX extends ViewAbstract {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setInitialDirectory(new File((System.getProperty("user.dir"))));
 		File file = fileChooser.showOpenDialog(new Stage());
-		return file.toString();
+		if(file != null)
+			return file.toString();
+		return null;
 	}
 	
 	private void changeLanuageinController(int index){
