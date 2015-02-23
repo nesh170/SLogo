@@ -82,8 +82,8 @@ public class ViewFX extends ViewAbstract {
 		drawTurtle(100,100,0);
 		rotateTurtle(90, 0);
 		drawTurtle(15, 18, 0);
-//		clearScreen();
-//		addTurtle(0,0,0);
+		clearScreen();
+		addTurtle(0,0,0);
 		addVariable("lol", 62.0);
 		addVariable("lolcv", 19.0);
 		addMethodVariable("Hibaci", "This method is where the universe ends and another begins with the eviction of the sun");
