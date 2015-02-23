@@ -1,5 +1,8 @@
 package Constants;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Constants {
 
 	public static final double FULL_CIRCLE = 360;
@@ -63,4 +66,11 @@ public class Constants {
 	public static final int IF_PARAMS = 2;
 	public static final int IF_ELSE_PARAMS = 3;
 	public static final int TO_PARAMS = 3;
+	
+	public static final Map<String, Integer> myStatementParamMap = new HashMap<>();
+	
+	public static void initializeMap(){
+		myStatementParamMap.put("foward", FORWARD_PARAMS);
+		myStatementParamMap.put("sum", SUM_PARAMS);
+	}
 }
