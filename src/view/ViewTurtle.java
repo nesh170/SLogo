@@ -91,7 +91,7 @@ public class ViewTurtle {
         dialogVbox.getChildren().add(shapeButton);
         List<String> colorArray = Arrays.asList(myStringResources.getString("allColors").split("\\s+"));
 		ChoiceBox<String> colorBox = new ChoiceBox<String>(FXCollections.observableArrayList(colorArray));
-	colorBox.setValue(colorBox.getValue());
+		colorBox.setValue(colorBox.getValue());
         colorBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>(){
         	@Override
         	public void changed(ObservableValue<? extends String> ov, String value, String newValue){
