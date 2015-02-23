@@ -40,10 +40,15 @@ public class ViewTurtle {
 		myShape.setOnMouseClicked(e->setUpDialogBox());
 	}
 	
-	public void setShape(String path) {
-		//TODO errorChecking
+	public void setImage(String path) {
+		try{
 		File imageFile = new File(path);
-		myShape.setFill(new ImagePattern(new Image(imageFile.toURI().toString())));
+		Image tempImage = new Image(imageFile.toURI().toString());
+		myShape.setFill(new ImagePattern(tempImage));
+		}
+		catch(Exception e){
+			
+		}
 	}
 	
 	
@@ -82,15 +87,19 @@ public class ViewTurtle {
         dialogVbox.getChildren().add(new Text("ID : " + myID));
         Button shapeButton = new Button();
         shapeButton.setText("Choose the Image for the Turtle");
-        shapeButton.setOnAction(e-> setShape(ViewFX.openFileChooser()));
+        try{
+        shapeButton.setOnAction(e-> setImage(ViewFX.openFileChooser()));
+        }
+        catch(Exception e){
+        	
+        }
         dialogVbox.getChildren().add(shapeButton);
         List<String> colorArray = Arrays.asList(myStringResources.getString("allColors").split("\\s+"));
 		ChoiceBox<String> colorBox = new ChoiceBox<String>(FXCollections.observableArrayList(colorArray));
         colorBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>(){
         	@Override
         	public void changed(ObservableValue<? extends String> ov, String value, String newValue){
-        		System.out.println(newValue);
-        		penColor = Color.web(newValue.toLowerCase());
+        		penColor = Color.web(newValue);
         	}
         });
 		dialogVbox.getChildren().add(new Text("Pen Color : "));

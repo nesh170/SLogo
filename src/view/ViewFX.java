@@ -1,7 +1,6 @@
 package view;
 
 import java.io.File;
-
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -10,17 +9,14 @@ import java.util.ResourceBundle;
 import sLogo_team02.Controller;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-
 import javafx.scene.control.ListView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
-
 import javafx.stage.Stage;
 import view.ViewConstants;
 
@@ -57,7 +53,7 @@ public class ViewFX extends ViewAbstract {
 		setUpVariablePane();
 		myRoot.getChildren().addAll(myLineRoot, myTurtleRoot);
 		myController.setScene(viewScene);
-//		test();
+		test();
 	}
 
 	private void setUpVariablePane() {
@@ -159,8 +155,8 @@ public class ViewFX extends ViewAbstract {
 	}
 	
 	private void changeBackgroundImage(){
-		String imageLocation = openFileChooser();
 		try{
+			String imageLocation = openFileChooser();
 			myPlayground.changeBackground(imageLocation);
 		}
 		catch(IllegalArgumentException | NullPointerException e){
@@ -168,11 +164,11 @@ public class ViewFX extends ViewAbstract {
 		}
 	}
 
-	public static String openFileChooser() {
+	public static String openFileChooser() throws NullPointerException {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setInitialDirectory(new File((System.getProperty("user.dir"))));
-		File imageLocation = fileChooser.showOpenDialog(new Stage());
-		return imageLocation.toString();
+		File file = fileChooser.showOpenDialog(new Stage());
+		return file.toString();
 	}
 	
 	private void changeLanuageinController(int index){
