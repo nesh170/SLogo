@@ -3,7 +3,7 @@ package view;
 import java.io.File;
 import java.util.Locale;
 import java.util.ResourceBundle;
-
+import slogoEnums.ViewConstants;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -35,6 +35,7 @@ public class HelpPage extends Application{
 		WebEngine webEngine = browser.getEngine();
 		File htmlFile = new File(myPath);
 		webEngine.load(htmlFile.toURI().toString());
+		browser.isResizable();
 		return browser;
 	}
 	

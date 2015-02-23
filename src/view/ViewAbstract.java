@@ -2,7 +2,6 @@ package view;
 
 public abstract class ViewAbstract {
 	
-	//TODO: figure out if return line or add it to root
 	public abstract void drawTurtle(double X, double Y, int ID);
 	
 	public abstract void moveTurtle(double X, double Y, int ID);
