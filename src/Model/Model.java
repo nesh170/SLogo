@@ -21,7 +21,7 @@ public class Model {
 	}
 
 	public void processCommand(String program) {
-		Statement value = new Value(50);
+		Statement value = new Value(5);
 //		Statement value2 = new Value(2);
 //		Statement value3 = new Value(3);
 		Statement var = new Variable("Test", myVariableManager);
