@@ -164,7 +164,7 @@ public class ViewFX extends ViewAbstract {
 		}
 	}
 
-	public static String openFileChooser() throws NullPointerException {
+	public static String openFileChooser(){
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setInitialDirectory(new File((System.getProperty("user.dir"))));
 		File file = fileChooser.showOpenDialog(new Stage());

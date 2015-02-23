@@ -81,13 +81,13 @@ public class ViewTurtle {
 	}
 	
 	private void setUpDialogBox(){
-		final Stage dialog = new Stage();
+		Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         VBox dialogVbox = new VBox(20);
-        dialogVbox.getChildren().add(new Text(myStringResources.getString("idText") + myID));
+        dialog.setTitle(myStringResources.getString("idText") + myID);
         Button shapeButton = new Button();
         shapeButton.setText(myStringResources.getString("chooseImage"));
-        shapeButton.setOnAction(e-> setShape(ViewFX.openFileChooser()));
+        shapeButton.setOnAction(e-> setImage(ViewFX.openFileChooser()));
         dialogVbox.getChildren().add(shapeButton);
         List<String> colorArray = Arrays.asList(myStringResources.getString("allColors").split("\\s+"));
 		ChoiceBox<String> colorBox = new ChoiceBox<String>(FXCollections.observableArrayList(colorArray));

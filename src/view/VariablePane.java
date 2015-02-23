@@ -79,7 +79,12 @@ public class VariablePane {
 		simpleList.setCellFactory(TextFieldListCell.forListView(new StringConverter<Double>() {
 			@Override
 			public Double fromString(String arg0) {
-				return Double.parseDouble(arg0);
+				try{
+					return Double.parseDouble(arg0);
+				}
+				catch(Exception e){
+					return Double.NaN;
+				}
 			}
 
 			@Override
