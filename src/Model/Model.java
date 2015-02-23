@@ -2,25 +2,23 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import parser.Parser;
 import Statements.*;
 import Constants.*;
-
 import view.ViewAbstract;
 
 public class Model {
-	private Parser myParser;
 	private ViewAbstract myView;
 	private TurtleManager myTurtleManager;
 	private VariableManager myVariableManager;
 
 	public Model(ViewAbstract view) {
 		myView = view;
-		myParser = new Parser();
 		myTurtleManager = new TurtleManager();
 		myView.addTurtle(0, 0, 0);
 		myTurtleManager.addTurtle(0);
 		myVariableManager = new VariableManager();
-		Constants.initializeMap();
 	}
 
 	public void processCommand(String program) {
