@@ -25,9 +25,6 @@ public enum ViewConstants {
 	public double getVal(){
 		ResourceBundle myNumberResources = ResourceBundle.getBundle("resources.View.ViewConstants", new Locale("en", "US"));
 		return Double.parseDouble(myNumberResources.getString(this.myString));
-	}
-	
-	
-	
+	}	
 	
 }

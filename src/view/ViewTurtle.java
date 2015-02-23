@@ -84,15 +84,10 @@ public class ViewTurtle {
 		final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         VBox dialogVbox = new VBox(20);
-        dialogVbox.getChildren().add(new Text("ID : " + myID));
+        dialogVbox.getChildren().add(new Text(myStringResources.getString("idText") + myID));
         Button shapeButton = new Button();
-        shapeButton.setText("Choose the Image for the Turtle");
-        try{
-        shapeButton.setOnAction(e-> setImage(ViewFX.openFileChooser()));
-        }
-        catch(Exception e){
-        	
-        }
+        shapeButton.setText(myStringResources.getString("chooseImage"));
+        shapeButton.setOnAction(e-> setShape(ViewFX.openFileChooser()));
         dialogVbox.getChildren().add(shapeButton);
         List<String> colorArray = Arrays.asList(myStringResources.getString("allColors").split("\\s+"));
 		ChoiceBox<String> colorBox = new ChoiceBox<String>(FXCollections.observableArrayList(colorArray));
@@ -102,9 +97,9 @@ public class ViewTurtle {
         		penColor = Color.web(newValue);
         	}
         });
-		dialogVbox.getChildren().add(new Text("Pen Color : "));
+		dialogVbox.getChildren().add(new Text(myStringResources.getString("choosePenColor")));
 		dialogVbox.getChildren().add(colorBox);
-        Scene dialogScene = new Scene(dialogVbox, 300, 200);
+        Scene dialogScene = new Scene(dialogVbox, ViewConstants.DBOX_WIDTH.getVal(), ViewConstants.DBOX_HEIGHT.getVal());
         dialog.setScene(dialogScene);
         dialog.show();
 	}
