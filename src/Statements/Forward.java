@@ -16,4 +16,9 @@ public class Forward extends Walking {
 		myAngle = Constants.FORWARD_ANGLE;
 	}
 
+//	@Override
+//	public int getNumParams() {
+//		return Constants.FORWARD_PARAMS;
+//	}
+
 }

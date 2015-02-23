@@ -3,6 +3,7 @@ package Statements;
 import java.util.List;
 
 import view.ViewAbstract;
+import Constants.*;
 
 public class ATan extends Command{
 
@@ -16,5 +17,9 @@ public class ATan extends Command{
 		myView.printMessage("" + result);
 		return result;
 	}
+
+//	public static int getNumParams() {
+//		return Constants.ATAN_PARAMS;
+//	}
 
 }

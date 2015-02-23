@@ -3,6 +3,7 @@ package Statements;
 import view.ViewAbstract;
 import Constants.Constants;
 import Model.TurtleManager;
+import Constants.*;
 
 public class PenDownP extends Query {
 
@@ -20,5 +21,10 @@ public class PenDownP extends Query {
 		myView.printMessage(Constants.PEN_DOWN_VALUE + "");
 		return Constants.PEN_DOWN_VALUE;
 	}
+
+//	@Override
+//	public int getNumParams() {
+//		return Constants.PENDOWNP_PARAMS;
+//	}
 
 }

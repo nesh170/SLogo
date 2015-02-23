@@ -2,7 +2,7 @@ package Statements;
 
 import java.util.List;
 import java.util.Random;
-
+import Constants.*;
 import view.ViewAbstract;
 
 public class RandomGen extends Command{
@@ -19,5 +19,10 @@ public class RandomGen extends Command{
 		myView.printMessage("" + result);
 		return result;
 	}
+
+//	@Override
+//	public int getNumParams() {
+//		return Constants.RANDOM_PARAMS;
+//	}
 
 }

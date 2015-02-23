@@ -4,6 +4,7 @@ import java.util.List;
 
 import view.ViewAbstract;
 import Model.TurtleManager;
+import Constants.*;
 
 public class SetXY extends SetPosition{
 
@@ -17,5 +18,10 @@ public class SetXY extends SetPosition{
 		myExecuteResultY = myStatements.get(1).execute();
 		return super.execute();
 	}
+
+//	@Override
+//	public static int getNumParams() {
+//		return Constants.SET_XY_PARAMS;
+//	}
 
 }
