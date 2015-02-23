@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
-
+import slogoEnums.ViewConstants;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -79,7 +79,12 @@ public class VariablePane {
 		simpleList.setCellFactory(TextFieldListCell.forListView(new StringConverter<Double>() {
 			@Override
 			public Double fromString(String arg0) {
-				return Double.parseDouble(arg0);
+				try{
+					return Double.parseDouble(arg0);
+				}
+				catch(Exception e){
+					return Double.NaN;
+				}
 			}
 
 			@Override
