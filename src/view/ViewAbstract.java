@@ -18,6 +18,6 @@ public abstract class ViewAbstract {
 	
 	public abstract void addVariable(String variableName, Double value);
 	
-	public abstract void addMethodVariable(String methodName,String methodVariable);
+	public abstract void addMethodVariable(String methodName);
 	
 }

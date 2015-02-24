@@ -9,11 +9,14 @@ import slogoEnums.ViewConstants;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.image.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -38,16 +41,13 @@ public class ViewTurtle {
 	}
 	
 	public void setImage(String path) {
-		if(path == null)
-			return;
-		File imageFile = new File(path);
-		Image tempImage = new Image(imageFile.toURI().toString());
-		try{
-			ImagePattern ip = new ImagePattern(tempImage);
-			myShape.setFill(ip);
-		}
-		catch(Exception e){
-			return;
+		List<String> imageExtArray = Arrays.asList(myStringResources.getString("imageFileExtension").split("\\s+"));
+		for(String c:imageExtArray){
+		    if(path.toLowerCase().endsWith(c)){
+		        File imageFile = new File(path);
+	                myShape.setFill(new ImagePattern(new Image(imageFile.toURI().toString())));
+	                return;
+		    }
 		}
 	}
 	
@@ -83,25 +83,15 @@ public class ViewTurtle {
 	private void setUpDialogBox(){
 		Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
-        VBox dialogVbox = new VBox(20);
+        VBox dialogVbox = new VBox(ViewConstants.VARIABLE_TABLE_SPACING.getVal());
         dialog.setTitle(myStringResources.getString("idText") + myID);
         Button shapeButton = new Button();
         shapeButton.setText(myStringResources.getString("chooseImage"));
         shapeButton.setOnAction(e-> setImage(ViewFX.openFileChooser()));
-        dialogVbox.getChildren().add(shapeButton);
-        List<String> colorArray = Arrays.asList(myStringResources.getString("allColors").split("\\s+"));
-		ChoiceBox<String> colorBox = new ChoiceBox<String>(FXCollections.observableArrayList(colorArray));
-	colorBox.setValue(colorBox.getValue());
-        colorBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>(){
-        	@Override
-        	public void changed(ObservableValue<? extends String> ov, String value, String newValue){
-        		penColor = Color.web(newValue);
-        	}
-        });
-		dialogVbox.getChildren().add(new Text(myStringResources.getString("choosePenColor")));
-		dialogVbox.getChildren().add(colorBox);
-        Scene dialogScene = new Scene(dialogVbox, ViewConstants.DBOX_WIDTH.getVal(), ViewConstants.DBOX_HEIGHT.getVal());
-        dialog.setScene(dialogScene);
+        ColorPicker colorPick = new ColorPicker(penColor);
+        colorPick.setOnAction(e-> penColor=colorPick.getValue());
+	dialogVbox.getChildren().addAll(shapeButton,new Text(myStringResources.getString("choosePenColor")),colorPick);
+        dialog.setScene(new Scene(dialogVbox, ViewConstants.DBOX_WIDTH.getVal(), ViewConstants.DBOX_HEIGHT.getVal()));
         dialog.show();
 	}
 	
