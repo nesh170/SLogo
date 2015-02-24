@@ -38,7 +38,10 @@ public class Controller {
 	
 	public void updateVariable(String variableName,double value){
 		myModel.updateVariable(variableName, value);
-		System.out.println(variableName + " " + value);
+	}
+	
+	public void updateMethodVariable(String variableName){
+	        myView.addMethodVariable(variableName);
 	}
 
 	public void executeProgram(String codeData) {
