@@ -70,7 +70,7 @@ public class Constants {
 	public static final Map<String, Integer> myStatementParamMap = new HashMap<>();
 	
 	public static void initializeMap(){
-		myStatementParamMap.put("foward", FORWARD_PARAMS);
-		myStatementParamMap.put("sum", SUM_PARAMS);
+		myStatementParamMap.put("Forward", FORWARD_PARAMS);
+		myStatementParamMap.put("Sum", SUM_PARAMS);
 	}
 }

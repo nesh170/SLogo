@@ -155,7 +155,7 @@ public class ViewFX extends ViewAbstract {
     }
 
     private void pushCodeToController () {
-        myController.executeCommand(myCodeElements.getCodeData());
+        myController.executeProgram(myCodeElements.getCodeData());
     }
 
     private void updateVariableFromView (ListView.EditEvent<Double> t) {
