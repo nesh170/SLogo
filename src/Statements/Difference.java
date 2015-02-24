@@ -3,6 +3,7 @@ package Statements;
 import java.util.List;
 
 import view.ViewAbstract;
+import Constants.Constants;
 
 public class Difference extends Command{
 
@@ -19,5 +20,10 @@ public class Difference extends Command{
 		myView.printMessage("" +result);
 		return result;
 	}
+
+//	@Override
+//	public int getNumParams() {
+//		return Constants.DIFFERENCE_PARAMS;
+//	}
 
 }

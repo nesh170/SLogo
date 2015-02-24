@@ -1,6 +1,7 @@
 package Statements;
 
 import java.util.List;
+import Constants.*;
 
 import view.ViewAbstract;
 
@@ -16,5 +17,10 @@ public class Log extends Command{
 		myView.printMessage("" + result);
 		return result;
 	}
+
+//	@Override
+//	public int getNumParams() {
+//		return Constants.LOG_PARAMS;
+//	}
 
 }

@@ -3,6 +3,7 @@ package Statements;
 import java.util.List;
 import Constants.Constants;
 import view.ViewAbstract;
+import Constants.*;
 
 public class Minus extends Command{
 
@@ -16,5 +17,10 @@ public class Minus extends Command{
 		myView.printMessage("" + result);
 		return result;
 	}
+
+//	@Override
+//	public int getNumParams() {
+//		return Constants.MINUS_PARAMS;
+//	}
 
 }

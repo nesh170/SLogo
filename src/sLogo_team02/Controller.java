@@ -1,5 +1,6 @@
 package sLogo_team02;
 
+import parser.Parser;
 import Model.Model;
 import view.ViewAbstract;
 import view.ViewFX;
@@ -12,9 +13,11 @@ public class Controller {
 	private Scene myScene;
 	private ViewAbstract myView;
 	private Model myModel;
+	private Parser myParser;
 	
 	public Controller(Stage stage){
 		myStage = stage;
+		myParser = new Parser();
 	}
 	
 	private void initializeViewAndModel(){
@@ -34,11 +37,12 @@ public class Controller {
 	}
 	
 	public void updateVariable(String variableName,double value){
-		//TODO calls model to update the variable
+		myModel.updateVariable(variableName, value);
 		System.out.println(variableName + " " + value);
 	}
 
-	public void executeCommand(String codeData) {
+	public void executeProgram(String codeData) {
+		myParser.parse(codeData);
 		myModel.processCommand("FirstTry");
 	}
 

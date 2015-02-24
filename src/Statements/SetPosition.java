@@ -6,7 +6,7 @@ import view.ViewAbstract;
 import Model.ModelTurtle;
 import Model.TurtleManager;
 
-public class SetPosition extends ActionCommand{
+public abstract class SetPosition extends ActionCommand{
 	protected double myExecuteResultX;
 	protected double myExecuteResultY;
 	

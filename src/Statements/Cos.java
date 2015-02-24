@@ -1,7 +1,7 @@
 package Statements;
 
 import java.util.List;
-
+import Constants.*;
 import view.ViewAbstract;
 
 public class Cos extends Command{
@@ -17,5 +17,10 @@ public class Cos extends Command{
 		myView.printMessage("" + result);
 		return result;
 	}
+
+//	@Override
+//	public int getNumParams() {
+//		return Constants.COS_PARAMS;
+//	}
 
 }

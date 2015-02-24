@@ -1,6 +1,7 @@
 package Statements;
 
 import view.ViewAbstract;
+import Constants.*;
 import Model.TurtleManager;
 
 public class Heading extends Query{
@@ -15,5 +16,10 @@ public class Heading extends Query{
 		myView.printMessage(result + "");
 		return result;
 	}
+
+//	@Override
+//	public int getNumParams() {
+//		return Constants.HEADING_PARAMS;
+//	}
 
 }

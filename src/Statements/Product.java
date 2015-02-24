@@ -3,6 +3,7 @@ package Statements;
 import java.util.List;
 
 import view.ViewAbstract;
+import Constants.*;
 
 public class Product extends Command{
 
@@ -16,5 +17,10 @@ public class Product extends Command{
 		myView.printMessage("" + result);
 		return result;
 	}
+
+//	@Override
+//	public int getNumParams() {
+//		return Constants.PRODUCT_PARAMS;
+//	}
 
 }
