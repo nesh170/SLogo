@@ -74,6 +74,7 @@ public class ViewTurtle {
 		return myShape;
 	}
 	
+	
 	private void setUpDialogBox(){
 	Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);

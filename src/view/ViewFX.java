@@ -80,19 +80,19 @@ public class ViewFX extends ViewAbstract {
         });
     }
 
-    private void test () {
-        addTurtle(0, 0, 0);
-        drawTurtle(350, 250, 0);
-        rotateTurtle(180, 0);
-        drawTurtle(100, 100, 0);
-        rotateTurtle(90, 0);
-        drawTurtle(15, 18, 0);
-//        clearScreen();
+//    private void test () {
 //        addTurtle(0, 0, 0);
-        addVariable("lol", 62.0);
-        addVariable("lolcv", 19.0);
-        addMethodVariable("Hibaci");
-    }
+//        drawTurtle(350, 250, 0);
+//        rotateTurtle(180, 0);
+//        drawTurtle(100, 100, 0);
+//        rotateTurtle(90, 0);
+//        drawTurtle(15, 18, 0);
+////        clearScreen();
+////        addTurtle(0, 0, 0);
+//        addVariable("lol", 62.0);
+//        addVariable("lolcv", 19.0);
+//        addMethodVariable("Hibaci");
+//    }
 
     @Override
     public void drawTurtle (double X, double Y, int ID) {

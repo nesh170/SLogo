@@ -45,8 +45,7 @@ public class CodePane {
 			@Override
 			public void changed(ObservableValue<? extends String> ov, String oldValue,
 					String newValue) {
-				fillCodeArea(newValue);
-				
+				clearAndFillCodeArea(newValue);
 			}
 
 		});
@@ -104,6 +103,10 @@ public class CodePane {
 	public void clearTerminal(){
 		myTerminal.getChildren().clear();
 		myTerminalLineNumber=1;
+	}
+	
+	private void clearAndFillCodeArea(String code){
+	    myCodeArea.setText(code);
 	}
 	
 	public void fillCodeArea(String newValue) {
