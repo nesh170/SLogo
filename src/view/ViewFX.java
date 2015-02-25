@@ -1,149 +1,200 @@
 package view;
 
-import java.sql.Time;
-import java.util.ArrayList;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
-
 import sLogo_team02.Controller;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.input.KeyCode;
+import slogoEnums.ViewConstants;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
+import javafx.scene.control.ListView;
+
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
 
 public class ViewFX extends ViewAbstract {
-	public static final int REVERSE_DIRECTION = -1;
-	private Group myRoot;
-	private Group myLineRoot;
-	private Group myTurtleRoot;
-	private CodePane myCodeElements;
-	private VariablePane myVariableElements;
-	private Map<String,ViewVariable> myVariableMap=new HashMap<String, ViewVariable>();
-	private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",new Locale("en", "US"));
-	private Map<Integer,ViewTurtle> myViewTurtles;
-	private Controller myController;
-	
-	public ObservableList<String> colors = FXCollections.observableArrayList(
-			"Black",
-			"Cyan",
-			"Red",
-			"Blue"
-	);
-	public ChoiceBox<String> cb = new ChoiceBox<String>(colors);
-	public ViewFX(Controller controller){
-		myController = controller;
-		initializeView();
-	}
-	
-	private void initializeView(){
-		myRoot = new Group();
-		myLineRoot = new Group();
-		myTurtleRoot = new Group();
-		myViewTurtles = new HashMap<>();
-		Scene viewScene = new Scene(myRoot,VIEW_WIDTH,VIEW_HEIGHT,Color.ALICEBLUE);
-		myCodeElements = new CodePane();
-		myVariableElements = new VariablePane();
-		myRoot.getChildren().addAll(myCodeElements.initializeCodePane(),myVariableElements.generateVariablePane(), myLineRoot, myTurtleRoot);
-		myCodeElements.setEnterButtonAction(e->pushCodeToController());
-		myController.setScene(viewScene);
-//		test();
-	}
+    private Group myRoot;
+    private Group myLineRoot;
+    private Group myTurtleRoot;
+    private CodePane myCodeElements;
+    private VariablePane myVariableElements;
+    private TurtlePlayground myPlayground;
+    private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",
+                                                                        new Locale("en", "US"));
+    private Map<Integer, ViewTurtle> myViewTurtlesMap;
+    private Controller myController;
 
-	
-	private void test(){
-		addTurtle(0,0, 0);
-		drawTurtle(350,250,0);
-		drawTurtle(100,100,0);
-		drawTurtle(15, 18, 0);
-//		clearScreen();
-//		addTurtle(0,0,0);
-		addVariable("lol", 62.0);
-	}
+    public ViewFX (Controller controller) {
+        myController = controller;
+        initializeView();
+    }
 
+    private void initializeView () {
+        myRoot = new Group();
+        myLineRoot = new Group();
+        myTurtleRoot = new Group();
+        myViewTurtlesMap = new HashMap<>();
+        new ButtonPane(myRoot, e -> changeBackgroundImage(), new ChangeListener<Number>() {
+            @Override
+            public void changed (ObservableValue<? extends Number> ov, Number value, Number newValue) {
+                changeLanuageinController(newValue.intValue());
+            }
+        });
+        myPlayground = new TurtlePlayground(myRoot);
+        Scene viewScene =
+                new Scene(myRoot, ViewConstants.STAGE_WIDTH.getVal(),
+                          ViewConstants.STAGE_HEIGHT.getVal(), Color.ALICEBLUE);
+        myCodeElements = new CodePane(myRoot, e -> pushCodeToController());
+        setUpVariablePane();
+        myRoot.getChildren().addAll(myLineRoot, myTurtleRoot);
+        myController.setScene(viewScene);
+//        test();
+    }
 
-	@Override
-	public void drawTurtle(double X, double Y, int ID) {
-		Line tempLine = myViewTurtles.get(ID).drawLine(new Point2D(X + ViewTurtle.ORIGIN_X, REVERSE_DIRECTION*Y + ViewTurtle.ORIGIN_Y));
-		myLineRoot.getChildren().add(tempLine);
-		moveTurtle(X,Y,ID);
-	}
+    private void setUpVariablePane () {
+        myVariableElements = new VariablePane(myRoot, new ChangeListener<String>() {
+            @Override
+            public void changed (ObservableValue<? extends String> ov,
+                                 String oldString,
+                                 String newString) {
+                myCodeElements.fillCodeArea(newString);
+            }
+        }, new EventHandler<ListView.EditEvent<Double>>() {
+            @Override
+            public void handle (ListView.EditEvent<Double> t) {
+                if (!t.getNewValue().equals(Double.NaN)) {
+                    updateVariableFromView(t);
+                }
+                else {
+                    printError(myStringResources.getString("wrongNumberType"));
+                }
+            }
+        });
+    }
 
-	@Override
-	public void moveTurtle(double X, double Y, int ID){
-		Point2D point = new Point2D(X, REVERSE_DIRECTION*Y);
-		myViewTurtles.get(ID).setNewLocation(point);
-	}
-	
-	@Override
-	public void rotateTurtle(double angle, int ID) {
-		//TODO figure out if model is storing the old angle? or should we have set heading ):
-	}
+    private void test () {
+        addTurtle(0, 0, 0);
+        drawTurtle(350, 250, 0);
+        rotateTurtle(180, 0);
+        drawTurtle(100, 100, 0);
+        rotateTurtle(90, 0);
+        drawTurtle(15, 18, 0);
+//        clearScreen();
+//        addTurtle(0, 0, 0);
+        addVariable("lol", 62.0);
+        addVariable("lolcv", 19.0);
+        addMethodVariable("Hibaci");
+    }
 
-	@Override
-	public void clearScreen(){
-		myLineRoot.getChildren().clear();
-		myTurtleRoot.getChildren().clear();
-		myCodeElements.clearTerminal();
-	}
+    @Override
+    public void drawTurtle (double X, double Y, int ID) {
+        Line tempLine =
+                myViewTurtlesMap.get(ID).drawLine(new Point2D(X + ViewConstants.ORIGIN_X.getVal(),
+                                                              ViewConstants.REVERSE_DIRECTION
+                                                                      .getVal() *
+                                                                      Y +
+                                                                      ViewConstants.ORIGIN_Y
+                                                                              .getVal()));
+        myLineRoot.getChildren().add(tempLine);
+        moveTurtle(X, Y, ID);
+    }
 
-	@Override
-	public void printError(String message) {
-		myCodeElements.addTerminalText(message, Color.RED);
-	}
+    @Override
+    public void moveTurtle (double X, double Y, int ID) {
+        Point2D point = new Point2D(X, ViewConstants.REVERSE_DIRECTION.getVal() * Y);
+        myViewTurtlesMap.get(ID).setNewLocation(point);
+    }
 
-	@Override
-	public void printMessage(String message) {
-		myCodeElements.addTerminalText(message, Color.YELLOW);
-	}
+    @Override
+    public void rotateTurtle (double angle, int ID) {
+        myViewTurtlesMap.get(ID).rotate(angle);
+    }
 
-	@Override
-	public void addTurtle(double X, double Y, int ID){
-		Point2D point = new Point2D(X, Y);
-		ViewTurtle vt = new ViewTurtle(point);
-		vt.setNewLocation(point);
-		myViewTurtles.put(ID,vt);
-		myTurtleRoot.getChildren().add(vt.getViewTurtles());
-	}
+    @Override
+    public void clearScreen () {
+        myLineRoot.getChildren().clear();
+        myTurtleRoot.getChildren().clear();
+        myCodeElements.clearTerminal();
+    }
 
-	@Override
-	public void addVariable(String variableName, Double value) {
-		if(myVariableMap.containsKey(variableName)){
-			myVariableMap.get(variableName).updateValue(value);
-		}
-		else{
-			ViewVariable tempVariable = new ViewVariable(variableName, value);
-			myVariableElements.add(tempVariable.generateVisualVariable(e->{
-				if(e.getCode().equals(KeyCode.ENTER)){
-					updateVariableFromView(variableName);
-				}
-			}));
-			myVariableMap.put(variableName, tempVariable);
-		}
-		
-	}
-	
-	private void pushCodeToController(){
-		myController.executeCommand(myCodeElements.getCodeData());
-	}
-	
-	private void updateVariableFromView(String variableName){
-		try{
-		double newVariableValue = myVariableMap.get(variableName).getValueInField();
-//		System.out.println(variableName + " " + newVariableValue);
-		}
-		catch(Exception e){
-			printError(myStringResources.getString("wrongNumberType"));
-		}
-		//TODO add methods to controller for updating variable;
-	}
+    @Override
+    public void printError (String message) {
+        myCodeElements.addTerminalText(message, Color.RED);
+    }
 
+    @Override
+    public void printMessage (String message) {
+        myCodeElements.addTerminalText(message, Color.YELLOW);
+    }
 
-	
+    @Override
+    public void addTurtle (double X, double Y, int ID) {
+        Point2D point = new Point2D(X, Y);
+        ViewTurtle vt = new ViewTurtle(point, ViewConstants.TURTLE_SIZE.getVal(), ID);
+        vt.setNewLocation(point);
+        myViewTurtlesMap.put(ID, vt);
+        myTurtleRoot.getChildren().add(vt.getViewTurtles());
+    }
+
+    @Override
+    public void addVariable (String variableName, Double value) {
+        myVariableElements.addNumberVariables(variableName, value);
+    }
+
+    @Override
+    public void addMethodVariable (String methodName) {
+        myVariableElements.addMethodVariable(methodName);
+    }
+
+    private void pushCodeToController () {
+        myController.executeProgram(myCodeElements.getCodeData());
+    }
+
+    private void updateVariableFromView (ListView.EditEvent<Double> t) {
+        try {
+            myVariableElements.setVariableValue(t.getIndex(), t.getNewValue());
+            myController.updateVariable(myVariableElements.getVariableName(t.getIndex()),
+                                        t.getNewValue());
+        }
+        catch (NumberFormatException e) {
+            printError(myStringResources.getString("wrongNumberType"));
+        }
+    }
+
+    private void changeBackgroundImage () {
+        String imageLocation = openFileChooser();
+        try{
+                myPlayground.changeBackground(imageLocation);
+        }
+        catch(IllegalArgumentException | NullPointerException e){
+                printError(myStringResources.getString("invalidImageType"));
+        }
+    }
+
+    public static String openFileChooser () {
+    	FileChooser fileChooser = new FileChooser();
+	fileChooser.setInitialDirectory(new File((System.getProperty("user.dir"))));
+	File file = fileChooser.showOpenDialog(new Stage());
+	if(file==null){
+	    return "";
+	}
+	return file.toString();
+    }
+
+    private void changeLanuageinController (int index) {
+        ResourceBundle myStringResources =
+                ResourceBundle.getBundle("resources.View.ViewText", new Locale("en", "US"));
+        myController
+                .changeLanguage(myStringResources.getString("languageFile").split("\\s+")[index]);
+    }
 }

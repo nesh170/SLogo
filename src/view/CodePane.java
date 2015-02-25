@@ -1,15 +1,18 @@
 package view;
 
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 import java.util.ResourceBundle;
-
+import slogoEnums.ViewConstants;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
@@ -18,69 +21,76 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
 public class CodePane {
-	//TODO switch this to an enum or leave it as a string map
 	public static final String TERMINAL_ID = "Terminal";
-	public static final Map<String,Integer> VALUE_MAP = new HashMap<>();
-	static{
-		VALUE_MAP.put("CodeAreaWidth",650);
-		VALUE_MAP.put("CodeAreaHeight", 200);
-		VALUE_MAP.put("TerminalWidth",324);
-		VALUE_MAP.put("TerminalHeight", 200);
-		VALUE_MAP.put("ButtonWidth", 50);
-		VALUE_MAP.put("ButtonHeight", 230);
-		VALUE_MAP.put("CodePaneY",568);
-		VALUE_MAP.put("MaxRows", 11);
-	}
 	private TextArea myCodeArea;
 	private TextFlow myTerminal;
 	private Button myEnterButton;
 	private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",new Locale("en", "US"));
 	private int myTerminalLineNumber=1;
+	private HistoryCodeBox myHistoryList;
 	
-	public GridPane initializeCodePane(){
-		GridPane codePane=new GridPane();
-		generateCodeArea();generateTerminal();generateEnterButton();
-		Node[] nodeArray = {myCodeArea,myEnterButton,myTerminal};
-		for(int col=0;col<nodeArray.length;col++){
-			codePane.add(nodeArray[col], col, 1);
-		}
-		codePane.setTranslateY(VALUE_MAP.get("CodePaneY"));
-		return codePane;
+	public CodePane(Group root, EventHandler<ActionEvent> handler){
+		initializeCodePane(root,handler);
 	}
 	
+	private void initializeCodePane(Group root,EventHandler<ActionEvent> handler){
+		GridPane gridPane=new GridPane();
+		generateCodeArea();generateTerminal();generateEnterButton(handler);
+		Node[] nodeArray = {myCodeArea,myEnterButton,generateScrollTerminal()};
+		for(int col=0;col<nodeArray.length;col++){
+			gridPane.add(nodeArray[col], col, 1);
+		}
+		gridPane.setTranslateY(ViewConstants.CODE_PANE_Y.getVal());
+		myHistoryList = new HistoryCodeBox(root,new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> ov, String oldValue,
+					String newValue) {
+				fillCodeArea(newValue);
+				
+			}
+
+		});
+		root.getChildren().add(gridPane);
+	}
+	
+	private ScrollPane generateScrollTerminal() {
+		ScrollPane scrollTerminal = new ScrollPane();
+		scrollTerminal.setContent(myTerminal);
+		scrollTerminal.setPrefSize(ViewConstants.TERMINAL_WIDTH.getVal(), ViewConstants.TERMINAL_HEIGHT.getVal());
+		scrollTerminal.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
+		scrollTerminal.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+		return scrollTerminal;
+	}
+
 	private void generateCodeArea(){
 		myCodeArea = new TextArea();
 		myCodeArea.setPromptText(myStringResources.getString("codeAreaPrompt"));
-		myCodeArea.setMinWidth(VALUE_MAP.get("CodeAreaWidth"));myCodeArea.setMinHeight(VALUE_MAP.get("CodeAreaHeight"));
+		myCodeArea.setMinSize(ViewConstants.CODE_AREA_WIDTH.getVal(), ViewConstants.CODE_AREA_HEIGHT.getVal());
 	}
 	
 	private void generateTerminal(){
 		Text termText = new Text(myStringResources.getString("terminalText"));
 		termText.setFill(Color.YELLOW);
 		myTerminal = new TextFlow(termText);
-		myTerminal.setPrefWidth(VALUE_MAP.get("TerminalWidth"));myTerminal.setPrefHeight(VALUE_MAP.get("TerminalHeight"));
+		myTerminal.setPrefSize(ViewConstants.TERMINAL_WIDTH.getVal()-ViewConstants.TERMINAL_SCROLL_WIDTH_PADDING.getVal(), ViewConstants.TERMINAL_HEIGHT.getVal()+ViewConstants.TERMINAL_SCROLL_HEIGHT_PADDING.getVal());
 		Background termBlack = new Background(new BackgroundFill(Color.BLACK, null, null));
 		myTerminal.setBackground(termBlack);
 	}
 	
-	private void generateEnterButton(){
+	private void generateEnterButton(EventHandler<ActionEvent> handler){
 		myEnterButton = new Button(myStringResources.getString("enter"));
-		myEnterButton.setMinWidth(VALUE_MAP.get("ButtonWidth"));myEnterButton.setMinHeight(VALUE_MAP.get("ButtonHeight"));
+		myEnterButton.setMinSize(ViewConstants.ENTER_WIDTH.getVal(), ViewConstants.ENTER_HEIGHT.getVal());
+		myEnterButton.setOnAction(handler);
 		myEnterButton.setStyle(myStringResources.getString("enterButtonStyle"));
 	}
 	
-	public void setEnterButtonAction(EventHandler<ActionEvent> handler){
-		myEnterButton.setOnAction(handler);
-	}
 	
 	public String getCodeData(){
+		myHistoryList.addCodeToList(myCodeArea.getText());
 		return myCodeArea.getText();
 	}
 	
 	public void addTerminalText(String text, Color color){
-		if(myTerminalLineNumber==VALUE_MAP.get("MaxRows")){
-			clearTerminal();
-		}
 		StringBuilder tempBuilder = new StringBuilder(Integer.toString(myTerminalLineNumber));
 		tempBuilder.append(". ");
 		tempBuilder.append(text);
@@ -95,5 +105,11 @@ public class CodePane {
 		myTerminal.getChildren().clear();
 		myTerminalLineNumber=1;
 	}
+	
+	public void fillCodeArea(String newValue) {
+		myCodeArea.setText(myCodeArea.getText() + " " + newValue);
+	}
+	
+	
 	
 }

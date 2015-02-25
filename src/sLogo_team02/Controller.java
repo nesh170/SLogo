@@ -1,5 +1,6 @@
 package sLogo_team02;
 
+import parser.Parser;
 import Model.Model;
 import view.ViewAbstract;
 import view.ViewFX;
@@ -12,9 +13,11 @@ public class Controller {
 	private Scene myScene;
 	private ViewAbstract myView;
 	private Model myModel;
+	private Parser myParser;
 	
 	public Controller(Stage stage){
 		myStage = stage;
+		myParser = new Parser();
 	}
 	
 	private void initializeViewAndModel(){
@@ -32,9 +35,22 @@ public class Controller {
 	public void setScene(Scene s){
 		myScene = s;
 	}
+	
+	public void updateVariable(String variableName,double value){
+		myModel.updateVariable(variableName, value);
+	}
+	
+	public void updateMethodVariable(String variableName){
+	        myView.addMethodVariable(variableName);
+	}
 
-	public void executeCommand(String codeData) {
+	public void executeProgram(String codeData) {
+		myParser.parse(codeData);
 		myModel.processCommand("FirstTry");
-		System.out.println(codeData);
+	}
+
+	public void changeLanguage(String languagePath) {
+		//TODO add change lanuage stuff here. figure out if model wants a string or a resourcefile.
+		System.out.println(languagePath);
 	}
 }
