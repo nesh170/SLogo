@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import Constants.Constants;
 import Model.Program;
 public class Parser {
@@ -22,7 +21,6 @@ public class Parser {
 	private Map<String, Integer> myProgMethodsAndParams;
 
 	public Parser(){
-		Constants.initializeMap();
 		myRegex = new Regex(Constants.SYNTAX, Constants.DEFAULT_LANGUAGE);
 		myCurIndex = -1;
 		myProgramVariables = new HashSet<>();
@@ -81,22 +79,30 @@ public class Parser {
 		switch(type){
 		case "Command":
 			String commandType = myRegex.matchCommand(nodeName);
-			int loopTimes;
 			//check if commmandtype is null, this means it may be a user defined command and call appropriate helper
 			if(commandType == null){
 				//check if user defined method and act accordingly
 				System.out.println("Command type is null");
 				return null;
 			}
-			
-			loopTimes = Constants.myStatementParamMap.get(commandType);
+			 int loopTimes = 0;
+             try {
+                 loopTimes = Constants.getNumParam(commandType);
+             }
+             catch (IllegalArgumentException e) {
+                 // TODO Auto-generated catch block
+                 e.printStackTrace();
+             }
+             catch (IllegalAccessException e) {
+                 // TODO Auto-generated catch block
+                 e.printStackTrace();
+             }
 			switch(commandType){
 			case USER_DEFINED:
 				loopTimes = myProgMethodsAndParams.get(nodeName);
 				retrieveChildren(current, loopTimes);
 				break;
 			case "MakeVariable":
-			//add the variable to the variable set
 				if(atEndOfString()){
 					System.out.println("Missing the variable for make");
 					return null;
