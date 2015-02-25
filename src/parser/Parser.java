@@ -1,14 +1,15 @@
 package parser;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import Constants.Constants;
 import Model.Program;
 public class Parser {
-	private static final String DEFAULT_LANGUAGE = "resources/languages/English";
-	private static final String SYNTAX = "resources/languages/Syntax";
+	private static final String USER_DEFINED = "UserDefined";
 	private static final String OPEN_BRACKET = "[";
 	private static final String CLOSED_BRACKET = "]";
 	private static final String GROUP = "Group";
@@ -17,24 +18,23 @@ public class Parser {
 	private int myCurIndex;
 	private String[] myCurProgramArray;
 	private Set<String> myProgramVariables;
-	private Set<String> myProgMethods;
+	private Map<String, Integer> myProgMethodsAndParams;
 
 	public Parser(){
-		myRegex = new Regex(SYNTAX, DEFAULT_LANGUAGE);
+		myRegex = new Regex(Constants.SYNTAX, Constants.DEFAULT_LANGUAGE);
 		myCurIndex = -1;
 		myProgramVariables = new HashSet<>();
-		myProgMethods = new HashSet<>();
+		myProgMethodsAndParams = new HashMap<>();
 	}
 	//returns a program, once that class is created
-	public void parse(String program){
+	public List<ParseNode> parse(String program){
 //		preProcess the string;
 		String processed = preProcessString(program);
 		if(processed == null){
-			return;
+			return null;
 		}
 		myCurProgramArray = processed.split(" ");
 //		create a program;
-		Program curProgram = new Program();
 		List<ParseNode> topNodes = new ArrayList<>();
 //		loop through the string array until it's empty{
 		while(myCurIndex < myCurProgramArray.length-1){
@@ -51,6 +51,8 @@ public class Parser {
 //			add current node (head node of each independent command) to the statement list; 
 //		}
 //		make and return program;
+		myCurIndex = -1;
+		return topNodes;
 	}
 	
 	public void changeLanguage(String language){
@@ -78,46 +80,47 @@ public class Parser {
 		case "Command":
 			String commandType = myRegex.matchCommand(nodeName);
 			//check if commmandtype is null, this means it may be a user defined command and call appropriate helper
-			switch(commandType){
-			case "MakeVariable":
-			
-			default:
-                    int loopTimes=0;
-                    try {
-                        loopTimes = Constants.getNumParam(commandType);
-                    }
-                    catch (IllegalArgumentException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                    catch (IllegalAccessException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-				while(current.getNumChildren() < loopTimes){
-					if(atEndOfString()){
-						System.out.println("Missing parameters for a command");
-						return null;
-					}
-					String next = myCurProgramArray[++myCurIndex];
-					if(next.equals(OPEN_BRACKET)){
-						ParseNode newGroup = new ParseNode(GROUP);
-						System.out.println("New Node: " + newGroup.getName());
-						ParseNode processedNode = recursiveCommandBuilder(newGroup);
-						current.addChild(processedNode);
-					}
-					else if(next.equals(CLOSED_BRACKET)){
-						System.out.println("Out of place end bracket");
-					}
-					else{
-						ParseNode newNode = new ParseNode(next);
-						System.out.println("New Node: " + newNode.getName());
-						ParseNode processedNode = recursiveCommandBuilder(newNode);
-						current.addChild(processedNode);
-						System.out.println("Added node: " + processedNode.getName());
-					}
-				}
+			if(commandType == null){
+				//check if user defined method and act accordingly
+				System.out.println("Command type is null");
+				return null;
 			}
+			 int loopTimes = 0;
+             try {
+                 loopTimes = Constants.getNumParam(commandType);
+             }
+             catch (IllegalArgumentException e) {
+                 // TODO Auto-generated catch block
+                 e.printStackTrace();
+             }
+             catch (IllegalAccessException e) {
+                 // TODO Auto-generated catch block
+                 e.printStackTrace();
+             }
+			switch(commandType){
+			case USER_DEFINED:
+				loopTimes = myProgMethodsAndParams.get(nodeName);
+				retrieveChildren(current, loopTimes);
+				break;
+			case "MakeVariable":
+				if(atEndOfString()){
+					System.out.println("Missing the variable for make");
+					return null;
+				}
+				String variable = myCurProgramArray[myCurIndex+1];
+				if(!(myRegex.matchSyntax(variable).equals("Variable"))){
+					System.out.println("Thing after make is not of variable format");
+					return null;
+				}
+				myProgramVariables.add(variable);
+				System.out.println("Added variable to variable set. "+ myProgramVariables.contains(variable));
+				retrieveChildren(current, loopTimes);
+				break;
+			default:
+				retrieveChildren(current, loopTimes);
+				break;
+			}
+			return current;
 			
 		case "Constant":
 			return current;
@@ -129,18 +132,34 @@ public class Parser {
 			System.out.println("YOU SCREWED UP SOMEWHERE");
 		}
 		
-//		run regex to recognize the pattern;
-//		switch "pattern"
-//		case make:
-//		case to:
-//		case loop:
-//		case command:
-//			group here
-//		case constant:
-//		case group:
-//		case variable:
-//		
 		return null;
+	}
+	
+	private void retrieveChildren(ParseNode current, int loopTimes) {
+		while(current.getNumChildren() < loopTimes){
+			if(atEndOfString()){
+				System.out.println("Missing parameters for a command");
+				//NOTE, ADD ERROR CHECKING HERE, WANT TO THROW ERROR
+				return;
+			}
+			String next = myCurProgramArray[++myCurIndex];
+			if(next.equals(OPEN_BRACKET)){
+				ParseNode newGroup = new ParseNode(GROUP);
+				System.out.println("New Node: " + newGroup.getName());
+				ParseNode processedNode = recursiveCommandBuilder(newGroup);
+				current.addChild(processedNode);
+			}
+			else if(next.equals(CLOSED_BRACKET)){
+				System.out.println("Out of place end bracket");
+			}
+			else{
+				ParseNode newNode = new ParseNode(next);
+				System.out.println("New Node: " + newNode.getName());
+				ParseNode processedNode = recursiveCommandBuilder(newNode);
+				current.addChild(processedNode);
+				System.out.println("Added node: " + processedNode.getName());
+			}
+		}
 	}
 	
 	private boolean atEndOfString(){

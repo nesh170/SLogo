@@ -1,7 +1,11 @@
 package sLogo_team02;
 
-import parser.Parser;
+import java.util.List;
+
+import parser.*;
+import programBuilder.*;
 import Model.Model;
+import Model.Program;
 import view.ViewAbstract;
 import view.ViewFX;
 import javafx.scene.Scene;
@@ -14,6 +18,7 @@ public class Controller {
 	private ViewAbstract myView;
 	private Model myModel;
 	private Parser myParser;
+	private ProgramBuilder myProgBuilder;
 	
 	public Controller(Stage stage){
 		myStage = stage;
@@ -23,6 +28,7 @@ public class Controller {
 	private void initializeViewAndModel(){
 		myView = new ViewFX(this);
 		myModel = new Model(myView);
+		myProgBuilder = new ProgramBuilder(myView, myModel.getTurtleManager(), myModel.getVariableManager());
 	}
 	
 	public void setUpStage(){
@@ -45,12 +51,15 @@ public class Controller {
 	}
 
 	public void executeProgram(String codeData) {
-		myParser.parse(codeData);
-		myModel.processCommand("FirstTry");
+		System.out.println(codeData);
+		List<ParseNode> topNodes = myParser.parse(codeData);
+		System.out.println(topNodes.size());
+		Program newProg = myProgBuilder.buildProgram(topNodes);
+		myModel.processCommand(newProg);
 	}
 
 	public void changeLanguage(String languagePath) {
-		//TODO add change lanuage stuff here. figure out if model wants a string or a resourcefile.
+		//TODO add change language stuff here. figure out if model wants a string or a resourcefile.
 		System.out.println(languagePath);
 	}
 }
