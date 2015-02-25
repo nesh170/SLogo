@@ -29,8 +29,7 @@ public class HistoryCodeBox {
 	    historyBox.setSpacing(ViewConstants.VARIABLE_TABLE_SPACING.getVal());
 		myHistoryListView = generateListView(listener);
 		Text historyListTitle = new Text(myStringResources.getString("historyTitle"));
-		historyBox.getChildren().add(historyListTitle);
-		historyBox.getChildren().add(myHistoryListView);
+		historyBox.getChildren().addAll(historyListTitle,myHistoryListView);
 		historyBox.setTranslateX(ViewConstants.HISTORY_START_X.getVal());
 		root.getChildren().add(historyBox);
 	}
