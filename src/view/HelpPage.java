@@ -3,7 +3,6 @@ package view;
 import java.io.File;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import slogoEnums.ViewConstants;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -31,11 +30,9 @@ public class HelpPage extends Application{
 	
 	private WebView initializePage(){
 		WebView browser = new WebView();
-		browser.setMaxSize(ViewConstants.WEB_WIDTH.getVal(), ViewConstants.WEB_HEIGHT.getVal());
 		WebEngine webEngine = browser.getEngine();
 		File htmlFile = new File(myPath);
 		webEngine.load(htmlFile.toURI().toString());
-		browser.isResizable();
 		return browser;
 	}
 	

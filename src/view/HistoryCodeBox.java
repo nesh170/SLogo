@@ -2,7 +2,6 @@ package view;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
-import slogoEnums.ViewConstants;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,6 +10,7 @@ import javafx.scene.Group;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import slogoEnums.ViewConstants;
 
 public class HistoryCodeBox {
 	
@@ -26,7 +26,7 @@ public class HistoryCodeBox {
 	private void initializeSuggestedView(Group root,ChangeListener<String> listener){
 		VBox historyBox = new VBox();
 		historyBox.setPadding(new Insets(ViewConstants.VARIABLE_TABLE_PADDING.getVal()));
-	    historyBox.setSpacing(ViewConstants.VARIABLE_TABLE_SPACING.getVal());
+	        historyBox.setSpacing(ViewConstants.VARIABLE_TABLE_SPACING.getVal());
 		myHistoryListView = generateListView(listener);
 		Text historyListTitle = new Text(myStringResources.getString("historyTitle"));
 		historyBox.getChildren().addAll(historyListTitle,myHistoryListView);
