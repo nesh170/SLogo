@@ -74,7 +74,7 @@ public class ViewTurtle {
 		return myShape;
 	}
 	private void setUpDialogBox(){
-		Stage dialog = new Stage();
+	Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         VBox dialogVbox = new VBox(ViewConstants.VARIABLE_TABLE_SPACING.getVal());
         dialog.setTitle(myStringResources.getString("idText") + myID);

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import Constants.Constants;
 import Model.Program;
 public class Parser {
@@ -21,7 +20,6 @@ public class Parser {
 	private Set<String> myProgMethods;
 
 	public Parser(){
-		Constants.initializeMap();
 		myRegex = new Regex(SYNTAX, DEFAULT_LANGUAGE);
 		myCurIndex = -1;
 		myProgramVariables = new HashSet<>();
@@ -84,7 +82,18 @@ public class Parser {
 			case "MakeVariable":
 			
 			default:
-				int loopTimes = Constants.myStatementParamMap.get(commandType);
+                    int loopTimes=0;
+                    try {
+                        loopTimes = Constants.getNumParam(commandType);
+                    }
+                    catch (IllegalArgumentException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    catch (IllegalAccessException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
 				while(current.getNumChildren() < loopTimes){
 					if(atEndOfString()){
 						System.out.println("Missing parameters for a command");
