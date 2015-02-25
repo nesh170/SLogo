@@ -18,6 +18,7 @@ public abstract class Walking extends ActionCommand{
 	@Override
 	public double execute() {
 		double executeResult = myStatements.get(0).execute();
+		System.out.println("size of active turtles: " + myTurtleManager.getActiveTurtles().size());
 		for(Integer ID: myTurtleManager.getActiveTurtles()){
 			ModelTurtle currentTurtle = myTurtleManager.getTurtle(ID);
 			currentTurtle.moveTurtle(executeResult, myAngle);

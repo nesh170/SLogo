@@ -32,6 +32,8 @@ public class TurtleManager {
 	
 	public void addTurtle(Integer turtleID){
 		myTurtles.put(turtleID, new ModelTurtle(turtleID));
+		//automatically activates new turtles
+		myActiveTurtles.add(turtleID);
 	}
 	
 	public ModelTurtle getTurtle(Integer ID){

@@ -18,6 +18,8 @@ public class Program {
 	}
 	
 	public void execute() {
+		System.out.println("Size of the statement: " + myStatements.size());
+		System.out.println(myStatements.get(0).getClass().toString());
 		for (Statement statement : myStatements) {
 			statement.execute();
 		}

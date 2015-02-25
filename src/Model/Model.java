@@ -20,8 +20,16 @@ public class Model {
 		myTurtleManager.addTurtle(0);
 		myVariableManager = new VariableManager();
 	}
+	
+	public TurtleManager getTurtleManager(){
+		return myTurtleManager;
+	}
+	
+	public VariableManager getVariableManager(){
+		return myVariableManager;
+	}
 
-	public void processCommand(String program) {
+	public void processCommand(Program program) {
 //		Statement value = new Value(5);
 ////		Statement value2 = new Value(2);
 ////		Statement value3 = new Value(3);
@@ -109,6 +117,7 @@ public class Model {
 //		statementList.add(make);
 //		Program localProgram = new Program(statementList);
 //		localProgram.execute();
+		program.execute();
 	}
 
 	public void changeLanguage() {
