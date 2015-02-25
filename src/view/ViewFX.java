@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
-import sLogo_team02.Controller;
-import slogoEnums.ViewConstants;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -18,6 +16,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import sLogo_team02.Controller;
+import slogoEnums.ViewConstants;
 
 
 public class ViewFX extends ViewAbstract {
@@ -56,7 +56,6 @@ public class ViewFX extends ViewAbstract {
         setUpVariablePane();
         myRoot.getChildren().addAll(myLineRoot, myTurtleRoot);
         myController.setScene(viewScene);
-//        test();
     }
 
     private void setUpVariablePane () {
@@ -79,20 +78,6 @@ public class ViewFX extends ViewAbstract {
             }
         });
     }
-
-//    private void test () {
-//        addTurtle(0, 0, 0);
-//        drawTurtle(350, 250, 0);
-//        rotateTurtle(180, 0);
-//        drawTurtle(100, 100, 0);
-//        rotateTurtle(90, 0);
-//        drawTurtle(15, 18, 0);
-////        clearScreen();
-////        addTurtle(0, 0, 0);
-//        addVariable("lol", 62.0);
-//        addVariable("lolcv", 19.0);
-//        addMethodVariable("Hibaci");
-//    }
 
     @Override
     public void drawTurtle (double X, double Y, int ID) {
