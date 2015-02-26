@@ -19,43 +19,45 @@ public class Controller {
 	private Model myModel;
 	private Parser myParser;
 	private ProgramBuilder myProgBuilder;
-	
+
 	public Controller(Stage stage){
 		myStage = stage;
 		myParser = new Parser();
 	}
-	
+
 	private void initializeViewAndModel(){
 		myView = new ViewFX(this);
 		myModel = new Model(myView);
 		myProgBuilder = new ProgramBuilder(myView, myModel.getTurtleManager(), myModel.getVariableManager());
 	}
-	
+
 	public void setUpStage(){
 		initializeViewAndModel();
 		myStage.setScene(myScene);
 		myStage.setTitle(TITLE);
 		myStage.show();
 	}
-	
+
 	public void setScene(Scene s){
 		myScene = s;
 	}
-	
+
 	public void updateVariable(String variableName,double value){
 		myModel.updateVariable(variableName, value);
 	}
-	
+
 	public void updateMethodVariable(String variableName){
-	        myView.addMethodVariable(variableName);
+		myView.addMethodVariable(variableName);
 	}
 
 	public void executeProgram(String codeData) {
 		System.out.println(codeData);
 		List<ParseNode> topNodes = myParser.parse(codeData);
-		System.out.println(topNodes.size());
-		Program newProg = myProgBuilder.buildProgram(topNodes);
-		myModel.processCommand(newProg);
+		if(topNodes != null){
+			System.out.println(topNodes.size());
+			Program newProg = myProgBuilder.buildProgram(topNodes);
+			myModel.processCommand(newProg);
+		}
 	}
 
 	public void changeLanguage(String languagePath) {

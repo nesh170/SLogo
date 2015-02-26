@@ -1,11 +1,13 @@
 package parser;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import Constants.Constants;
 import Model.Program;
 public class Parser {
@@ -34,7 +36,9 @@ public class Parser {
 			return null;
 		}
 		myCurProgramArray = processed.split(" ");
-		//		create a program;
+		ArrayList<String> programArray = new ArrayList<>(Arrays.asList(myCurProgramArray));
+		System.out.println(programArray);
+//		create a program;
 		List<ParseNode> topNodes = new ArrayList<>();
 		//		loop through the string array until it's empty{
 		while(myCurIndex < myCurProgramArray.length-1){
@@ -61,14 +65,43 @@ public class Parser {
 
 	public String preProcessString(String program){
 		String[] splitProgram = program.split(" ");
-		//		check if string is empty
+		System.out.println("originally the program is "+program);
+//		check if string is empty
 		if(splitProgram.length < 1 | program.length() < 1){
 			System.out.println("String empty or full of spaces");
 			return null;
 		}
-
+		List<Character> programArray = new ArrayList<Character>();
+		List<Character> correctArray = new ArrayList<Character>();
+		for(char c: program.toCharArray()){
+			programArray.add(c);
+		}
+		System.out.println("the programarray is "+programArray);
+		
+		boolean deleteFlag = false;
+		for(int i = 0; i < programArray.size(); i++){
+			if(programArray.get(i) == '#'){
+				deleteFlag = true;
+			}
+			if(programArray.get(i) == '\n'){
+				System.out.println("ever comes here");
+				deleteFlag = false;
+				continue;
+			}
+			if(!deleteFlag){
+				correctArray.add(programArray.get(i));
+				System.out.println("added is "+programArray.get(i));
+			}
+		}
+		System.out.println("the correct array is");
+		StringBuilder builder = new StringBuilder(correctArray.size());
+		for(Character c: correctArray){
+			//System.out.print((c));
+			builder.append(c);
+		}
+		System.out.println();
 		//pre-process the string to remove comments
-		return program;
+		return builder.toString();
 	}
 
 	private ParseNode recursiveCommandBuilder(ParseNode current){
