@@ -21,10 +21,11 @@ public class ModelTurtle {
 	}
 
 	public void moveTurtle(double distance, double angle) {
-		myCurX += Math.sin(angle) * distance;
+		myCurX += Math.sin(Math.toRadians((angle + myAngle) % Constants.FULL_CIRCLE)) * distance;
 		System.out.println("myCurX is "+myCurX);
-		myCurY += Math.cos(angle) * distance;
+		myCurY += Math.cos(Math.toRadians((angle + myAngle) % Constants.FULL_CIRCLE)) * distance;
 		System.out.println("myCurY is "+myCurY);
+		System.out.println();
 		myTotalDistance += distance;
 	}
 
