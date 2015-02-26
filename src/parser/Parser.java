@@ -30,12 +30,15 @@ public class Parser {
 		myProgMethodsAndParams = new HashMap<>();
 	}
 
+	public Regex getRegex(){
+		return myRegex;
+	}
+	
 	// returns a program, once that class is created
 	public List<ParseNode> parse(String program) throws ParserException {
 		// preProcess the string;
 		String processed = preProcessString(program);
 		if (processed == null) {
-			System.out.println("null string from preprocess");
 			return null;
 		}
 		myCurProgramArray = processed.split(" ");
@@ -65,7 +68,7 @@ public class Parser {
 	}
 
 	public void changeLanguage(String language) {
-
+		myRegex.changeLanguagePattern(language);
 	}
 
 	public String preProcessString(String program) {
@@ -81,7 +84,7 @@ public class Parser {
 		for (char c : program.toCharArray()) {
 			programArray.add(c);
 		}
-		System.out.println("the programarray is " + programArray);
+		//System.out.println("the programarray is " + programArray);
 
 		boolean deleteFlag = false;
 		for (int i = 0; i < programArray.size(); i++) {
@@ -89,13 +92,13 @@ public class Parser {
 				deleteFlag = true;
 			}
 			if (programArray.get(i) == '\n') {
-				System.out.println("ever comes here");
+				//System.out.println("ever comes here");
 				deleteFlag = false;
 				continue;
 			}
 			if (!deleteFlag) {
 				correctArray.add(programArray.get(i));
-				System.out.println("added is " + programArray.get(i));
+				//System.out.println("added is " + programArray.get(i));
 			}
 		}
 		System.out.println("the correct array is");
