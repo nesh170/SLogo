@@ -17,11 +17,11 @@ public class ProgramBuilder {
 	private VariableManager myVariableManager;
 	private Regex myRegex;
 
-	public ProgramBuilder(ViewAbstract view, TurtleManager turtles, VariableManager vars){
+	public ProgramBuilder(ViewAbstract view, TurtleManager turtles, VariableManager vars, Regex regex){
 		myView = view;
 		myTurtleManager = turtles;
 		myVariableManager = vars;
-		myRegex = new Regex(Constants.SYNTAX, Constants.DEFAULT_LANGUAGE);
+		myRegex = regex;
 	}
 	
 	public Program buildProgram(List<ParseNode> topNodes){
