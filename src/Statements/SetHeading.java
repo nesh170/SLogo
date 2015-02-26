@@ -3,10 +3,7 @@ package Statements;
 import java.util.List;
 
 import view.ViewAbstract;
-import Constants.Constants;
-import Model.ModelTurtle;
 import Model.TurtleManager;
-import Constants.Constants;
 public class SetHeading extends SetAngle {
 
 	public SetHeading(List<Statement> statements, ViewAbstract view,
