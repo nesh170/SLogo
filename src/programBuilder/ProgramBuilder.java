@@ -16,7 +16,7 @@ public class ProgramBuilder {
 	private TurtleManager myTurtleManager;
 	private VariableManager myVariableManager;
 	private Regex myRegex;
-	
+
 	public ProgramBuilder(ViewAbstract view, TurtleManager turtles, VariableManager vars){
 		myView = view;
 		myTurtleManager = turtles;
@@ -37,7 +37,7 @@ public class ProgramBuilder {
 		//get type string: if constant --> "constant", if variable --> "variable", if userdefined --> "user"
 		//other wise type = node name
 		String type = myRegex.matchSyntax(nodeName);
-		ArrayList<ArrayList<Statement>> paramLists = new ArrayList<>();
+		List<List<Statement>> paramLists = new ArrayList<>();
 		switch (type){
 		case "Constant":
 			System.out.println("creating constant: " + Double.parseDouble(nodeName));
@@ -46,9 +46,9 @@ public class ProgramBuilder {
 			System.out.println("creating variable");
 			return new Variable(nodeName, myVariableManager);
 		default:
-			ArrayList<Statement> baseList = new ArrayList<>();
+			List<Statement> baseList = new ArrayList<>();
 			paramLists.add(baseList);
-			ArrayList<Statement> curList = baseList;
+			List<Statement> curList = baseList;
 			for(int i = 0; i < node.getNumChildren(); i++){
 				ParseNode curChild = node.getChildren().get(i);
 				if(curChild.getName().equals("Group")){
@@ -65,16 +65,6 @@ public class ProgramBuilder {
 		}
 		
 		String commandType = myRegex.matchCommand(nodeName);
-		switch(commandType){
-		case "Forward":
-			System.out.println("Making forward object");
-			return new Forward(paramLists.get(0), myView, myTurtleManager);
-		case "Sum":
-			System.out.println("Making sum object");
-			return new Sum(paramLists.get(0), myView);
-		default:
-			//throw an error
-			return new Forward(paramLists.get(0), myView, myTurtleManager);
-		}
+		return CommandFactory.generateCommand(commandType, paramLists, myView, myTurtleManager, myVariableManager, myRegex);
 	}
 }
