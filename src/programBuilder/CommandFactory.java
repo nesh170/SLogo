@@ -40,6 +40,10 @@ public class CommandFactory {
 			return new Heading(myView, myTurtleManager);
 		case "LessThan":
 			return new LessThan(statements.get(0));
+		case "Repeat":
+			return new Repeat(statements, myVariableManager);
+		case "MakeVariable":
+			return new Make(statements.get(0), myView, myVariableManager);
 		default:
 			// throw an error
 			return new Forward(statements.get(0), myView, myTurtleManager);

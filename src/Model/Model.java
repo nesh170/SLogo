@@ -18,7 +18,7 @@ public class Model {
 		myTurtleManager = new TurtleManager();
 		myView.addTurtle(0, 0, 0);
 		myTurtleManager.addTurtle(0);
-		myVariableManager = new VariableManager();
+		myVariableManager = new VariableManager(myView);
 	}
 	
 	public TurtleManager getTurtleManager(){

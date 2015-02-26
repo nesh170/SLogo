@@ -117,10 +117,11 @@ public class Parser {
 		String nodeName = current.getName();
 
 		String type = myRegex.matchSyntax(nodeName);
-
 		switch (type) {
 		case "Command":
 			String commandType = myRegex.matchCommand(nodeName);
+			System.out.println("The type for the node " + nodeName + " is "+commandType);
+			
 			// check if commmandtype is null, this means it may be a user
 			// defined command and call appropriate helper
 			if (commandType == null) {
@@ -164,8 +165,13 @@ public class Parser {
 						+ myProgramVariables.contains(variable));
 				retrieveChildren(current, loopTimes);
 				break;
+
 			case GROUP:
 				getGroupKids(current);
+				break;
+			case "Repeat":
+				myProgramVariables.add(":repcount");
+				retrieveChildren(current, loopTimes);
 				break;
 			default:
 				retrieveChildren(current, loopTimes);

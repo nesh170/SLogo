@@ -10,6 +10,7 @@ public class Value extends Statement {
 
 	@Override
 	public double execute() {
+		System.out.println("returning value " + myValue);
 		return myValue;
 	}
 

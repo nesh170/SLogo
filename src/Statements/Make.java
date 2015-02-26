@@ -18,7 +18,7 @@ public class Make extends Command{
 	public double execute() {
 		double value = myStatements.get(1).execute();
 		myManager.addVariable(((Variable)myStatements.get(0)).getName(), value);
-		myView.addVariable(((Variable)myStatements.get(0)).getName(), value);
+//		myView.addVariable(((Variable)myStatements.get(0)).getName(), value);
 		return value;
 	}
 

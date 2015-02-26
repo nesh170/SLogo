@@ -23,7 +23,7 @@ public class Constants {
 	public static final String REPEAT_VARIABLE = ":repcount";
 	
 	public static final int FORWARD = 1;
-	public static final int BACK = 1;
+	public static final int BACKWARD = 1;
 	public static final int LEFT = 1;
 	public static final int RIGHT = 1;
 	public static final int SETHEADING = 1;
@@ -78,6 +78,7 @@ public class Constants {
             String fieldString = field.toString();
             if (fieldString.endsWith(paramName.toUpperCase())) { return (int) field.get(null); }
         }
+        System.out.println("returning max value");
         return Integer.MAX_VALUE;
     }
 	
