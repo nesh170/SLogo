@@ -24,4 +24,7 @@ public class ParseNode {
 		myChildren.add(newChild);
 	}
 
+	public List<ParseNode> getChildren(){
+		return myChildren;
+	}
 }
