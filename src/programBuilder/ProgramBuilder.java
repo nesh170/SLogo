@@ -55,7 +55,9 @@ public class ProgramBuilder {
 					if(i != 0){
 						curList = new ArrayList<>();
 						paramLists.add(curList);
-						//loop through children and add them to the list 
+					}
+					for(ParseNode groupKid: curChild.getChildren()){
+						curList.add(recursiveStatementBuilder(groupKid));
 					}
 				}
 				else{
