@@ -10,6 +10,7 @@ import view.ViewAbstract;
 import view.ViewFX;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import exceptions.*;
 
 public class Controller {
 	public static final String TITLE ="SLOGO Team_02";
@@ -52,11 +53,13 @@ public class Controller {
 
 	public void executeProgram(String codeData) {
 		System.out.println(codeData);
-		List<ParseNode> topNodes = myParser.parse(codeData);
-		if(topNodes != null){
-			System.out.println(topNodes.size());
+		try{
+			List<ParseNode> topNodes = myParser.parse(codeData);
+			System.out.println("Printing after parsing: " + topNodes.size());
 			Program newProg = myProgBuilder.buildProgram(topNodes);
 			myModel.processCommand(newProg);
+		}catch(ParserException e){
+			myView.printError(e.toString());
 		}
 	}
 
