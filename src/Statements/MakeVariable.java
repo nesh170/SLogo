@@ -6,10 +6,10 @@ import Constants.*;
 import Model.VariableManager;
 import view.ViewAbstract;
 
-public class Make extends Command{
+public class MakeVariable extends Command{
 	private VariableManager myManager;
 	
-	public Make(List<Statement> statements, ViewAbstract view, VariableManager manager) {
+	public MakeVariable(List<Statement> statements, ViewAbstract view, VariableManager manager) {
 		super(statements, view);
 		myManager = manager;
 	}
