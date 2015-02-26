@@ -41,7 +41,7 @@ public class Controller {
 	}
 	
 	public void updateMethodVariable(String variableName){
-	        myView.addMethodVariable(variableName);
+	    //TODO for model
 	}
 
 	public void executeProgram(String codeData) {
