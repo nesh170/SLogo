@@ -60,6 +60,8 @@ public class Controller {
 			myModel.processCommand(newProg);
 		}catch(ParserException e){
 			myView.printError(e.toString());
+		}catch(NullPointerException e){
+			//If the user pressed run without any input, preprocess will return null, and we just want to ignore it
 		}
 	}
 

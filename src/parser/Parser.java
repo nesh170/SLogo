@@ -35,6 +35,7 @@ public class Parser {
 		// preProcess the string;
 		String processed = preProcessString(program);
 		if (processed == null) {
+			System.out.println("null string from preprocess");
 			return null;
 		}
 		myCurProgramArray = processed.split(" ");
