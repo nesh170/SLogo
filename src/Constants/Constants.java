@@ -4,6 +4,9 @@ import java.lang.reflect.Field;
 
 public class Constants {
 
+	public static final String DEFAULT_LANGUAGE = "resources/languages/English";
+	public static final String SYNTAX = "resources/languages/Syntax";
+	
 	public static final double FULL_CIRCLE = 360;
 	public static final double FORWARD_ANGLE = 0;
 	public static final double BACKWARD_ANGLE = 180;
