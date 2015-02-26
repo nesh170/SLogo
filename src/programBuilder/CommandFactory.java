@@ -21,6 +21,8 @@ public class CommandFactory {
 		case "Forward":
 			System.out.println("Making forward object");
 			return new Forward(statements.get(0), myView, myTurtleManager);
+		case "Backward":
+			return new Backward(statements.get(0), myView, myTurtleManager);
 		case "Sum":
 			System.out.println("Making sum object");
 			return new Sum(statements.get(0), myView);
