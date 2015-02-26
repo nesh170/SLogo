@@ -25,7 +25,7 @@ public class ProgramBuilder {
 	}
 	
 	public Program buildProgram(List<ParseNode> topNodes){
-		Program newProg = new Program();
+		Program newProg = new Program(myView);
 		for(ParseNode curNode: topNodes){
 			newProg.addStatment(recursiveStatementBuilder(curNode));
 		}
