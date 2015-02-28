@@ -7,21 +7,17 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableStringValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import slogoEnums.ViewConstants;
@@ -32,7 +28,9 @@ public class ViewTurtle {
 	private int myID;
 	private SimpleStringProperty myImagePath;
 	private SimpleStringProperty myPenRGB;
-	private SimpleDoubleProperty myStrokeSize;
+	private SimpleDoubleProperty myStrokeWidth;
+	private ObservableList<Double> myStrokeList;
+
 	
 	public ViewTurtle(Point2D point,double size, int ID) {
 		myShape = new Polygon();
@@ -72,7 +70,9 @@ public class ViewTurtle {
 	public Line drawLine(Point2D point) {
 		Line turtleLine = new Line(myShape.getTranslateX()+ViewConstants.ORIGIN_X.getVal(), myShape.getTranslateY()+ViewConstants.ORIGIN_Y.getVal(), point.getX(), point.getY());
 		turtleLine.setStroke(Color.web(myPenRGB.get()));
-		turtleLine.setStrokeWidth(myStrokeSize.get());
+		turtleLine.setStrokeWidth(myStrokeWidth.get());
+		turtleLine.getStrokeDashArray().clear();
+		turtleLine.getStrokeDashArray().addAll(myStrokeList);
 		return turtleLine;
 	}
 	
@@ -84,7 +84,8 @@ public class ViewTurtle {
 	    myImagePath = new SimpleStringProperty();
 	    myImagePath.addListener(e -> setImage());
 	    myPenRGB = new SimpleStringProperty(myStringResources.getString("DefaultPenColor"));
-	    myStrokeSize= new SimpleDoubleProperty(1.0);
+	    myStrokeWidth= new SimpleDoubleProperty(1.0);
+	    myStrokeList = FXCollections.observableArrayList();
 	}
 	
 	
@@ -92,7 +93,7 @@ public class ViewTurtle {
 	private void setUpDialogBox(){
 	    Stage dialog = new Stage();
             dialog.initModality(Modality.APPLICATION_MODAL);
-            DialogBox dialogBox = new DialogBox(myImagePath,myPenRGB);
+            DialogBox dialogBox = new DialogBox(myImagePath,myPenRGB,myStrokeWidth,myStrokeList);
             dialog.setTitle(myStringResources.getString("idText") + myID);
             dialog.setScene(new Scene(dialogBox.getVBox(), ViewConstants.DBOX_WIDTH.getVal(), ViewConstants.DBOX_HEIGHT.getVal()));
             dialog.show();
