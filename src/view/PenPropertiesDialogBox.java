@@ -14,17 +14,17 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
-public class DialogBox {
+public class PenPropertiesDialogBox {
     private VBox myDialogVBox;
     private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",new Locale("en", "US"));
-    private SimpleStringProperty myImagePath;
     private SimpleStringProperty myPenRGB;
     private SimpleDoubleProperty myStrokeWidth;
+    //TODO make stroke list work and add boolean for pen up and down
     private ObservableList<Double> myStrokeList;
     
-    public DialogBox(SimpleStringProperty ImagePath, SimpleStringProperty penRGB, SimpleDoubleProperty strokeWidth, ObservableList<Double> strokeList){
-        initializeDialogBox();
-        myImagePath = ImagePath;
+    public PenPropertiesDialogBox(SimpleStringProperty penRGB, SimpleDoubleProperty strokeWidth, ObservableList<Double> strokeList){
+        myDialogVBox = new VBox(ViewConstants.VARIABLE_TABLE_SPACING.getVal());
+        myDialogVBox.getChildren().add(new Text(myStringResources.getString("penTitle")));
         myPenRGB = penRGB;
         myStrokeWidth = strokeWidth;
         myStrokeList = strokeList;
@@ -33,14 +33,6 @@ public class DialogBox {
         generateStrokeWidthChoiceBox();
     }
 
-    private void initializeDialogBox () {
-       myDialogVBox = new VBox(ViewConstants.VARIABLE_TABLE_SPACING.getVal());
-       Button shapeButton = new Button();
-       shapeButton.setText(myStringResources.getString("chooseImage"));
-       shapeButton.setOnAction(e->myImagePath.set(ViewFX.openFileChooser()));
-       myDialogVBox.getChildren().add(shapeButton);
-    }
-    
     private void generateColorPicker(){
       HBox ColorBox = new HBox();
       ColorPicker colorPick = new ColorPicker(Color.web(myPenRGB.get()));

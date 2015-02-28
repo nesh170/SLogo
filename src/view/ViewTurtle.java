@@ -13,6 +13,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Line;
@@ -83,7 +84,7 @@ public class ViewTurtle {
 	private void initializeObservables(){
 	    myImagePath = new SimpleStringProperty();
 	    myImagePath.addListener(e -> setImage());
-	    myPenRGB = new SimpleStringProperty(myStringResources.getString("DefaultPenColor"));
+	    myPenRGB = new SimpleStringProperty(myStringResources.getString("defaultPenColor"));
 	    myStrokeWidth= new SimpleDoubleProperty(1.0);
 	    myStrokeList = FXCollections.observableArrayList();
 	}
@@ -92,10 +93,13 @@ public class ViewTurtle {
 	
 	private void setUpDialogBox(){
 	    Stage dialog = new Stage();
+	    VBox dialogBox = new VBox(ViewConstants.VARIABLE_TABLE_SPACING.getVal());
             dialog.initModality(Modality.APPLICATION_MODAL);
-            DialogBox dialogBox = new DialogBox(myImagePath,myPenRGB,myStrokeWidth,myStrokeList);
+            PenPropertiesDialogBox penPropBox = new PenPropertiesDialogBox(myPenRGB,myStrokeWidth,myStrokeList);
+            TurtlePropertiesDialogBox turtlePropBox = new TurtlePropertiesDialogBox(myImagePath);
             dialog.setTitle(myStringResources.getString("idText") + myID);
-            dialog.setScene(new Scene(dialogBox.getVBox(), ViewConstants.DBOX_WIDTH.getVal(), ViewConstants.DBOX_HEIGHT.getVal()));
+            dialogBox.getChildren().addAll(penPropBox.getVBox(),turtlePropBox.getVBox());
+            dialog.setScene(new Scene(dialogBox, ViewConstants.DBOX_WIDTH.getVal(), ViewConstants.DBOX_HEIGHT.getVal()));
             dialog.show();
 	}
 	
