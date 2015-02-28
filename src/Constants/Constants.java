@@ -4,6 +4,9 @@ import java.lang.reflect.Field;
 
 public class Constants {
 
+	public static final String DEFAULT_LANGUAGE = "resources/languages/English";
+	public static final String SYNTAX = "resources/languages/Syntax";
+	
 	public static final double FULL_CIRCLE = 360;
 	public static final double FORWARD_ANGLE = 0;
 	public static final double BACKWARD_ANGLE = 180;
@@ -20,7 +23,7 @@ public class Constants {
 	public static final String REPEAT_VARIABLE = ":repcount";
 	
 	public static final int FORWARD = 1;
-	public static final int BACK = 1;
+	public static final int BACKWARD = 1;
 	public static final int LEFT = 1;
 	public static final int RIGHT = 1;
 	public static final int SETHEADING = 1;
@@ -73,8 +76,9 @@ public class Constants {
         for (Field field : fields) {
             field.setAccessible(true);
             String fieldString = field.toString();
-            if (fieldString.endsWith(paramName.toUpperCase())) { return (int) field.get(null); }
+            if (fieldString.endsWith("." + paramName.toUpperCase())) { return (int) field.get(null); }
         }
+        System.out.println("returning max value");
         return Integer.MAX_VALUE;
     }
 	

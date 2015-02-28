@@ -2,7 +2,6 @@ package view;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
-import slogoEnums.ViewConstants;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.StringConverter;
+import slogoEnums.ViewConstants;
 
 public class VariablePane {
 	private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",new Locale("en", "US"));
