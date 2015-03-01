@@ -81,7 +81,7 @@ public class Constants {
         for (Field field : fields) {
             field.setAccessible(true);
             String fieldString = field.toString();
-            if (fieldString.endsWith(paramName.toUpperCase())) { return (int) field.get(null); }
+            if (fieldString.endsWith("." + paramName.toUpperCase())) { return (int) field.get(null); }
         }
         System.out.println("returning max value");
         return Integer.MAX_VALUE;

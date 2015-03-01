@@ -7,9 +7,9 @@ import view.ViewAbstract;
 import Model.ModelTurtle;
 import Model.TurtleManager;
 
-public class TowardsAngle extends SetAngle{
+public class SetTowards extends SetAngle{
 
-	public TowardsAngle(List<Statement> statements, ViewAbstract view,
+	public SetTowards(List<Statement> statements, ViewAbstract view,
 			TurtleManager turtleManager) {
 		super(statements, view, turtleManager);
 	}
