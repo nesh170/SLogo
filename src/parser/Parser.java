@@ -16,6 +16,7 @@ public class Parser {
 	private static final String OPEN_BRACKET = "[";
 	private static final String CLOSED_BRACKET = "]";
 	private static final String GROUP = "Group";
+	private static final String REPCOUNT = ":repcount";
 
 	private Regex myRegex;
 	private int myCurIndex;
@@ -30,10 +31,10 @@ public class Parser {
 		myProgMethodsAndParams = new HashMap<>();
 	}
 
-	public Regex getRegex(){
+	public Regex getRegex() {
 		return myRegex;
 	}
-	
+
 	// returns a program, once that class is created
 	public List<ParseNode> parse(String program) throws ParserException {
 		// preProcess the string;
@@ -42,9 +43,8 @@ public class Parser {
 			return null;
 		}
 		myCurProgramArray = processed.split(" ");
-		ArrayList<String> programArray = new ArrayList<>(
-				Arrays.asList(myCurProgramArray));
-		System.out.println(programArray);
+		//ArrayList<String> programArray = new ArrayList<>(Arrays.asList(myCurProgramArray));
+		// System.out.println(programArray);
 		// create a program;
 		List<ParseNode> topNodes = new ArrayList<>();
 		// loop through the string array until it's empty{
@@ -52,9 +52,9 @@ public class Parser {
 			ParseNode curNode = new ParseNode(myCurProgramArray[++myCurIndex]);
 			System.out.println("Root Node: " + curNode.getName());
 			ParseNode processedNode = recursiveCommandBuilder(curNode);
-			System.out.println("Printing in parse while loop");
+			// System.out.println("Printing in parse while loop");
 			topNodes.add(processedNode);
-			System.out.println("Added node: " + processedNode.getName());
+			// System.out.println("Added node: " + processedNode.getName());
 		}
 		// create new node; //the index of the string is index + 1
 		// increment index;
@@ -73,7 +73,7 @@ public class Parser {
 
 	public String preProcessString(String program) {
 		String[] splitProgram = program.split(" ");
-		System.out.println("originally the program is " + program);
+		// System.out.println("originally the program is " + program);
 		// check if string is empty
 		if (splitProgram.length < 1 | program.length() < 1) {
 			System.out.println("String empty or full of spaces");
@@ -84,7 +84,7 @@ public class Parser {
 		for (char c : program.toCharArray()) {
 			programArray.add(c);
 		}
-		//System.out.println("the programarray is " + programArray);
+		// System.out.println("the programarray is " + programArray);
 
 		boolean deleteFlag = false;
 		for (int i = 0; i < programArray.size(); i++) {
@@ -92,22 +92,22 @@ public class Parser {
 				deleteFlag = true;
 			}
 			if (programArray.get(i) == '\n') {
-				//System.out.println("ever comes here");
+				// System.out.println("ever comes here");
 				deleteFlag = false;
 				continue;
 			}
 			if (!deleteFlag) {
 				correctArray.add(programArray.get(i));
-				//System.out.println("added is " + programArray.get(i));
+				// System.out.println("added is " + programArray.get(i));
 			}
 		}
-		System.out.println("the correct array is");
+		// System.out.println("the correct array is");
 		StringBuilder builder = new StringBuilder(correctArray.size());
 		for (Character c : correctArray) {
 			// System.out.print((c));
 			builder.append(c);
 		}
-		System.out.println();
+		// System.out.println();
 		// pre-process the string to remove comments
 		return builder.toString();
 	}
@@ -117,15 +117,17 @@ public class Parser {
 		String nodeName = current.getName();
 
 		String type = myRegex.matchSyntax(nodeName);
+		//potential null pointer exception
 		switch (type) {
 		case "Command":
 			String commandType = myRegex.matchCommand(nodeName);
-			System.out.println("The type for the node " + nodeName + " is "+commandType);
-			
+			System.out.println("The type for the node " + nodeName + " is "
+					+ commandType);
 			// check if commmandtype is null, this means it may be a user
 			// defined command and call appropriate helper
 			if (commandType == null) {
 				// check if user defined method and act accordingly
+				//if user begins with bracket then screwed
 				if (nodeName.equals(GROUP)) {
 					commandType = GROUP;
 				} else {
@@ -134,6 +136,8 @@ public class Parser {
 					throw new ParserException("Invalid Command");
 				}
 			}
+			//need to define user-defined command beforehand
+			//and the numParam needs to be accessible from the parse method table
 			int loopTimes = 0;
 			try {
 				loopTimes = Constants.getNumParam(commandType);
@@ -143,6 +147,7 @@ public class Parser {
 				e.printStackTrace();
 			}
 			switch (commandType) {
+			//potentially catch missing parameters
 			case USER_DEFINED:
 				loopTimes = myProgMethodsAndParams.get(nodeName);
 				retrieveChildren(current, loopTimes);
@@ -170,7 +175,7 @@ public class Parser {
 				getGroupKids(current);
 				break;
 			case "Repeat":
-				myProgramVariables.add(":repcount");
+				myProgramVariables.add(REPCOUNT);
 				retrieveChildren(current, loopTimes);
 				break;
 			default:

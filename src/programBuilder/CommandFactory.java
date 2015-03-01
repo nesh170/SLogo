@@ -36,6 +36,8 @@ public class CommandFactory {
 			return new XCor(myView, myTurtleManager);
 		case "Right":
 			return new Right(statements.get(0), myView, myTurtleManager);
+		case "Left":
+			return new Left(statements.get(0), myView, myTurtleManager);
 		case "Heading":
 			return new Heading(myView, myTurtleManager);
 		case "LessThan":
@@ -44,6 +46,14 @@ public class CommandFactory {
 			return new Repeat(statements, myVariableManager);
 		case "MakeVariable":
 			return new Make(statements.get(0), myView, myVariableManager);
+		case "SetHeading":
+			return new SetHeading(statements.get(0), myView, myTurtleManager);
+		case "SetTowards":
+			return new TowardsAngle(statements.get(0), myView, myTurtleManager);
+		case "PenUp":
+			return new SetPenUp(myView, myTurtleManager);
+		case "PenDown":
+			return new SetPenDown(myView, myTurtleManager);
 		default:
 			// throw an error
 			return new Forward(statements.get(0), myView, myTurtleManager);
