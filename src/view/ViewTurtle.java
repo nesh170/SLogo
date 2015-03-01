@@ -5,10 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -30,14 +29,16 @@ public class ViewTurtle {
 	private SimpleStringProperty myImagePath;
 	private SimpleStringProperty myPenRGB;
 	private SimpleDoubleProperty myStrokeWidth;
-	private ObservableList<Double> myStrokeList;
+	private SimpleStringProperty myStrokeType;
+	private SimpleBooleanProperty myPenStatus;
 
 	
-	public ViewTurtle(Point2D point,double size, int ID) {
+	public ViewTurtle(Point2D point,double size, int ID, SimpleBooleanProperty penStatus) {
 		myShape = new Polygon();
 		((Polygon) myShape).getPoints().addAll(new Double[]{ViewConstants.ORIGIN_X.getVal()+size, ViewConstants.ORIGIN_Y.getVal()+size, ViewConstants.ORIGIN_X.getVal()-size, ViewConstants.ORIGIN_Y.getVal()+size, ViewConstants.ORIGIN_X.getVal(), ViewConstants.ORIGIN_Y.getVal()-size});
 		myID = ID;
 		myShape.setOnMouseClicked(e->setUpDialogBox());
+		myPenStatus = penStatus;
 		initializeObservables();
 	}
 	
@@ -71,8 +72,7 @@ public class ViewTurtle {
 		Line turtleLine = new Line(myShape.getTranslateX()+ViewConstants.ORIGIN_X.getVal(), myShape.getTranslateY()+ViewConstants.ORIGIN_Y.getVal(), point.getX(), point.getY());
 		turtleLine.setStroke(Color.web(myPenRGB.get()));
 		turtleLine.setStrokeWidth(myStrokeWidth.get());
-		turtleLine.getStrokeDashArray().clear();
-		turtleLine.getStrokeDashArray().addAll(myStrokeList);
+		turtleLine.setStyle(myStrokeType.getValue());
 		return turtleLine;
 	}
 	
@@ -85,7 +85,7 @@ public class ViewTurtle {
 	    myImagePath.addListener(e -> setImage(myImagePath.getValue()));
 	    myPenRGB = new SimpleStringProperty(myStringResources.getString("defaultPenColor"));
 	    myStrokeWidth= new SimpleDoubleProperty(1.0);
-	    myStrokeList = FXCollections.observableArrayList();
+	    myStrokeType = new SimpleStringProperty(myStringResources.getString("defaultStrokeChoice"));
 	}
 	
 	
@@ -94,8 +94,8 @@ public class ViewTurtle {
 	    Stage dialog = new Stage();
 	    VBox dialogBox = new VBox(ViewConstants.VARIABLE_TABLE_SPACING.getVal());
             dialog.initModality(Modality.APPLICATION_MODAL);
-            PenPropertiesDialogBox penPropBox = new PenPropertiesDialogBox(myPenRGB,myStrokeWidth,myStrokeList);
-            TurtlePropertiesDialogBox turtlePropBox = new TurtlePropertiesDialogBox(myImagePath,new double[]{myShape.getTranslateX(),myShape.getTranslateY()});
+            PenPropertiesDialogBox penPropBox = new PenPropertiesDialogBox(myPenRGB,myStrokeWidth,myStrokeType,myPenStatus);
+            TurtlePropertiesDialogBox turtlePropBox = new TurtlePropertiesDialogBox(myImagePath,new double[]{myShape.getTranslateX(),myShape.getTranslateY()},myShape.rotateProperty().get());
             dialog.setTitle(myStringResources.getString("idText") + myID);
             dialogBox.getChildren().addAll(penPropBox.getVBox(),turtlePropBox.getVBox());
             dialog.setScene(new Scene(dialogBox, ViewConstants.DBOX_WIDTH.getVal(), ViewConstants.DBOX_HEIGHT.getVal()));

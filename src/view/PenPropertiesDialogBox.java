@@ -1,14 +1,21 @@
 package view;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import slogoEnums.ViewConstants;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Slider;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -19,18 +26,20 @@ public class PenPropertiesDialogBox {
     private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",new Locale("en", "US"));
     private SimpleStringProperty myPenRGB;
     private SimpleDoubleProperty myStrokeWidth;
-    //TODO make stroke list work and add boolean for pen up and down
-    private ObservableList<Double> myStrokeList;
+    private SimpleStringProperty myStrokeType;
+    private SimpleBooleanProperty myPenStatus;
     
-    public PenPropertiesDialogBox(SimpleStringProperty penRGB, SimpleDoubleProperty strokeWidth, ObservableList<Double> strokeList){
+    public PenPropertiesDialogBox(SimpleStringProperty penRGB, SimpleDoubleProperty strokeWidth, SimpleStringProperty strokeType, SimpleBooleanProperty penStatus){
         myDialogVBox = new VBox(ViewConstants.VARIABLE_TABLE_SPACING.getVal());
         myDialogVBox.getChildren().add(new Text(myStringResources.getString("penTitle")));
         myPenRGB = penRGB;
         myStrokeWidth = strokeWidth;
-        myStrokeList = strokeList;
+        myStrokeType = strokeType;
+        myPenStatus = penStatus;
         generateColorPicker();
         generateSlider();
         generateStrokeWidthChoiceBox();
+        generateTogglePen();
     }
 
     private void generateColorPicker(){
@@ -64,7 +73,37 @@ public class PenPropertiesDialogBox {
     }
     
     private void generateStrokeWidthChoiceBox(){
-        
+        HBox strokeTypeBox = new HBox();
+        List<String> strokeTypeArray = Arrays.asList(myStringResources.getString("strokeWidthChoice").split("\\s+"));
+        List<String> strokeTypeCSS = Arrays.asList(myStringResources.getString("strokeWidthCSS").split("\\s+"));
+        ChoiceBox<String> strokeChoice = new ChoiceBox<>(FXCollections.observableArrayList(strokeTypeArray));
+        strokeChoice.setValue(strokeTypeArray.get(strokeTypeCSS.indexOf(myStrokeType.getValue())));
+        strokeChoice.getSelectionModel().selectedIndexProperty().addListener(e-> myStrokeType.set(strokeTypeCSS.get(strokeChoice.getSelectionModel().getSelectedIndex())));
+        strokeTypeBox.getChildren().addAll(new Text(myStringResources.getString("penStroke")),strokeChoice);
+        myDialogVBox.getChildren().add(strokeTypeBox);
+    }
+    
+    private void generateTogglePen(){
+        HBox toggleBox = new HBox();
+        ToggleButton penToggle = new ToggleButton(); //Up is false
+        createPenToggleString(penToggle);
+        penToggle.selectedProperty().addListener(e-> togglePenStatus(penToggle));
+        toggleBox.getChildren().addAll(new Text(myStringResources.getString("penToggle")),penToggle);
+        myDialogVBox.getChildren().add(toggleBox);
+    }
+    
+    private void togglePenStatus (ToggleButton penToggle) {
+        myPenStatus.set(!myPenStatus.getValue());
+        createPenToggleString(penToggle);
+    }
+
+    private void createPenToggleString (ToggleButton penToggle) {
+        if(myPenStatus.get()){
+            penToggle.setText(myStringResources.getString("penDown"));
+        }
+        else{
+            penToggle.setText(myStringResources.getString("penUp"));
+        }
     }
 
     public VBox getVBox(){
