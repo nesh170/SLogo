@@ -10,24 +10,21 @@ import javafx.scene.text.Text;
 
 public class TurtlePropertiesDialogBox {
     private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",new Locale("en", "US"));
-    private SimpleStringProperty myImagePath;
     private VBox myDialogVBox;
 
-    public TurtlePropertiesDialogBox (SimpleStringProperty imagePath) {
+    public TurtlePropertiesDialogBox (SimpleStringProperty imagePath, double[] coordinates) {
         myDialogVBox = new VBox(ViewConstants.VARIABLE_TABLE_SPACING.getVal());
         myDialogVBox.getChildren().add(new Text(myStringResources.getString("turtleTitle")));
-        myImagePath = imagePath;
-        createButton();
+        createButton(imagePath);
     }
     
-    private void createButton(){
+    private void createButton(SimpleStringProperty imagePath){
         Button imageButton = new Button(myStringResources.getString("chooseImage"));
-        imageButton.setOnAction(e->myImagePath.setValue(ViewFX.openFileChooser()));
+        imageButton.setOnAction(e->imagePath.setValue(ViewFX.openFileChooser()));
         myDialogVBox.getChildren().add(imageButton);
-        
     }
 
-    public VBox getVBox () {
+    public VBox getVBox(){
         return myDialogVBox;
     }
 

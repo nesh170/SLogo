@@ -140,6 +140,7 @@ public class ViewFX extends ViewAbstract {
     }
 
     private void pushCodeToController () {
+        myVariableElements.clearList();
         myController.executeProgram(myCodeElements.getCodeData());
     }
 
@@ -173,11 +174,22 @@ public class ViewFX extends ViewAbstract {
 	}
 	return file.toString();
     }
+    
 
     private void changeLanuageinController (int index) {
         ResourceBundle myStringResources =
                 ResourceBundle.getBundle("resources.View.ViewText", new Locale("en", "US"));
         myController
                 .changeLanguage(myStringResources.getString("languageFile").split("\\s+")[index]);
+    }
+
+    @Override
+    public void hideTurtle (int ID) {
+       myViewTurtlesMap.get(ID).hide();
+    }
+
+    @Override
+    public void showTurtle (int ID) {
+       myViewTurtlesMap.get(ID).show();
     }
 }

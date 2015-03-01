@@ -41,8 +41,7 @@ public class ViewTurtle {
 		initializeObservables();
 	}
 	
-	public void setImage() {
-	        String path = myImagePath.get();
+	public void setImage(String path) {
 		List<String> imageExtArray = Arrays.asList(myStringResources.getString("imageFileExtension").split("\\s+"));
 		for(String c:imageExtArray){
 		    if(path.toLowerCase().endsWith(c)){
@@ -83,7 +82,7 @@ public class ViewTurtle {
 	
 	private void initializeObservables(){
 	    myImagePath = new SimpleStringProperty();
-	    myImagePath.addListener(e -> setImage());
+	    myImagePath.addListener(e -> setImage(myImagePath.getValue()));
 	    myPenRGB = new SimpleStringProperty(myStringResources.getString("defaultPenColor"));
 	    myStrokeWidth= new SimpleDoubleProperty(1.0);
 	    myStrokeList = FXCollections.observableArrayList();
@@ -96,11 +95,19 @@ public class ViewTurtle {
 	    VBox dialogBox = new VBox(ViewConstants.VARIABLE_TABLE_SPACING.getVal());
             dialog.initModality(Modality.APPLICATION_MODAL);
             PenPropertiesDialogBox penPropBox = new PenPropertiesDialogBox(myPenRGB,myStrokeWidth,myStrokeList);
-            TurtlePropertiesDialogBox turtlePropBox = new TurtlePropertiesDialogBox(myImagePath);
+            TurtlePropertiesDialogBox turtlePropBox = new TurtlePropertiesDialogBox(myImagePath,new double[]{myShape.getTranslateX(),myShape.getTranslateY()});
             dialog.setTitle(myStringResources.getString("idText") + myID);
             dialogBox.getChildren().addAll(penPropBox.getVBox(),turtlePropBox.getVBox());
             dialog.setScene(new Scene(dialogBox, ViewConstants.DBOX_WIDTH.getVal(), ViewConstants.DBOX_HEIGHT.getVal()));
             dialog.show();
 	}
+
+    public void show () {
+        myShape.setVisible(true);
+    }
+
+    public void hide () {
+        myShape.setVisible(false);
+    }
 	
 }
