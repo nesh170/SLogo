@@ -153,7 +153,6 @@ public class ViewFX extends ViewAbstract {
     }
 
     private void pushCodeToController () {
-        myVariableElements.clearList();
         myController.executeProgram(myCodeElements.getCodeData());
     }
 
