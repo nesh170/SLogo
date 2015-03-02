@@ -65,8 +65,8 @@ public class ProgramBuilder {
 				}
 			}
 		}
-		
 		String commandType = myRegex.matchCommand(nodeName);
+		
 		return CommandFactory.generateCommand(commandType, paramLists, myView, myTurtleManager, myVariableManager, myRegex);
 	}
 }
