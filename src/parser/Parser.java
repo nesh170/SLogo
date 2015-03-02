@@ -17,6 +17,7 @@ public class Parser {
 	private static final String CLOSED_BRACKET = "]";
 	private static final String GROUP = "Group";
 	private static final String REPCOUNT = ":repcount";
+	private static final String TO = "MakeUserInstruction";
 
 	private Regex myRegex;
 	private int myCurIndex;
@@ -139,12 +140,14 @@ public class Parser {
 			//need to define user-defined command beforehand
 			//and the numParam needs to be accessible from the parse method table
 			int loopTimes = 0;
-			try {
-				loopTimes = Constants.getNumParam(commandType);
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
+			if(!commandType.equals(USER_DEFINED)){
+				try {
+					loopTimes = Constants.getNumParam(commandType);
+				} catch (IllegalArgumentException e) {
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				}
 			}
 			switch (commandType) {
 			//potentially catch missing parameters
@@ -161,7 +164,7 @@ public class Parser {
 				String variable = myCurProgramArray[myCurIndex + 1];
 				if (!(myRegex.matchSyntax(variable).equals("Variable"))) {
 					System.out
-							.println("Thing after make is not of variable format");
+					.println("Thing after make is not of variable format");
 					throw new ParserException(
 							"Incorrect format for variable declared after make.");
 				}
@@ -171,7 +174,21 @@ public class Parser {
 						+ myProgramVariables.contains(variable));
 				retrieveChildren(current, loopTimes);
 				break;
-
+			case TO:
+				if (atEndOfString()) {
+					System.out.println("Missing the variable for to");
+					throw new ParserException(
+							"Insufficient arguements for make command.");
+				}	
+				String methodName = myCurProgramArray[myCurIndex+1];
+				ParseNode newNode = new ParseNode(myCurProgramArray[++myCurIndex]);
+				current.addChild(newNode);
+				retrieveChildren(current, loopTimes);
+				myProgMethodsAndParams.put(methodName, current.getChildren().get(1).getNumChildren());
+				System.out.println("The user instruction is "+ methodName);
+				System.out.println("In the myProgmehotdpasdfslkfjs the num is "+current.getChildren().get(1).getNumChildren());
+				System.out.println("In the myProgmehotdpasd the num is "+current.getChildren().get(2).getNumChildren());
+				break;
 			case GROUP:
 				getGroupKids(current);
 				break;
@@ -204,7 +221,7 @@ public class Parser {
 		while (!groupComplete) {
 			if (atEndOfString()) {
 				System.out
-						.println("Missing parameters for a something in a group");
+				.println("Missing parameters for a something in a group");
 				throw new ParserException(
 						"Invalid format: missing end bracket.");
 			}

@@ -1,21 +1,22 @@
 package programBuilder;
 
 import java.util.List;
+
 import parser.Regex;
 import view.ViewAbstract;
-import Model.TurtleManager;
-import Model.VariableManager;
+import Model.*;
 import Statements.*;
 
 public class CommandFactory {
 
 	public CommandFactory() {
 	}
-
+	//remember to group all the parameters
+	//change my
 	public static Statement generateCommand(String commandType,
 			List<List<Statement>> statements, ViewAbstract myView,
 			TurtleManager myTurtleManager, VariableManager myVariableManager,
-			Regex myRegex) {
+			Regex myRegex, MethodManager myMethodManager) {
 	        
 		switch (commandType) {
 		case "Forward":
@@ -94,6 +95,10 @@ public class CommandFactory {
 				return new HideTurtle(myView, myTurtleManager);
 		case "ClearScreen":
 				return new ClearScreen(myView, myTurtleManager);
+		case "For":
+			return new For(statements, myVariableManager);
+		case "MakeUserInstruction":
+			return new MakeUserInstruction(statements, myVariableManager, myMethodManager);
 		default:
 			// throw an error
 			System.out.println("There is something wrong when getting here!");

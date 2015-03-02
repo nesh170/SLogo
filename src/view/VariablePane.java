@@ -99,10 +99,6 @@ public class VariablePane {
 		}
 	}
 	
-	public void clearList(){
-	    myVariableName.clear();
-	    myVariableValue.clear();
-	}
 
 	private void initializeMethodList(ChangeListener<String> listener){
 		myMethodList = FXCollections.observableArrayList();
