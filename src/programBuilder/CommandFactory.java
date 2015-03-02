@@ -84,6 +84,8 @@ public class CommandFactory {
 		        return new Pi(statements.get(0),myView);
 		case "Random":
 				return new RandomGen(statements.get(0), myView);
+		case "For":
+			return new For(statements, myVariableManager);
 		default:
 			// throw an error
 			return new Forward(statements.get(0), myView, myTurtleManager);
