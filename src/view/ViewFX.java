@@ -126,7 +126,9 @@ public class ViewFX extends ViewAbstract {
         Point2D point = new Point2D(X, Y);
         SimpleBooleanProperty penStatus = new SimpleBooleanProperty(true);
         penStatus.addListener(e-> setPenStatus(penStatus.getValue(), ID));
-        ViewTurtle vt = new ViewTurtle(point, ViewConstants.TURTLE_SIZE.getVal(), ID,penStatus);
+        SimpleBooleanProperty activeTurtle = new SimpleBooleanProperty(true);
+//        activeTurtle.addListener(e-> activeStatus());
+        ViewTurtle vt = new ViewTurtle(point, ViewConstants.TURTLE_SIZE.getVal(), ID,penStatus, activeTurtle);
         vt.setNewLocation(point);
         myViewTurtlesMap.put(ID, vt);
         myTurtleRoot.getChildren().add(vt.getViewTurtles());
@@ -153,7 +155,6 @@ public class ViewFX extends ViewAbstract {
     }
 
     private void pushCodeToController () {
-        myVariableElements.clearList();
         myController.executeProgram(myCodeElements.getCodeData());
     }
 
