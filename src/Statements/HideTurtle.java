@@ -12,6 +12,7 @@ public class HideTurtle extends Query {
 	@Override
 	public double execute() {
 		System.out.println("Hide Turtle");
+		myView.hideTurtle(0);
 		return 0;
 	}
 

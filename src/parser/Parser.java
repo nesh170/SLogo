@@ -165,6 +165,7 @@ public class Parser {
 					throw new ParserException(
 							"Incorrect format for variable declared after make.");
 				}
+				//note that we never clear the program variable table
 				myProgramVariables.add(variable);
 				System.out.println("Added variable to variable set. "
 						+ myProgramVariables.contains(variable));
@@ -187,6 +188,7 @@ public class Parser {
 		case "Constant":
 			return current;
 		case "Variable":
+			//remember to throw exception here
 			if (!myProgramVariables.contains(nodeName))
 				System.out.println("Variable not in table");
 			return current;
@@ -212,7 +214,7 @@ public class Parser {
 				groupComplete = true;
 			} else if (next.equals(OPEN_BRACKET)) {
 				ParseNode newGroup = new ParseNode(GROUP);
-				System.out.println("New Node: " + newGroup.getName());
+				System.out.println("The beginning of Group node: " + newGroup.getName());
 				ParseNode processedNode = recursiveCommandBuilder(newGroup);
 				groupLeader.addChild(processedNode);
 			} else {
@@ -237,7 +239,7 @@ public class Parser {
 			String next = myCurProgramArray[++myCurIndex];
 			if (next.equals(OPEN_BRACKET)) {
 				ParseNode newGroup = new ParseNode(GROUP);
-				System.out.println("New Node: " + newGroup.getName());
+				System.out.println("The beginning of Group node: " + newGroup.getName());
 				ParseNode processedNode = recursiveCommandBuilder(newGroup);
 				current.addChild(processedNode);
 			} else if (next.equals(CLOSED_BRACKET)) {

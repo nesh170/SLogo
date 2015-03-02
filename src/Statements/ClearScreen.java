@@ -15,6 +15,8 @@ public class ClearScreen extends Query {
 		double distance = myTurtleManager.getTurtle(Constants.FIRST_TURTLE_ID).getTotalDistance();
 		myTurtleManager.clearTurtles();
 		myTurtleManager.addTurtle(Constants.FIRST_TURTLE_ID);
+		System.out.println("clear screen");
+		myView.clearScreen();
 		myView.addTurtle(Constants.FIRST_TURTLE_XCOR, Constants.FIRST_TURTLE_YCOR, Constants.FIRST_TURTLE_ID);
 		return distance;
 	}

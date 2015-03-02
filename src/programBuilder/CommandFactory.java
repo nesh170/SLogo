@@ -88,8 +88,15 @@ public class CommandFactory {
 		        return new Pi(statements.get(0),myView);
 		case "Random":
 				return new RandomGen(statements.get(0), myView);
+		case "ShowTurtle":
+				return new ShowTurtle(myView, myTurtleManager);
+		case "HideTurtle":
+				return new HideTurtle(myView, myTurtleManager);
+		case "ClearScreen":
+				return new ClearScreen(myView, myTurtleManager);
 		default:
 			// throw an error
+			System.out.println("There is something wrong when getting here!");
 			return new Forward(statements.get(0), myView, myTurtleManager);
 		}
 	}

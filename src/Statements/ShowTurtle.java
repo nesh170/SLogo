@@ -12,6 +12,7 @@ public class ShowTurtle extends Query {
 	@Override
 	public double execute() {
 		System.out.println("Show Turtle");
+		myView.showTurtle(0);
 		return 1;
 	}
 
