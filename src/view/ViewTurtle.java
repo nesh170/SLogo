@@ -5,11 +5,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -17,7 +18,6 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import slogoEnums.ViewConstants;
@@ -25,15 +25,21 @@ import slogoEnums.ViewConstants;
 public class ViewTurtle {
 	private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",new Locale("en", "US"));
 	private Shape myShape;
-	private Color penColor;
 	private int myID;
+	private SimpleStringProperty myImagePath;
+	private SimpleStringProperty myPenRGB;
+	private SimpleDoubleProperty myStrokeWidth;
+	private SimpleStringProperty myStrokeType;
+	private SimpleBooleanProperty myPenStatus;
+
 	
-	public ViewTurtle(Point2D point,double size, int ID) {
+	public ViewTurtle(Point2D point,double size, int ID, SimpleBooleanProperty penStatus) {
 		myShape = new Polygon();
 		((Polygon) myShape).getPoints().addAll(new Double[]{ViewConstants.ORIGIN_X.getVal()+size, ViewConstants.ORIGIN_Y.getVal()+size, ViewConstants.ORIGIN_X.getVal()-size, ViewConstants.ORIGIN_Y.getVal()+size, ViewConstants.ORIGIN_X.getVal(), ViewConstants.ORIGIN_Y.getVal()-size});
-		penColor = Color.BLACK;
 		myID = ID;
 		myShape.setOnMouseClicked(e->setUpDialogBox());
+		myPenStatus = penStatus;
+		initializeObservables();
 	}
 	
 	public void setImage(String path) {
@@ -64,32 +70,44 @@ public class ViewTurtle {
 	
 	public Line drawLine(Point2D point) {
 		Line turtleLine = new Line(myShape.getTranslateX()+ViewConstants.ORIGIN_X.getVal(), myShape.getTranslateY()+ViewConstants.ORIGIN_Y.getVal(), point.getX(), point.getY());
-		turtleLine.setStroke(penColor);
+		turtleLine.setStroke(Color.web(myPenRGB.get()));
+		turtleLine.setStrokeWidth(myStrokeWidth.get());
+		turtleLine.setStyle(myStrokeType.getValue());
 		return turtleLine;
-	}
-
-	public Color getPenColor() {
-		return penColor;
 	}
 	
 	public Node getViewTurtles() {
 		return myShape;
 	}
 	
+	private void initializeObservables(){
+	    myImagePath = new SimpleStringProperty();
+	    myImagePath.addListener(e -> setImage(myImagePath.getValue()));
+	    myPenRGB = new SimpleStringProperty(myStringResources.getString("defaultPenColor"));
+	    myStrokeWidth= new SimpleDoubleProperty(1.0);
+	    myStrokeType = new SimpleStringProperty(myStringResources.getString("defaultStrokeChoice"));
+	}
+	
+	
 	
 	private void setUpDialogBox(){
-	Stage dialog = new Stage();
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        VBox dialogVbox = new VBox(ViewConstants.VARIABLE_TABLE_SPACING.getVal());
-        dialog.setTitle(myStringResources.getString("idText") + myID);
-        Button shapeButton = new Button();
-        shapeButton.setText(myStringResources.getString("chooseImage"));
-        shapeButton.setOnAction(e-> setImage(ViewFX.openFileChooser()));
-        ColorPicker colorPick = new ColorPicker(penColor);
-        colorPick.setOnAction(e-> penColor=colorPick.getValue());
-	dialogVbox.getChildren().addAll(shapeButton,new Text(myStringResources.getString("choosePenColor")),colorPick);
-        dialog.setScene(new Scene(dialogVbox, ViewConstants.DBOX_WIDTH.getVal(), ViewConstants.DBOX_HEIGHT.getVal()));
-        dialog.show();
+	    Stage dialog = new Stage();
+	    VBox dialogBox = new VBox(ViewConstants.VARIABLE_TABLE_SPACING.getVal());
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            PenPropertiesDialogBox penPropBox = new PenPropertiesDialogBox(myPenRGB,myStrokeWidth,myStrokeType,myPenStatus);
+            TurtlePropertiesDialogBox turtlePropBox = new TurtlePropertiesDialogBox(myImagePath,new double[]{myShape.getTranslateX(),myShape.getTranslateY()},myShape.rotateProperty().get());
+            dialog.setTitle(myStringResources.getString("idText") + myID);
+            dialogBox.getChildren().addAll(penPropBox.getVBox(),turtlePropBox.getVBox());
+            dialog.setScene(new Scene(dialogBox, ViewConstants.DBOX_WIDTH.getVal(), ViewConstants.DBOX_HEIGHT.getVal()));
+            dialog.show();
 	}
+
+    public void show () {
+        myShape.setVisible(true);
+    }
+
+    public void hide () {
+        myShape.setVisible(false);
+    }
 	
 }

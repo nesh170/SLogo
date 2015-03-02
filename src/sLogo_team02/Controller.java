@@ -1,7 +1,6 @@
 package sLogo_team02;
 
 import java.util.List;
-
 import parser.*;
 import programBuilder.*;
 import Model.Model;
@@ -70,4 +69,10 @@ public class Controller {
 		System.out.println(languagePath);
 		myParser.changeLanguage(languagePath);
 	}
+
+    public void setPenUporDown (Boolean penUporDown, int ID) {
+        // TODO Model to register the changed value, up is false, down is true
+        
+        
+    }
 }
