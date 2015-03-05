@@ -1,6 +1,5 @@
 package view;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -10,8 +9,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Slider;
@@ -43,6 +40,7 @@ public class PenPropertiesDialogBox {
     }
 
     private void generateColorPicker(){
+        //TODO set new pen color
       HBox ColorBox = new HBox();
       ColorPicker colorPick = new ColorPicker(Color.web(myPenRGB.get()));
       colorPick.setOnAction(e-> myPenRGB.setValue(toRGBCode(colorPick.getValue())));
@@ -55,6 +53,7 @@ public class PenPropertiesDialogBox {
     }
     
     private void generateSlider(){
+        //TODO tell controller about this
         HBox SliderBox = new HBox();
         Slider strokeWidth = new Slider(0, 10.0, myStrokeWidth.get());
         Text SlideValue = new Text(String.format("%.2f",myStrokeWidth.get()));
@@ -73,6 +72,7 @@ public class PenPropertiesDialogBox {
     }
     
     private void generateStrokeWidthChoiceBox(){
+        //TODO edit this to support the new resources it will crash, update to controeller
         HBox strokeTypeBox = new HBox();
         List<String> strokeTypeArray = Arrays.asList(myStringResources.getString("strokeWidthChoice").split("\\s+"));
         List<String> strokeTypeCSS = Arrays.asList(myStringResources.getString("strokeWidthCSS").split("\\s+"));
@@ -84,6 +84,7 @@ public class PenPropertiesDialogBox {
     }
     
     private void generateTogglePen(){
+        //Up or down pen
         HBox toggleBox = new HBox();
         ToggleButton penToggle = new ToggleButton(); //Up is false
         createPenToggleString(penToggle);
