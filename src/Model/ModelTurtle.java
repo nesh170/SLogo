@@ -10,7 +10,7 @@ public class ModelTurtle {
 	private double myTotalDistance;
 	private boolean myPenUp;
 	private int myID;
-	private String myShape;
+	private int myShape;
 	private String myImagePath;
 
 	public ModelTurtle(int ID) {
