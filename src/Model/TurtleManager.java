@@ -26,7 +26,6 @@ public class TurtleManager {
 		clearActiveTurtleList();
 		for(Integer i: activeTurtleIDs){
 			if(!myTurtles.keySet().contains(i)){
-				System.out.println("ADDING TURTLE TO LIST 1");
 				addTurtle(i);
 			}
 			else{
@@ -63,7 +62,6 @@ public class TurtleManager {
 	}
 
 	public void addTurtle(Integer turtleID){
-		System.out.println("ADDING TURTLE TO LIST 2");
 		myTurtles.put(turtleID, new ModelTurtle(turtleID));
 		//automatically activates new turtles
 		myActiveTurtleIDs.add(turtleID);

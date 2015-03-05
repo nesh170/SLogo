@@ -27,6 +27,7 @@ public class Constants {
 	public static final Integer FIRST_TURTLE_XCOR = 0;
 	public static final Integer FIRST_TURTLE_YCOR = 0;
 	public static final String DEFAULT_SHAPE = "triangle";
+	public static final String MISSING_VARIABLE_MESSAGE = "Trying to use undefined variable";
 	
 	public static final int FORWARD = 1;
 	public static final int BACKWARD = 1;
