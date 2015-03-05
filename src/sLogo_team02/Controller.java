@@ -23,6 +23,7 @@ public class Controller {
 	public Controller(Stage stage){
 		myStage = stage;
 		myParser = new Parser();
+		WorkSpace workSpaceManager = new WorkSpace(this);
 	}
 
 	private void initializeViewAndModel(){
