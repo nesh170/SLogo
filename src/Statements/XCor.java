@@ -11,7 +11,7 @@ public class XCor extends Query{
 
 	@Override
 	public double execute() {
-		double result = (myTurtleManager.getTurtle(myTurtleManager.getActiveTurtles().get(0))).getX();
+		double result = (myTurtleManager.getTurtle(myTurtleManager.getActiveTurtleIDs().get(0))).getX();
 		myView.printMessage(result + "");
 		return result;
 	}

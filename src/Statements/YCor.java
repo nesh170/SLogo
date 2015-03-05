@@ -11,7 +11,7 @@ public class YCor extends Query{
 
 	@Override
 	public double execute() {
-		double result = (myTurtleManager.getTurtle(myTurtleManager.getActiveTurtles().get(0))).getY();
+		double result = (myTurtleManager.getTurtle(myTurtleManager.getActiveTurtleIDs().get(0))).getY();
 		myView.printMessage(result + "");
 		return result;
 	}

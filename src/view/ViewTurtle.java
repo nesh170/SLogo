@@ -1,17 +1,27 @@
 package view;
 
+import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import java.io.File;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
+import slogoEnums.ViewConstants;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.effect.Effect;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -20,7 +30,6 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import slogoEnums.ViewConstants;
 
 public class ViewTurtle {
 	private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",new Locale("en", "US"));
@@ -31,14 +40,34 @@ public class ViewTurtle {
 	private SimpleDoubleProperty myStrokeWidth;
 	private SimpleStringProperty myStrokeType;
 	private SimpleBooleanProperty myPenStatus;
+	private SimpleBooleanProperty myActiveStatus;
+	public static final Map<Boolean,Effect> ACTIVE_EFFECT_MAP = new HashMap<>();
+	    static{
+	        ACTIVE_EFFECT_MAP.put(true, new Glow(1.0));
+	        ACTIVE_EFFECT_MAP.put(false, new Glow(0.0));
+	    }
+	
 
 	
-	public ViewTurtle(Point2D point,double size, int ID, SimpleBooleanProperty penStatus) {
+	public ViewTurtle(Point2D point,double size, int ID, SimpleBooleanProperty penStatus, SimpleBooleanProperty activeStatus) {
 		myShape = new Polygon();
 		((Polygon) myShape).getPoints().addAll(new Double[]{ViewConstants.ORIGIN_X.getVal()+size, ViewConstants.ORIGIN_Y.getVal()+size, ViewConstants.ORIGIN_X.getVal()-size, ViewConstants.ORIGIN_Y.getVal()+size, ViewConstants.ORIGIN_X.getVal(), ViewConstants.ORIGIN_Y.getVal()-size});
 		myID = ID;
 		myShape.setOnMouseClicked(e->setUpDialogBox());
+		myShape.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle (MouseEvent mouseClick) {
+                if(mouseClick.getButton().equals(MouseButton.PRIMARY)){
+                    setUpDialogBox();
+                }
+                else if(mouseClick.getButton().equals(MouseButton.SECONDARY)){
+                    myActiveStatus.setValue(!myActiveStatus.getValue());
+                } 
+            }
+                });
 		myPenStatus = penStatus;
+		myActiveStatus=activeStatus;
 		initializeObservables();
 	}
 	
@@ -80,6 +109,7 @@ public class ViewTurtle {
 		return myShape;
 	}
 	
+
 	private void initializeObservables(){
 	    myImagePath = new SimpleStringProperty();
 	    myImagePath.addListener(e -> setImage(myImagePath.getValue()));
@@ -101,6 +131,11 @@ public class ViewTurtle {
             dialog.setScene(new Scene(dialogBox, ViewConstants.DBOX_WIDTH.getVal(), ViewConstants.DBOX_HEIGHT.getVal()));
             dialog.show();
 	}
+	
+        public void activateTurtle () {
+            myShape.setEffect(ACTIVE_EFFECT_MAP.get(myActiveStatus.getValue()));
+        }
+        
 
     public void show () {
         myShape.setVisible(true);

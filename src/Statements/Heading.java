@@ -12,7 +12,7 @@ public class Heading extends Query{
 
 	@Override
 	public double execute() {
-		double result = (myTurtleManager.getTurtle(myTurtleManager.getActiveTurtles().get(0))).getAngle();
+		double result = (myTurtleManager.getTurtle(myTurtleManager.getActiveTurtleIDs().get(0))).getAngle();
 		myView.printMessage(result + "");
 		return result;
 	}

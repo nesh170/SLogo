@@ -19,13 +19,14 @@ public class Constants {
 	public static final double SHOWING_VALUE = 1;
 	public static final double HIDING_VALUE = 0;
 	public static final double REVERSE_SIGN = -1;
-	public static final boolean SET_PEN_UP = true;
-	public static final boolean SET_PEN_DOWN = false;
+	public static final boolean SET_PEN_UP = false;
+	public static final boolean SET_PEN_DOWN = true;
 	public static final int LOOP_START = 1;
 	public static final String REPEAT_VARIABLE = ":repcount";
 	public static final Integer FIRST_TURTLE_ID = 0;
 	public static final Integer FIRST_TURTLE_XCOR = 0;
 	public static final Integer FIRST_TURTLE_YCOR = 0;
+	public static final String DEFAULT_SHAPE = "triangle";
 	
 	public static final int FORWARD = 1;
 	public static final int BACKWARD = 1;

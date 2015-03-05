@@ -13,7 +13,7 @@ public class SetPenUp extends Query{
 
 	@Override
 	public double execute() {
-		myTurtleManager.getTurtle(myTurtleManager.getActiveTurtles().get(0)).setPen(Constants.SET_PEN_UP);
+		myTurtleManager.getTurtle(myTurtleManager.getActiveTurtleIDs().get(0)).setDrawing(Constants.SET_PEN_UP);
 		System.out.println("Set Turtle Pen Up");
 		return 1;
 	}
