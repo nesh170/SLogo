@@ -16,6 +16,7 @@ public class Tell extends Operator{
 	
 	@Override
 	public double execute() {
+		System.out.println("Executing tell");
 		List<Integer> turtleIDs = new ArrayList<>();
 		for(Statement instruct : myStatements){
 			turtleIDs.add((int)instruct.execute());
