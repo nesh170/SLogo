@@ -25,6 +25,11 @@ public class TurtleManager {
 		myActiveTurtles = new ArrayList<>();
 	}
 	
+	public void clearTurtles(){
+		myTurtles = new HashMap<>();
+		clearActiveTurtles();
+	}
+	
 	//should return immutable list instead
 	public List<Integer> getActiveTurtles(){
 		return myActiveTurtles;

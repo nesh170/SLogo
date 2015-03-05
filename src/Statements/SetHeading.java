@@ -13,6 +13,7 @@ public class SetHeading extends SetAngle {
 
 	@Override
 	public double execute() {
+		System.out.println("turns around");
 		myExecuteResult = myStatements.get(0).execute();
 		return super.execute();
 	}

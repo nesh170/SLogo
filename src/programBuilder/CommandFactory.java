@@ -1,21 +1,22 @@
 package programBuilder;
 
 import java.util.List;
+
 import parser.Regex;
 import view.ViewAbstract;
-import Model.TurtleManager;
-import Model.VariableManager;
+import Model.*;
 import Statements.*;
 
 public class CommandFactory {
 
 	public CommandFactory() {
 	}
-
+	//remember to group all the parameters
+	//change my
 	public static Statement generateCommand(String commandType,
 			List<List<Statement>> statements, ViewAbstract myView,
 			TurtleManager myTurtleManager, VariableManager myVariableManager,
-			Regex myRegex) {
+			Regex myRegex, MethodManager myMethodManager) {
 	        
 		switch (commandType) {
 		case "Forward":
@@ -23,12 +24,8 @@ public class CommandFactory {
 			return new Forward(statements.get(0), myView, myTurtleManager);
 		case "Backward":
 			return new Backward(statements.get(0), myView, myTurtleManager);
-		case "Right":
-                    return new Right(statements.get(0), myView, myTurtleManager);
 		case "Left":
 		        return new Left(statements.get(0),myView,myTurtleManager);
-		case "SetHeading":
-		        return new SetHeading(statements.get(0), myView, myTurtleManager);
 		case "SetTowards":
 		        return new SetTowards(statements.get(0),myView,myTurtleManager);
 		case "SetPosition":
@@ -46,6 +43,8 @@ public class CommandFactory {
 			return new Quotient(statements.get(0), myView);
 		case "XCoordinate":
 			return new XCor(myView, myTurtleManager);
+		case "Right":
+			return new Right(statements.get(0), myView, myTurtleManager);
 		case "YCoordinate":
 		        return new YCor(myView, myTurtleManager);
 		case "IsPenDown":
@@ -60,6 +59,12 @@ public class CommandFactory {
 			return new Repeat(statements, myVariableManager);
 		case "MakeVariable":
 			return new MakeVariable(statements.get(0), myView, myVariableManager);
+		case "SetHeading":
+			return new SetHeading(statements.get(0), myView, myTurtleManager);
+		case "PenUp":
+			return new SetPenUp(myView, myTurtleManager);
+		case "PenDown":
+			return new SetPenDown(myView, myTurtleManager);
 		case "And":
 		        return new And(statements.get(0));
 		case "NotEqual":
@@ -84,8 +89,19 @@ public class CommandFactory {
 		        return new Pi(statements.get(0),myView);
 		case "Random":
 				return new RandomGen(statements.get(0), myView);
+		case "ShowTurtle":
+				return new ShowTurtle(myView, myTurtleManager);
+		case "HideTurtle":
+				return new HideTurtle(myView, myTurtleManager);
+		case "ClearScreen":
+				return new ClearScreen(myView, myTurtleManager);
+		case "For":
+			return new For(statements, myVariableManager);
+		case "MakeUserInstruction":
+			return new MakeUserInstruction(statements, myVariableManager, myMethodManager);
 		default:
 			// throw an error
+			System.out.println("There is something wrong when getting here!");
 			return new Forward(statements.get(0), myView, myTurtleManager);
 		}
 	}

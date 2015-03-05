@@ -20,4 +20,8 @@ public abstract class ViewAbstract {
 	
 	public abstract void addMethodVariable(String methodName);
 	
+	public abstract void hideTurtle(int ID);
+	
+	public abstract void showTurtle(int ID);
+	
 }

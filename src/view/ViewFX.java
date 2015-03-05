@@ -6,14 +6,14 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import sLogo_team02.Controller;
-
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import slogoEnums.ViewConstants;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
 import javafx.scene.control.ListView;
 
 import javafx.scene.paint.Color;
@@ -125,7 +125,9 @@ public class ViewFX extends ViewAbstract {
     @Override
     public void addTurtle (double X, double Y, int ID) {
         Point2D point = new Point2D(X, Y);
-        ViewTurtle vt = new ViewTurtle(point, ViewConstants.TURTLE_SIZE.getVal(), ID);
+        SimpleBooleanProperty penStatus = new SimpleBooleanProperty(true);
+        penStatus.addListener(e-> setPenStatus(penStatus.getValue(), ID));
+        ViewTurtle vt = new ViewTurtle(point, ViewConstants.TURTLE_SIZE.getVal(), ID,penStatus);
         vt.setNewLocation(point);
         myViewTurtlesMap.put(ID, vt);
         myTurtleRoot.getChildren().add(vt.getViewTurtles());
@@ -139,6 +141,16 @@ public class ViewFX extends ViewAbstract {
     @Override
     public void addMethodVariable (String methodName) {
         myVariableElements.addMethodVariable(methodName);
+    }
+    
+    @Override
+    public void hideTurtle (int ID) {
+       myViewTurtlesMap.get(ID).hide();
+    }
+
+    @Override
+    public void showTurtle (int ID) {
+       myViewTurtlesMap.get(ID).show();
     }
 
     private void pushCodeToController () {
@@ -165,6 +177,10 @@ public class ViewFX extends ViewAbstract {
                 printError(myStringResources.getString("invalidImageType"));
         }
     }
+    
+    private void setPenStatus(Boolean penUporDown, int ID){ //Up is false
+        myController.setPenUporDown(penUporDown, ID);
+    }
 
     public static String openFileChooser () {
     	FileChooser fileChooser = new FileChooser();
@@ -175,6 +191,7 @@ public class ViewFX extends ViewAbstract {
     	}
     	return file.toString();
     }
+    
 
     private void changeLanuageinController (int index) {
         ResourceBundle myStringResources =
@@ -182,4 +199,6 @@ public class ViewFX extends ViewAbstract {
         myController
                 .changeLanguage(myStringResources.getString("languageFile").split("\\s+")[index]);
     }
+
+
 }

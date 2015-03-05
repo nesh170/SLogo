@@ -12,6 +12,7 @@ public class Model {
 	private ViewAbstract myView;
 	private TurtleManager myTurtleManager;
 	private VariableManager myVariableManager;
+	private MethodManager myMethodManager;
 
 	public Model(ViewAbstract view) {
 		myView = view;
@@ -19,6 +20,7 @@ public class Model {
 		myView.addTurtle(0, 0, 0);
 		myTurtleManager.addTurtle(0);
 		myVariableManager = new VariableManager(myView);
+		myMethodManager = new MethodManager();
 	}
 	
 	public TurtleManager getTurtleManager(){
@@ -27,6 +29,10 @@ public class Model {
 	
 	public VariableManager getVariableManager(){
 		return myVariableManager;
+	}
+	
+	public MethodManager getMethodManager(){
+		return myMethodManager;
 	}
 
 	public void processCommand(Program program) {

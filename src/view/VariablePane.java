@@ -98,6 +98,7 @@ public class VariablePane {
 			myMethodList.add(methodKey);
 		}
 	}
+	
 
 	private void initializeMethodList(ChangeListener<String> listener){
 		myMethodList = FXCollections.observableArrayList();
