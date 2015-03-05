@@ -14,7 +14,7 @@ public class PenDownP extends Query {
 	@Override
 	public double execute() {
 		if (myTurtleManager
-				.getTurtle(myTurtleManager.getActiveTurtles().get(0)).isPenUp()) {
+				.getTurtle(myTurtleManager.getActiveTurtleIDs().get(0)).isDrawing()) {
 			myView.printMessage(Constants.PEN_UP_VALUE + "");
 			return Constants.PEN_UP_VALUE;
 		}

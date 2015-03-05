@@ -13,7 +13,7 @@ public class ShowingP extends Query {
 	@Override
 	public double execute() {
 		if (myTurtleManager
-				.getTurtle(myTurtleManager.getActiveTurtles().get(0))
+				.getTurtle(myTurtleManager.getActiveTurtleIDs().get(0))
 				.isHiding()) {
 			myView.printMessage(Constants.HIDING_VALUE + "");
 			return Constants.HIDING_VALUE;

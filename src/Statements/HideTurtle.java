@@ -1,7 +1,7 @@
 package Statements;
 
 import view.ViewAbstract;
-import Model.TurtleManager;
+import Model.*;
 
 public class HideTurtle extends Query {
 
@@ -12,7 +12,10 @@ public class HideTurtle extends Query {
 	@Override
 	public double execute() {
 		System.out.println("Hide Turtle");
-		myView.hideTurtle(0);
+		for(ModelTurtle t: myTurtleManager.getActiveTurtles()){
+			t.setHiding(true);
+			myView.visibleShape(!t.isHiding(), t.getID());
+		}
 		return 0;
 	}
 

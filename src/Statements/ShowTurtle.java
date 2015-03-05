@@ -1,6 +1,7 @@
 package Statements;
 
 import view.ViewAbstract;
+import Model.ModelTurtle;
 import Model.TurtleManager;
 
 public class ShowTurtle extends Query {
@@ -12,7 +13,10 @@ public class ShowTurtle extends Query {
 	@Override
 	public double execute() {
 		System.out.println("Show Turtle");
-		myView.showTurtle(0);
+		for(ModelTurtle t: myTurtleManager.getActiveTurtles()){
+			t.setHiding(false);
+			myView.visibleShape(!t.isHiding(), t.getID());
+		}
 		return 1;
 	}
 

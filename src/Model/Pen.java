@@ -1,5 +1,7 @@
 package Model;
 
+import Constants.*;
+
 public class Pen {
 
 	public static final String DASHED_STROKE = "Dashed";
@@ -10,25 +12,47 @@ public class Pen {
 	// defualt color is black
 	public static final String DEFAULT_COLOR = "#000000";
 
-	private boolean isUp;
+	private boolean isDown;
 	private String myStroke;
 	private double myThickness;
-	private String myColor;
+	private String myStringColor;
 
 	public Pen() {
-		isUp = false;
+		isDown = Constants.SET_PEN_DOWN;
 		myStroke = DEFAULT_STROKE;
 		myThickness = DEFAULT_THICKNESS;
-		myColor = DEFAULT_COLOR;
+		myStringColor = DEFAULT_COLOR;
 	}
 
 	public void calculateAndSetColor(int r, int g, int b) {
-		myColor = String.format("#%02X%02X%02X", (int) (r * 255),
+		myStringColor = String.format("#%02X%02X%02X", (int) (r * 255),
 				(int) (g * 255), (int) (b * 255));
 	}
 	
 	public void setStroke(String stroke){
 		myStroke = stroke;
+	}
+	
+	public boolean isDown(){
+		return isDown;
+	}
+	
+	public void setPenDown(boolean drawing){
+		isDown = drawing;
+	}
+	
+	//public void drawYourself(ViewAbstract)
+	
+	public String getPenStroke(){
+		return myStroke;
+	}
+	
+	public double getThickness(){
+		return myThickness;
+	}
+	
+	public String getStringColor(){
+		return myStringColor;
 	}
 
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import view.*;
+import Constants.*;
 
 public class TurtleManager {
 	private Map<Integer, ModelTurtle> myTurtles;
@@ -49,8 +50,12 @@ public class TurtleManager {
 	}
 
 	//should return immutable list instead
-	public List<Integer> getActiveTurtles(){
+	public List<Integer> getActiveTurtleIDs(){
 		return myActiveTurtleIDs;
+	}
+	
+	public List<ModelTurtle> getActiveTurtles(){
+		return myActiveTurtles;
 	}
 
 	public void doToActiveTurtles(Consumer<? super ModelTurtle> action){
@@ -63,7 +68,7 @@ public class TurtleManager {
 		//automatically activates new turtles
 		myActiveTurtleIDs.add(turtleID);
 		myActiveTurtles.add(myTurtles.get(turtleID));
-		myView.addTurtle(0, 0, turtleID);
+		myView.addShape(Constants.DEFAULT_SHAPE, 0, 0, turtleID);
 	}
 
 	public ModelTurtle getTurtle(Integer ID){

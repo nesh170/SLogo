@@ -116,7 +116,8 @@ public class ViewFX extends ViewAbstract {
     public void addShape (String shapeType, double X, double Y, int ID) {
        ShapeFactory factory = new ShapeFactory();
        Shape tempShape = factory.makeShape(shapeType);
-       tempShape.setTranslateX(ViewConstants.ORIGIN_X.getVal());tempShape.setTranslateY(ViewConstants.ORIGIN_Y.getVal());
+       tempShape.setTranslateX(ViewConstants.ORIGIN_X.getVal());
+       tempShape.setTranslateY(ViewConstants.ORIGIN_Y.getVal());
        tempShape.setOnMouseClicked(new EventHandler<MouseEvent>() {
         @Override
         public void handle (MouseEvent mouseButton) {

@@ -12,12 +12,14 @@ public class ClearScreen extends Query {
 
 	@Override
 	public double execute() {
-		double distance = myTurtleManager.getTurtle(Constants.FIRST_TURTLE_ID).getTotalDistance();
+		double distance = myTurtleManager.getTurtle(Constants.FIRST_TURTLE_ID)
+				.getTotalDistance();
 		myTurtleManager.clearTurtles();
 		myTurtleManager.addTurtle(Constants.FIRST_TURTLE_ID);
 		System.out.println("clear screen");
 		myView.clearScreen();
-		myView.addTurtle(Constants.FIRST_TURTLE_XCOR, Constants.FIRST_TURTLE_YCOR, Constants.FIRST_TURTLE_ID);
+		myView.addShape(Constants.DEFAULT_SHAPE, Constants.FIRST_TURTLE_XCOR,
+				Constants.FIRST_TURTLE_YCOR, Constants.FIRST_TURTLE_ID);
 		return distance;
 	}
 
