@@ -21,6 +21,9 @@ public class TurtleManager {
 		clearActiveTurtleIDs();
 		clearActiveTurtleList();
 		for(Integer i: activeTurtleIDs){
+			if(!myTurtles.keySet().contains(i)){
+				addTurtle(i);
+			}
 			myActiveTurtleIDs.add(i);
 			myActiveTurtles.add(myTurtles.get(i));
 		}
@@ -52,7 +55,7 @@ public class TurtleManager {
 	public void addTurtle(Integer turtleID){
 		myTurtles.put(turtleID, new ModelTurtle(turtleID));
 		//automatically activates new turtles
-		myActiveTurtleIDs.add(turtleID);
+		//myActiveTurtleIDs.add(turtleID);
 	}
 	
 	public ModelTurtle getTurtle(Integer ID){
