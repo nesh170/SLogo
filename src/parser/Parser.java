@@ -36,20 +36,17 @@ public class Parser {
 		return myRegex;
 	}
 
-	// returns a program, once that class is created
 	public List<ParseNode> parse(String program) throws ParserException {
-		// preProcess the string;
 		String processed = preProcessString(program);
 		if (processed == null) {
 			return null;
 		}
 		myCurProgramArray = processed.split(" ");
 		//ArrayList<String> programArray = new ArrayList<>(Arrays.asList(myCurProgramArray));
-		// System.out.println(programArray);
-		// create a program;
 		List<ParseNode> topNodes = new ArrayList<>();
 		// loop through the string array until it's empty{
 		while (myCurIndex < myCurProgramArray.length - 1) {
+			//NODE FACTORY HERE
 			ParseNode curNode = new ParseNode(myCurProgramArray[++myCurIndex]);
 			System.out.println("Root Node: " + curNode.getName());
 			ParseNode processedNode = recursiveCommandBuilder(curNode);
@@ -63,7 +60,6 @@ public class Parser {
 		// add current node (head node of each independent command) to the
 		// statement list;
 		// }
-		// make and return program;
 		myCurIndex = -1;
 		return topNodes;
 	}
@@ -255,6 +251,7 @@ public class Parser {
 			}
 			String next = myCurProgramArray[++myCurIndex];
 			if (next.equals(OPEN_BRACKET)) {
+				//NODE FACTORY HERE
 				ParseNode newGroup = new ParseNode(GROUP);
 				System.out.println("The beginning of Group node: " + newGroup.getName());
 				ParseNode processedNode = recursiveCommandBuilder(newGroup);
@@ -265,6 +262,7 @@ public class Parser {
 						+ current.getName()
 						+ " before encountering end bracket.");
 			} else {
+				//NODE FACTORY HERE
 				ParseNode newNode = new ParseNode(next);
 				System.out.println("New Node: " + newNode.getName());
 				ParseNode processedNode = recursiveCommandBuilder(newNode);
