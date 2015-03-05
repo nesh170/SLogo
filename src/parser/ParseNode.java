@@ -19,7 +19,7 @@ public abstract class ParseNode {
 		return myName;
 	}
 	
-	public int getNumChildren(){
+	public int getChildCount(){
 		return myChildren.size();
 	}
 	

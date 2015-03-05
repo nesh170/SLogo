@@ -12,11 +12,11 @@ import Constants.Constants;
 
 public class Parser {
 	public static final String USER_DEFINED = "UserDefined";
-	private static final String OPEN_BRACKET = "[";
-	private static final String CLOSED_BRACKET = "]";
+	public static final String OPEN_BRACKET = "[";
+	public static final String CLOSED_BRACKET = "]";
 	public static final String GROUP = "Group";
-	private static final String REPCOUNT = ":repcount";
-	private static final String TO = "MakeUserInstruction";
+	public static final String REPCOUNT = ":repcount";
+	public static final String TO = "MakeUserInstruction";
 
 	private Regex myRegex;
 	private int myCurIndex;
@@ -45,6 +45,13 @@ public class Parser {
 	
 	public String getCurrentElement(){
 		return myCurProgramArray[myCurIndex];
+	}
+	
+	public String getNextElement() {
+		if(!atEndOfString()){
+			return myCurProgramArray[myCurIndex+1];
+		}
+		return null;
 	}
 	
 	public void addVariableToTable(String var){
@@ -172,24 +179,7 @@ public class Parser {
 				retrieveChildren(current, loopTimes);
 				break;
 			case "MakeVariable":
-				if (atEndOfString()) {
-					System.out.println("Missing the variable for make");
-					throw new ParserException(
-							"Insufficient arguements for make command.");
-				}
-				String variable = myCurProgramArray[myCurIndex + 1];
-				if (!(myRegex.matchSyntax(variable).equals("Variable"))) {
-					System.out
-					.println("Thing after make is not of variable format");
-					throw new ParserException(
-							"Incorrect format for variable declared after make.");
-				}
-				//note that we never clear the program variable table
-				myProgramVariables.add(variable);
-				System.out.println("Added variable to variable set. "
-						+ myProgramVariables.contains(variable));
-				retrieveChildren(current, loopTimes);
-				break;
+				return current.finishProcessing();
 			case TO:
 				if (atEndOfString()) {
 					System.out.println("Missing the variable for to");
@@ -201,18 +191,15 @@ public class Parser {
 				//ParseNode newNode = new ParseNode(myCurProgramArray[++myCurIndex]);
 				current.addChild(newNode);
 				retrieveChildren(current, loopTimes);
-				myProgMethodsAndParams.put(methodName, current.getChildren().get(1).getNumChildren());
+				myProgMethodsAndParams.put(methodName, current.getChildren().get(1).getChildCount());
 				System.out.println("The user instruction is "+ methodName);
-				System.out.println("In the myProgmehotdpasdfslkfjs the num is "+current.getChildren().get(1).getNumChildren());
-				System.out.println("In the myProgmehotdpasd the num is "+current.getChildren().get(2).getNumChildren());
+				System.out.println("In the myProgmehotdpasdfslkfjs the num is "+current.getChildren().get(1).getChildCount());
+				System.out.println("In the myProgmehotdpasd the num is "+current.getChildren().get(2).getChildCount());
 				break;
 			case GROUP:
-				getGroupKids(current);
-				break;
+				return current.finishProcessing();
 			case "Repeat":
-				myProgramVariables.add(REPCOUNT);
-				retrieveChildren(current, loopTimes);
-				break;
+				return current.finishProcessing();
 			default:
 				return current.finishProcessing();
 			}
@@ -260,7 +247,7 @@ public class Parser {
 
 	public void retrieveChildren(ParseNode current, int loopTimes)
 			throws ParserException {
-		while (current.getNumChildren() < loopTimes) {
+		while (current.getChildCount() < loopTimes) {
 			if (atEndOfString()) {
 				System.out.println("Missing parameters for command: "
 						+ current.getName());
@@ -290,7 +277,7 @@ public class Parser {
 		}
 	}
 
-	private boolean atEndOfString() {
+	public boolean atEndOfString() {
 		return (myCurIndex == myCurProgramArray.length - 1);
 	}
 

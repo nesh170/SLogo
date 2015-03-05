@@ -52,9 +52,8 @@ public class ProgramBuilder {
 			List<Statement> baseList = new ArrayList<>();
 			paramLists.add(baseList);
 			List<Statement> curList = baseList;
-			int looptimes = node.getNumChildren();
+			int looptimes = node.getChildCount();
 			if(node.getName().equals("to")){
-				System.out.println("never gets here");
 				looptimes--;
 				baseList.add(new MethodName(node.getChildren().get(0).getName()));
 				node.removeChild(0);
@@ -78,7 +77,7 @@ public class ProgramBuilder {
 			}
 		}
 		String commandType = myRegex.matchCommand(nodeName);
-		
+		//if commandType is null, check if it is a user defined before sending to command factory
 		return CommandFactory.generateCommand(commandType, paramLists, myView, 
 				myTurtleManager, myVariableManager, myRegex, myMethodManager);
 	}

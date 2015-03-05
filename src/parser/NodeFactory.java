@@ -20,13 +20,19 @@ public class NodeFactory {
 				}
 			}
 			switch(commandType){
+			case Parser.USER_DEFINED:
 				
+			case Parser.GROUP:
+				return new GroupNode(nodeName, parser, commandType);
+			case "MakeVariable":
+				return new MakeVariableNode(nodeName, parser, commandType);
+			case "Repeat":
+				return new RepeatNode(nodeName, parser, commandType);
+			case Parser.TO:
+				return new ToNode(nodeName, parser, commandType);
 			default:
 				return new CommandNode(nodeName, parser, commandType);
 			}
-			
-			
-			
 		case "Constant":
 			return new ConstantNode(nodeName, parser);
 		case "Variable":
