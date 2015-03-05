@@ -16,7 +16,8 @@ public class Model {
 
 	public Model(ViewAbstract view) {
 		myView = view;
-		myTurtleManager = new TurtleManager();
+		//make an interface from the view that just allows us to add a turtle
+		myTurtleManager = new TurtleManager(myView);
 		myView.addTurtle(0, 0, 0);
 		myTurtleManager.addTurtle(0);
 		myVariableManager = new VariableManager(myView);

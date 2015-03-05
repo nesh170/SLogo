@@ -20,7 +20,6 @@ public class ModelTurtle {
 		myAngle = 0;
 		myTotalDistance = 0;
 		myID = ID;
-		
 	}
 
 	public void moveTurtle(double distance, double angle) {

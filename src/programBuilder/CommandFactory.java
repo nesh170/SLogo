@@ -99,6 +99,8 @@ public class CommandFactory {
 			return new For(statements, myVariableManager);
 		case "MakeUserInstruction":
 			return new MakeUserInstruction(statements, myVariableManager, myMethodManager);
+		case "Tell":
+			return new Tell(statements.get(0), myTurtleManager);
 		default:
 			// throw an error
 			System.out.println("There is something wrong when getting here!");

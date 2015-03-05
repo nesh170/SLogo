@@ -73,6 +73,7 @@ public class Constants {
 	public static final int IF = 2;
 	public static final int IFELSE = 3;
 	public static final int MAKEUSERINSTRUCTION = 3;
+	public static final int TELL = 1;
 	
 	
     public static int getNumParam (String paramName) throws IllegalArgumentException,
