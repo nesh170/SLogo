@@ -148,14 +148,12 @@ public class ViewFX extends ViewAbstract {
     
 
     private void changeLanuageinController (int index) {
-        ResourceBundle myStringResources =
-                ResourceBundle.getBundle("resources.View.ViewText", new Locale("en", "US"));
-        myController
-                .changeLanguage(myStringResources.getString("languageFile").split("\\s+")[index]);
+        ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText", new Locale("en", "US"));
+        myController.changeLanguage(myStringResources.getString("languageFile").split("\\s+")[index]);
     }
 
     @Override
-    public void drawShape (double X, double Y,int ID,String penColor,double strokeWidth,String strokeType) {
+    public void drawShape(double X, double Y,int ID,String penColor,double strokeWidth,String strokeType) {
         double[] startCoordinates = ViewFunctions.rectToFXCoordinates(myShapeMap.get(ID).getTranslateX(), myShapeMap.get(ID).getTranslateY());
         double[] endCoordinates = ViewFunctions.rectToFXCoordinates(X, Y);
         Line turtleLine = new Line(startCoordinates[0],startCoordinates[1],endCoordinates[0],endCoordinates[1]);
