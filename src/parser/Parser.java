@@ -11,10 +11,10 @@ import exceptions.*;
 import Constants.Constants;
 
 public class Parser {
-	private static final String USER_DEFINED = "UserDefined";
+	public static final String USER_DEFINED = "UserDefined";
 	private static final String OPEN_BRACKET = "[";
 	private static final String CLOSED_BRACKET = "]";
-	private static final String GROUP = "Group";
+	public static final String GROUP = "Group";
 	private static final String REPCOUNT = ":repcount";
 	private static final String TO = "MakeUserInstruction";
 
@@ -129,7 +129,7 @@ public class Parser {
 		return builder.toString();
 	}
 
-	private ParseNode recursiveCommandBuilder(ParseNode current)
+	public ParseNode recursiveCommandBuilder(ParseNode current)
 			throws ParserException {
 		String nodeName = current.getName();
 
@@ -214,8 +214,7 @@ public class Parser {
 				retrieveChildren(current, loopTimes);
 				break;
 			default:
-				retrieveChildren(current, loopTimes);
-				break;
+				return current.finishProcessing();
 			}
 			return current;
 		case "Constant":
@@ -229,7 +228,7 @@ public class Parser {
 	}
 
 	// duplicated with method below, refactor
-	private void getGroupKids(ParseNode groupLeader) throws ParserException {
+	public void getGroupKids(ParseNode groupLeader) throws ParserException {
 		boolean groupComplete = false;
 		while (!groupComplete) {
 			if (atEndOfString()) {
@@ -259,7 +258,7 @@ public class Parser {
 		}
 	}
 
-	private void retrieveChildren(ParseNode current, int loopTimes)
+	public void retrieveChildren(ParseNode current, int loopTimes)
 			throws ParserException {
 		while (current.getNumChildren() < loopTimes) {
 			if (atEndOfString()) {

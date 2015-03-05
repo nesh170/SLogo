@@ -8,7 +8,25 @@ public class NodeFactory {
 		String type = regex.matchSyntax(nodeName);
 		switch (type) {
 		case "Command":
-			return new CommandNode(nodeName, parser);
+			String commandType = regex.matchCommand(nodeName);
+			if (commandType == null) {
+				if(parser.methodExists(nodeName)){
+					commandType = Parser.USER_DEFINED;
+				}
+				else if (nodeName.equals(Parser.GROUP)) {
+					commandType = Parser.GROUP;
+				} else {
+					throw new ParserException("Invalid Command");
+				}
+			}
+			switch(commandType){
+				
+			default:
+				return new CommandNode(nodeName, parser, commandType);
+			}
+			
+			
+			
 		case "Constant":
 			return new ConstantNode(nodeName, parser);
 		case "Variable":
