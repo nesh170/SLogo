@@ -4,41 +4,55 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class TurtleManager {
 	private Map<Integer, ModelTurtle> myTurtles;
-	private List<Integer> myActiveTurtles;
+	private List<Integer> myActiveTurtleIDs;
+	private List<ModelTurtle> myActiveTurtles;
 	
 	public TurtleManager(){
 		myTurtles = new HashMap<>();
-		myActiveTurtles = new ArrayList<>();
+		myActiveTurtleIDs = new ArrayList<>();
+		myActiveTurtles =   new ArrayList<>();
 	}
 	
 	public void setActiveTurtles(List<Integer> activeTurtleIDs){
-		clearActiveTurtles();
+		clearActiveTurtleIDs();
+		clearActiveTurtleList();
 		for(Integer i: activeTurtleIDs){
-			myActiveTurtles.add(i);
+			myActiveTurtleIDs.add(i);
+			myActiveTurtles.add(myTurtles.get(i));
 		}
 	}
 	
-	private void clearActiveTurtles(){
-		myActiveTurtles = new ArrayList<>();
+	private void clearActiveTurtleList() {
+		myActiveTurtles.clear();
+		
+	}
+
+	private void clearActiveTurtleIDs(){
+		myActiveTurtleIDs = new ArrayList<>();
 	}
 	
 	public void clearTurtles(){
 		myTurtles = new HashMap<>();
-		clearActiveTurtles();
+		clearActiveTurtleIDs();
 	}
 	
 	//should return immutable list instead
 	public List<Integer> getActiveTurtles(){
-		return myActiveTurtles;
+		return myActiveTurtleIDs;
+	}
+	
+	public void doToActiveTurtles(Consumer<? super ModelTurtle> action){
+		myActiveTurtles.forEach((Consumer<? super ModelTurtle>)action);
 	}
 	
 	public void addTurtle(Integer turtleID){
 		myTurtles.put(turtleID, new ModelTurtle(turtleID));
 		//automatically activates new turtles
-		myActiveTurtles.add(turtleID);
+		myActiveTurtleIDs.add(turtleID);
 	}
 	
 	public ModelTurtle getTurtle(Integer ID){

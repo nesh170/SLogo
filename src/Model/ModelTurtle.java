@@ -10,6 +10,8 @@ public class ModelTurtle {
 	private double myTotalDistance;
 	private boolean myPenUp;
 	private int myID;
+	private String myShape;
+	private String myImagePath;
 
 	public ModelTurtle(int ID) {
 		myHiding = false;
@@ -18,6 +20,7 @@ public class ModelTurtle {
 		myAngle = 0;
 		myTotalDistance = 0;
 		myID = ID;
+		
 	}
 
 	public void moveTurtle(double distance, double angle) {
