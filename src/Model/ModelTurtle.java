@@ -78,10 +78,10 @@ public class ModelTurtle {
 		return myAngle;
 	}
 
-	public void setPenUp(boolean penUp) {
+	public void setPen(boolean penUp) {
 		myPenUp = penUp;
 	}
-
+	
 	public boolean isPenUp() {
 		return myPenUp;
 	}

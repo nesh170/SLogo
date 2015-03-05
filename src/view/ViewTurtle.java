@@ -1,5 +1,7 @@
 package view;
 
+import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import java.io.File;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -7,6 +9,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
+import slogoEnums.ViewConstants;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -27,7 +30,6 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import slogoEnums.ViewConstants;
 
 public class ViewTurtle {
 	private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",new Locale("en", "US"));
@@ -107,6 +109,7 @@ public class ViewTurtle {
 		return myShape;
 	}
 	
+
 	private void initializeObservables(){
 	    myImagePath = new SimpleStringProperty();
 	    myImagePath.addListener(e -> setImage(myImagePath.getValue()));

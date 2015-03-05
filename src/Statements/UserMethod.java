@@ -20,6 +20,7 @@ public class UserMethod extends Statement{
 	public double execute() {
 		addVarsToTable();
 		double result = 0;
+		System.out.println("About to execute user-defined method");
 		for(Statement curCommand: myCommands){
 			result = curCommand.execute();
 		}

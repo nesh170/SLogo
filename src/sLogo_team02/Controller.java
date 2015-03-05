@@ -29,7 +29,7 @@ public class Controller {
 		myView = new ViewFX(this);
 		myModel = new Model(myView);
 		myProgBuilder = new ProgramBuilder(myView, myModel.getTurtleManager(), 
-				myModel.getVariableManager(), myParser.getRegex());
+				myModel.getVariableManager(), myParser.getRegex(), myModel.getMethodManager());
 	}
 
 	public void setUpStage(){

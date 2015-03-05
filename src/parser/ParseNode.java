@@ -27,4 +27,8 @@ public class ParseNode {
 	public List<ParseNode> getChildren(){
 		return myChildren;
 	}
+	
+	public void removeChild(int index){
+		myChildren.remove(index);
+	}
 }

@@ -5,11 +5,13 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
+import sLogo_team02.Controller;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import slogoEnums.ViewConstants;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -18,8 +20,6 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import sLogo_team02.Controller;
-import slogoEnums.ViewConstants;
 
 
 public class ViewFX extends ViewAbstract {
@@ -138,12 +138,12 @@ public class ViewFX extends ViewAbstract {
 
     public static String openFileChooser () {
     	FileChooser fileChooser = new FileChooser();
-	fileChooser.setInitialDirectory(new File((System.getProperty("user.dir"))));
-	File file = fileChooser.showOpenDialog(new Stage());
-	if(file==null){
-	    return "";
-	}
-	return file.toString();
+    	fileChooser.setInitialDirectory(new File((System.getProperty("user.dir"))));
+    	File file = fileChooser.showOpenDialog(new Stage());
+    	if(file==null){
+    		return "";
+    	}
+    	return file.toString();
     }
     
 
