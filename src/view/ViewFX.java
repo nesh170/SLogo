@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
+import com.sun.org.apache.xpath.internal.axes.ReverseAxesWalker;
 import sLogo_team02.Controller;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -90,21 +91,21 @@ public class ViewFX extends ViewAbstract {
 
     @Override
     public void drawShape(double X, double Y,int ID,String penColor,double strokeWidth,String strokeType) {
-        double[] startCoordinates = ViewFunctions.rectToFXCoordinates(myShapeMap.get(ID).getTranslateX(), myShapeMap.get(ID).getTranslateY());
+        double[] startCoordinates = ViewFunctions.rectToFXCoordinates(myShapeMap.get(ID).getTranslateX(), ViewConstants.REVERSE_DIRECTION.getVal()*myShapeMap.get(ID).getTranslateY());
+        System.out.println(myShapeMap.get(ID).getTranslateX() + " " + myShapeMap.get(ID).getTranslateY());
         double[] endCoordinates = ViewFunctions.rectToFXCoordinates(X, Y);
         Line turtleLine = new Line(startCoordinates[0],startCoordinates[1],endCoordinates[0],endCoordinates[1]);
         turtleLine.setStroke(Color.web(penColor));
         turtleLine.setStrokeWidth(strokeWidth);
-        turtleLine.setStyle(myStringResources.getString(strokeType));
+        turtleLine.setStyle(myStringResources.getString(strokeType.toLowerCase()));
         moveShape(X, Y, ID);
         myLineRoot.getChildren().add(turtleLine);     
     }
 
     @Override
     public void moveShape (double X, double Y, int ID) {
-        double[] newCoordinates = ViewFunctions.rectToFXCoordinates(X, Y);
-        myShapeMap.get(ID).setTranslateX(newCoordinates[0]);
-        myShapeMap.get(ID).setTranslateY(newCoordinates[1]);
+        myShapeMap.get(ID).setTranslateX(X);
+        myShapeMap.get(ID).setTranslateY(ViewConstants.REVERSE_DIRECTION.getVal()*Y);
     }
 
     @Override
@@ -116,8 +117,7 @@ public class ViewFX extends ViewAbstract {
     public void addShape (String shapeType, double X, double Y, int ID) {
        ShapeFactory factory = new ShapeFactory();
        Shape tempShape = factory.makeShape(shapeType);
-       tempShape.setTranslateX(ViewConstants.ORIGIN_X.getVal());
-       tempShape.setTranslateY(ViewConstants.ORIGIN_Y.getVal());
+       //tempShape.setTranslateX(ViewConstants.ORIGIN_X.getVal());tempShape.setTranslateY(ViewConstants.ORIGIN_Y.getVal());
        tempShape.setOnMouseClicked(new EventHandler<MouseEvent>() {
         @Override
         public void handle (MouseEvent mouseButton) {
