@@ -6,6 +6,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import sLogo_team02.Controller;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -13,6 +16,8 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import slogoEnums.ViewConstants;
 import javafx.scene.control.ListView;
+import javafx.scene.effect.Effect;
+import javafx.scene.effect.Glow;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -29,11 +34,15 @@ public class ViewFX extends ViewAbstract {
     private CodePane myCodeElements;
     private VariablePane myVariableElements;
     private TurtlePlayground myPlayground;
-    private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",
-                                                                        new Locale("en", "US"));
+    private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",new Locale("en", "US"));
     private Map<Integer, Shape> myShapeMap;
     private Controller myController;
-
+    public static final Map<Boolean,Effect> ACTIVE_TURTLE_EFFECT = new HashMap<>();
+     static{
+         ACTIVE_TURTLE_EFFECT.put(true, new Glow(1.0));
+         ACTIVE_TURTLE_EFFECT.put(false, new Glow(0.0));
+     }
+     
     public ViewFX (Controller controller) {
         myController = controller;
         initializeView();
@@ -44,7 +53,6 @@ public class ViewFX extends ViewAbstract {
         myLineRoot = new Group();
         myShapeRoot = new Group();
         myShapeMap = new HashMap<>();
-        //TODO change this
         new ButtonPane(myRoot, e -> changeBackgroundImage(), new ChangeListener<Number>() {
             @Override
             public void changed (ObservableValue<? extends Number> ov, Number value, Number newValue) {
@@ -52,9 +60,7 @@ public class ViewFX extends ViewAbstract {
             }
         });
         myPlayground = new TurtlePlayground(myRoot);
-        Scene viewScene =
-                new Scene(myRoot, ViewConstants.STAGE_WIDTH.getVal(),
-                          ViewConstants.STAGE_HEIGHT.getVal(), Color.ALICEBLUE);
+        Scene viewScene = new Scene(myRoot, ViewConstants.STAGE_WIDTH.getVal(), ViewConstants.STAGE_HEIGHT.getVal(), Color.ALICEBLUE);
         myCodeElements = new CodePane(myRoot, e -> pushCodeToController());
         setUpVariablePane();
         myRoot.getChildren().addAll(myLineRoot, myShapeRoot);
@@ -83,76 +89,6 @@ public class ViewFX extends ViewAbstract {
     }
 
     @Override
-    public void clearScreen () {
-        myLineRoot.getChildren().clear();
-        myShapeRoot.getChildren().clear();
-        myCodeElements.clearTerminal();
-    }
-
-    @Override
-    public void printError (String message) {
-        myCodeElements.addTerminalText(message, Color.RED);
-    }
-
-    @Override
-    public void printMessage (String message) {
-        myCodeElements.addTerminalText(message, Color.YELLOW);
-    }
-
-    @Override
-    public void addVariable (String variableName, Double value) {
-        myVariableElements.addNumberVariables(variableName, value);
-    }
-
-    @Override
-    public void addMethodVariable (String methodName) {
-        myVariableElements.addMethodVariable(methodName);
-    }
-    
-
-    private void pushCodeToController () {
-        myController.executeProgram(myCodeElements.getCodeData());
-    }
-
-    private void updateVariableFromView (ListView.EditEvent<Double> t) {
-        try {
-            myVariableElements.setVariableValue(t.getIndex(), t.getNewValue());
-            myController.updateVariable(myVariableElements.getVariableName(t.getIndex()),
-                                        t.getNewValue());
-        }
-        catch (NumberFormatException e) {
-            printError(myStringResources.getString("wrongNumberType"));
-        }
-    }
-
-    private void changeBackgroundImage () {
-        String imageLocation = openFileChooser();
-        try{
-                myPlayground.changeBackground(imageLocation);
-        }
-        catch(IllegalArgumentException | NullPointerException e){
-                printError(myStringResources.getString("invalidImageType"));
-        }
-    }
-   
-
-    public static String openFileChooser () {
-    	FileChooser fileChooser = new FileChooser();
-    	fileChooser.setInitialDirectory(new File((System.getProperty("user.dir"))));
-    	File file = fileChooser.showOpenDialog(new Stage());
-    	if(file==null){
-    		return "";
-    	}
-    	return file.toString();
-    }
-    
-
-    private void changeLanuageinController (int index) {
-        ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText", new Locale("en", "US"));
-        myController.changeLanguage(myStringResources.getString("languageFile").split("\\s+")[index]);
-    }
-
-    @Override
     public void drawShape(double X, double Y,int ID,String penColor,double strokeWidth,String strokeType) {
         double[] startCoordinates = ViewFunctions.rectToFXCoordinates(myShapeMap.get(ID).getTranslateX(), myShapeMap.get(ID).getTranslateY());
         double[] endCoordinates = ViewFunctions.rectToFXCoordinates(X, Y);
@@ -160,6 +96,7 @@ public class ViewFX extends ViewAbstract {
         turtleLine.setStroke(Color.web(penColor));
         turtleLine.setStrokeWidth(strokeWidth);
         turtleLine.setStyle(myStringResources.getString(strokeType));
+        moveShape(X, Y, ID);
         myLineRoot.getChildren().add(turtleLine);     
     }
 
@@ -199,9 +136,82 @@ public class ViewFX extends ViewAbstract {
 
     @Override
     public void visibleShape(boolean hideOrShow, int ID) {
-        // TODO Auto-generated method stub
-        
+        myShapeMap.get(ID).setVisible(hideOrShow);
     }
+    
+    //true is active, false is inactive
+    @Override
+    public void visualActiveShape(boolean activeOrInactive, int ID) {
+        myShapeMap.get(ID).setEffect(ACTIVE_TURTLE_EFFECT.get(activeOrInactive));
+    }
+    
+    @Override
+    public void clearScreen () {
+        myLineRoot.getChildren().clear();
+        myShapeRoot.getChildren().clear();
+        myCodeElements.clearTerminal();
+    }
+
+    @Override
+    public void printError (String message) {
+        myCodeElements.addTerminalText(message, Color.RED);
+    }
+
+    @Override
+    public void printMessage (String message) {
+        myCodeElements.addTerminalText(message, Color.YELLOW);
+    }
+
+    @Override
+    public void addVariable (String variableName, Double value) {
+        myVariableElements.addNumberVariables(variableName, value);
+    }
+
+    @Override
+    public void addMethodVariable (String methodName) {
+        myVariableElements.addMethodVariable(methodName);
+    }
+    
+    private void pushCodeToController () {
+        myController.executeProgram(myCodeElements.getCodeData());
+    }
+
+    private void updateVariableFromView (ListView.EditEvent<Double> t) {
+        try {
+            myVariableElements.setVariableValue(t.getIndex(), t.getNewValue());
+            myController.updateVariable(myVariableElements.getVariableName(t.getIndex()),t.getNewValue());
+        }
+        catch (NumberFormatException e) {
+            printError(myStringResources.getString("wrongNumberType"));
+        }
+    }
+
+    private void changeBackgroundImage () {
+        String path = ViewFX.openFileChooser();
+        try{
+                myPlayground.changeBackground(path);
+        }
+        catch(IllegalArgumentException | NullPointerException e){
+                printError(myStringResources.getString("invalidImageType"));
+        }
+    }
+   
+    private void changeLanuageinController (int index) {
+        ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText", new Locale("en", "US"));
+        myController.changeLanguage(myStringResources.getString("languageFile").split("\\s+")[index]);
+    }
+    
+    public static String openFileChooser () {
+    	FileChooser fileChooser = new FileChooser();
+    	fileChooser.setInitialDirectory(new File((System.getProperty("user.dir"))));
+    	File file = fileChooser.showOpenDialog(new Stage());
+    	if(file==null){
+    		return "";
+    	}
+    	return file.toString();
+    }
+    
+
 
 
 }

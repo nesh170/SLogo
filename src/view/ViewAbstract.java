@@ -1,6 +1,5 @@
 package view;
 
-import javafx.scene.paint.Color;
 
 public abstract class ViewAbstract {
 	
@@ -23,5 +22,7 @@ public abstract class ViewAbstract {
 	public abstract void addMethodVariable(String methodName);
 	
 	public abstract void visibleShape(boolean hideOrShow, int ID);
+	
+	public abstract void visualActiveShape(boolean activeOrInactive,int ID);
 	
 }
