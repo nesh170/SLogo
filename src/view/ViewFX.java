@@ -221,7 +221,7 @@ public class ViewFX extends ViewAbstract {
     }
 
     @Override
-    public void getColorArray (List<String> colorList) {
+    public void updateColorListView (List<String> colorList) {
         // TODO Auto-generated method stub
         
     }
