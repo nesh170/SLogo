@@ -79,6 +79,8 @@ public class Constants {
 	public static final int MAKEUSERINSTRUCTION = 3;
 	public static final int TELL = 1;
 	public static final int SETPENCOLOR = 1;
+	public static final int SETPENSIZE = 1;
+	public static final int SETPALETTE = 4;
 	
 	
 	public static final List<String> DEFAULT_SHAPES = Arrays.asList("triangle",

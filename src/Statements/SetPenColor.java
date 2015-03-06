@@ -5,16 +5,12 @@ import Model.*;
 import view.*;
 import exceptions.*;
 
-public class SetPenColor extends Operator{
-	private TurtleManager myTurtles;
+public class SetPenColor extends ActionCommand{
 	private List<String> myColors;
-	private ViewAbstract myView;
 
-	public SetPenColor(List<Statement> statements, TurtleManager turtles, List<String> colors, ViewAbstract view) {
-		super(statements);
-		myTurtles = turtles;
+	public SetPenColor(List<Statement> statements, ViewAbstract view, TurtleManager turtles, List<String> colors) {
+		super(statements, view, turtles);
 		myColors = colors;
-		myView = view;
 	}
 
 	@Override
@@ -24,7 +20,7 @@ public class SetPenColor extends Operator{
 			if(index >= myColors.size()){
 				throw new ExecutionException("Invalid index for set pen color.");
 			}else{
-				myTurtles.doToActiveTurtles(e -> e.setPenColor(index));
+				myTurtleManager.doToActiveTurtles(e -> e.setPenColor(index));
 			}
 		}catch(ExecutionException e){
 			myView.printError(e.toString());

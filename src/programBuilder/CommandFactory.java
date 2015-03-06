@@ -103,7 +103,11 @@ public class CommandFactory {
 		case "Tell":
 			return new Tell(statements.get(0), myTurtleManager);
 		case "SetPenColor":
-			return new SetPenColor(statements.get(0), myTurtleManager, colors, myView);
+			return new SetPenColor(statements.get(0), myView, myTurtleManager, colors);
+		case "SetPenSize":
+			return new SetPenSize(statements.get(0), myView, myTurtleManager);
+		case "SetPalette":
+			return new SetPalette(statements.get(0), myView, colors);
 		default:
 			throw new ParserException("Command not valid.");
 		}
