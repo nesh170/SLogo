@@ -213,6 +213,7 @@ public class ViewFX extends ViewAbstract {
     @Override
     public void changeShape (String shapeType, int ID) {
         double[] coordinate = new double[]{myShapeMap.get(ID).getTranslateX(),myShapeMap.get(ID).getTranslateY()};
+        myShapeRoot.getChildren().remove(myShapeMap.get(ID));
         addShape(shapeType, 0, 0, ID);
         Shape newShape = myShapeMap.get(ID);
         newShape.setTranslateX(coordinate[0]);newShape.setTranslateX(coordinate[1]);
