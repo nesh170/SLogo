@@ -120,7 +120,7 @@ public class CommandFactory {
 					shapes);
 		case "Stamp":
 			return new Stamp(myView, myTurtleManager);
-		case "Clearstamps":
+		case "ClearStamps":
 			return new ClearStamps(myView, myTurtleManager);
 		default:
 			throw new ParserException("Command not valid.");
