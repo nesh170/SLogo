@@ -218,6 +218,12 @@ public class ViewFX extends ViewAbstract {
         Shape newShape = myShapeMap.get(ID);
         newShape.setTranslateX(coordinate[0]);newShape.setTranslateX(coordinate[1]);
     }
+
+    @Override
+    public void getColorArray (List<String> colorList) {
+        // TODO Auto-generated method stub
+        
+    }
     
 
 
