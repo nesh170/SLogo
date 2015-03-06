@@ -18,11 +18,11 @@ import javafx.stage.Stage;
 import exceptions.*;
 
 public class Controller {
-	public static final String TITLE ="SLOGO Team_02";
-	public static final String WORKSPACES = "Workspace";
+	public static final String TITLE ="SLOGO Team_02 ";
+	public static final String WORKSPACES = "Workspace ";
 	private Stage myStage;
 	private Scene myScene;
-	private List<WorkSpace> myWorkspaceList = new ArrayList<WorkSpace>();
+	private List<Workspace> myWorkspaceList = new ArrayList<Workspace>();
 	private SimpleIntegerProperty myTabNumber = new SimpleIntegerProperty(0);
 	private Menu myMenu;
 	private MenuBar myMenuBar;
@@ -32,8 +32,7 @@ public class Controller {
 	}
 
 	private void addWorkspace(){
-	    System.out.println("in here");
-	    WorkSpace tempWorkSpace = new WorkSpace(this);
+	    Workspace tempWorkSpace = new Workspace(this);
 	    myWorkspaceList.add(tempWorkSpace);
 	    tempWorkSpace.getView().getRoot().getChildren().add(myMenuBar);
 	    myScene.setRoot(tempWorkSpace.getView().getRoot());
@@ -50,13 +49,14 @@ public class Controller {
 	            public void changed (ObservableValue<? extends Number> ov, Number value, Number newValue) {
 	                Group tempRoot = myWorkspaceList.get((int) newValue).getView().getRoot();
 	                myScene.setRoot(tempRoot);
+	                myStage.setTitle(TITLE + WORKSPACES + Integer.toString((int) newValue));
 	                if(!tempRoot.getChildren().contains(myMenuBar)){
 	                    tempRoot.getChildren().add(myMenuBar);
 	                }
 	            }
             });;
 		myStage.setScene(myScene);
-		myStage.setTitle(TITLE);
+		myStage.setTitle(TITLE + WORKSPACES + "0");
 		myStage.show();
 	}
 

@@ -10,7 +10,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.Scene;
 import slogoEnums.ViewConstants;
 import javafx.scene.control.ListView;
 import javafx.scene.effect.Effect;

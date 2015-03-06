@@ -1,22 +1,20 @@
 package sLogo_team02;
 
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.Tab;
 import parser.Parser;
 import programBuilder.ProgramBuilder;
 import Model.Model;
 import view.ViewAbstract;
 import view.ViewFX;
 
-public class WorkSpace {
+public class Workspace {
     private ViewAbstract myView;
     private Model myModel;
     private Parser myParser;
     private ProgramBuilder myProgBuilder;
     
-    public WorkSpace(Controller control){
+    public Workspace(Controller control){
         myParser = new Parser();
         myView=new ViewFX(control);
         myModel = new Model(myView);
