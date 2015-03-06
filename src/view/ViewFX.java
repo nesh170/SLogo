@@ -65,7 +65,7 @@ public class ViewFX extends ViewAbstract {
         myPlayground = new TurtlePlayground(myRoot);
         myCodeElements = new CodePane(myRoot, e -> pushCodeToController());
         setUpVariablePane();
-        myRoot.getChildren().addAll(myLineRoot, myShapeRoot);
+        myRoot.getChildren().addAll(myLineRoot, myShapeRoot,myStampRoot);
     }
 
     private void setUpVariablePane () {
