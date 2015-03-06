@@ -7,21 +7,25 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
+import Model.Pen;
 import sLogo_team02.Controller;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.Scene;
 import slogoEnums.ViewConstants;
 import javafx.scene.control.ListView;
 import javafx.scene.effect.Effect;
 import javafx.scene.effect.Glow;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
@@ -244,6 +248,19 @@ public class ViewFX extends ViewAbstract {
         boolean stampContains = myStampRoot.getChildren().isEmpty();
         myStampRoot.getChildren().clear();
         return stampContains;
+    }
+
+    @Override
+    public void setUpDialogBox (Pen pen, String ID) {
+        Stage dialog = new Stage();
+        VBox dialogBox = new VBox(ViewConstants.VARIABLE_TABLE_SPACING.getVal());
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        //PenPropertiesDialogBox penPropBox = new PenPropertiesDialogBox(myPenRGB,myStrokeWidth,myStrokeType,myPenStatus);
+        //TurtlePropertiesDialogBox turtlePropBox = new TurtlePropertiesDialogBox(myImagePath,new double[]{myShape.getTranslateX(),myShape.getTranslateY()},myShape.rotateProperty().get());
+       // dialog.setTitle(myStringResources.getString("idText") + myID);
+        //dialogBox.getChildren().addAll(penPropBox.getVBox(),turtlePropBox.getVBox());
+        dialog.setScene(new Scene(dialogBox, ViewConstants.DBOX_WIDTH.getVal(), ViewConstants.DBOX_HEIGHT.getVal()));
+        dialog.show();
     }
     
     
