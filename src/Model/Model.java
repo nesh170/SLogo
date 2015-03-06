@@ -22,7 +22,7 @@ public class Model {
 		myMethodManager = new MethodManager();
 		initializeDefaultShapes();
 		initializeDefaultColors();
-		myView.getColorArray(myColors);
+		myView.updateColorList(myColors);
 	}
 	
 	public List<String> getColors(){

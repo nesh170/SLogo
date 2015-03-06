@@ -20,7 +20,7 @@ public class ColorPane {
 	private void initializeSuggestedView(Group root, List<String> colorList) {
 		ArrayList<String> temp = new ArrayList<String>();
 		for(int i = 0; i < colorList.size(); i++) {
-		        String added = colorList.get(i)+" : "+i+1;
+		        String added = colorList.get(i)+" : "+ Integer.toString(i+1);
 			temp.add(added);
 		}
 		myColorList = FXCollections.observableArrayList(temp);
@@ -37,7 +37,7 @@ public class ColorPane {
 	public void changeList(List<String> colorList) {
 		ArrayList<String> temp = new ArrayList<String>();
 		for(int i = 0; i < colorList.size(); i++) {
-			String added = colorList.get(i)+" : "+i+1;
+		    String added = colorList.get(i)+" : "+ Integer.toString(i+1);
 			temp.add(added);
 		}
 		myColorList = FXCollections.observableArrayList(temp);
