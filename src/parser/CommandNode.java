@@ -14,14 +14,6 @@ public class CommandNode extends ParseNode {
 
 	@Override
 	public ParseNode finishProcessing() throws ParserException{
-//		int loopTimes = 0;
-//			try {
-//				loopTimes = Constants.getNumParam(mySpecificCommand);
-//			} catch (IllegalArgumentException e) {
-//				e.printStackTrace();
-//			} catch (IllegalAccessException e) {
-//				e.printStackTrace();
-//			}
 		myParser.retrieveChildren(this, getNumParams());
 		return this;
 	}

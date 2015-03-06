@@ -69,6 +69,10 @@ public class Parser {
 	public boolean methodExists(String name){
 		return myProgMethodsAndParams.containsKey(name);
 	}
+	
+	public int getUserMethodParams(String methodName){
+		return myProgMethodsAndParams.get(methodName);
+	}
 
 	public List<ParseNode> parse(String program) throws ParserException {
 		String processed = preProcessString(program);
@@ -196,6 +200,7 @@ public class Parser {
 				System.out.println("In the myProgmehotdpasdfslkfjs the num is "+current.getChildren().get(1).getChildCount());
 				System.out.println("In the myProgmehotdpasd the num is "+current.getChildren().get(2).getChildCount());
 				break;
+				//return current.finishProcessing();
 			case GROUP:
 				return current.finishProcessing();
 			case "Repeat":
