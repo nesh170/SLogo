@@ -118,6 +118,10 @@ public class CommandFactory {
 		case "SetShape":
 			return new SetShape(statements.get(0), myView, myTurtleManager,
 					shapes);
+		case "Stamp":
+			return new Stamp(myView, myTurtleManager);
+		case "Clearstamps":
+			return new ClearStamps(myView, myTurtleManager);
 		default:
 			throw new ParserException("Command not valid.");
 		}

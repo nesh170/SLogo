@@ -45,6 +45,8 @@ public class Constants {
 	public static final int HOME = 0;
 	public static final int CLEARSCREEN = 0;
 	public static final int XCOORDINATE = 0;
+	public static final int STAMP = 0;
+	public static final int CLEARSTAMPS = 0;
 	public static final int YCOORDINATE = 0;
 	public static final int HEADING = 0;
 	public static final int ISPENDOWN = 0;
