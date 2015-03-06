@@ -17,7 +17,7 @@ public class SetPenColor extends ActionCommand{
 	public double execute() {
 		int index = (int) myStatements.get(0).execute();
 		try{
-			if(index >= myColors.size()){
+			if(index >= myColors.size() || index < 0){
 				throw new ExecutionException("Invalid index for set pen color.");
 			}else{
 				myTurtleManager.doToActiveTurtles(e -> e.setPenColor(index));

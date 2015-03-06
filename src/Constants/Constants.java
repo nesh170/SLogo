@@ -81,6 +81,7 @@ public class Constants {
 	public static final int SETPENCOLOR = 1;
 	public static final int SETPENSIZE = 1;
 	public static final int SETPALETTE = 4;
+	public static final int SETSHAPE = 1;
 	
 	
 	public static final List<String> DEFAULT_SHAPES = Arrays.asList("triangle",

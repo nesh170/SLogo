@@ -34,7 +34,8 @@ public class ProgramBuilder {
 		myShapes = shapes;
 	}
 
-	public Program buildProgram(List<ParseNode> topNodes) throws ParserException {
+	public Program buildProgram(List<ParseNode> topNodes)
+			throws ParserException {
 		Program newProg = new Program(myView);
 		for (ParseNode curNode : topNodes) {
 			newProg.addStatment(recursiveStatementBuilder(curNode));
@@ -42,7 +43,8 @@ public class ProgramBuilder {
 		return newProg;
 	}
 
-	private Statement recursiveStatementBuilder(ParseNode node) throws ParserException {
+	private Statement recursiveStatementBuilder(ParseNode node)
+			throws ParserException {
 		String nodeName = node.getName();
 		// get type string: if constant --> "constant", if variable -->
 		// "variable", if userdefined --> "user"
@@ -88,6 +90,7 @@ public class ProgramBuilder {
 		// if commandType is null, check if it is a user defined before sending
 		// to command factory
 		return CommandFactory.generateCommand(commandType, paramLists, myView,
-				myTurtleManager, myVariableManager, myRegex, myMethodManager, myColors);
+				myTurtleManager, myVariableManager, myRegex, myMethodManager,
+				myColors, myShapes);
 	}
 }
