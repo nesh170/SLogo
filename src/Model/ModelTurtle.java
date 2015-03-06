@@ -2,7 +2,7 @@ package Model;
 
 import Constants.Constants;
 
-public class ModelTurtle {
+public class ModelTurtle implements ITurtle {
 	private double myCurX;
 	private double myCurY;
 	private double myAngle;

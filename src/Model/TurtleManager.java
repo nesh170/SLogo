@@ -92,4 +92,28 @@ public class TurtleManager {
 			System.out.println("Set Turtle to Active");
 		}
 	}
+	//ITurtle Methods
+	
+	public void moveTurtle(double distance, double angle){
+		myActiveTurtles.forEach(e -> e.moveTurtle(distance, angle));
+	}
+	
+	public void setShapeIndex(int index){
+		myActiveTurtles.forEach(e -> e.setShapeIndex(index));
+	}
+	
+	public void setHiding(boolean hiding){
+		myActiveTurtles.forEach(e -> e.setHiding(hiding));
+	}
+	
+	public void setDrawing(boolean drawing){
+		myActiveTurtles.forEach(e -> e.setDrawing(drawing));
+	}
+	public void setPenColor(int index){
+		myActiveTurtles.forEach(e -> e.setPenColor(index));
+	}
+	
+	public void setPenSize(double pixels){
+		myActiveTurtles.forEach(e -> e.setPenSize(pixels));
+	}
 }
