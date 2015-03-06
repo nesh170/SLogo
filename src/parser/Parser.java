@@ -146,68 +146,20 @@ public class Parser {
 	public void getGroupKids(ParseNode groupLeader) throws ParserException {
 		boolean groupComplete = false;
 		while (!groupComplete) {
-			if (atEndOfString()) {
-				System.out
-				.println("Missing parameters for a something in a group");
-				throw new ParserException(
-						"Invalid format: missing end bracket.");
-			}
+			checkStringEndsEarly("Invalid grouping format: missing end bracket.");
 			String next = myCurProgramArray[++myCurIndex];
 			if (next.equals(CLOSED_BRACKET)) {
-				System.out.println("Group ended");
 				groupComplete = true;
-			} else if (next.equals(OPEN_BRACKET)) {
-				ParseNode newGroup = NodeFactory.createNode(myRegex, GROUP, this);
-				System.out.println("The beginning of Group node: " + newGroup.getName());
-				ParseNode processedNode = recursiveCommandBuilder(newGroup);
-				groupLeader.addChild(processedNode);
-			} else {
-				ParseNode newNode = NodeFactory.createNode(myRegex, next, this);
-				//ParseNode newNode = new ParseNode(next);
-				System.out.println("New Node: " + newNode.getName());
-				ParseNode processedNode = recursiveCommandBuilder(newNode);
-				groupLeader.addChild(processedNode);
-				System.out.println("Added node: " + processedNode.getName());
+			} 
+			else{
+				retrieveGenericKids(groupLeader, next);
 			}
 		}
 	}
 
-	public void retrieveChildren(ParseNode current, int loopTimes)
-			throws ParserException {
-		while (current.getChildCount() < loopTimes) {
-			if (atEndOfString()) {
-				System.out.println("Missing parameters for command: "
-						+ current.getName());
-				throw new ParserException("Missing parameters for command: "
-						+ current.getName());
-			}
-			String next = myCurProgramArray[++myCurIndex];
-			if (next.equals(OPEN_BRACKET)) {
-				ParseNode newGroup = NodeFactory.createNode(myRegex, GROUP, this);
-				//ParseNode newGroup = new ParseNode(GROUP);
-				System.out.println("The beginning of Group node: " + newGroup.getName());
-				ParseNode processedNode = recursiveCommandBuilder(newGroup);
-				current.addChild(processedNode);
-			} else if (next.equals(CLOSED_BRACKET)) {
-				System.out.println("Out of place end bracket");
-				throw new ParserException("Insufficient arguemnts for command "
-						+ current.getName()
-						+ " before encountering end bracket.");
-			} else {
-				ParseNode newNode = NodeFactory.createNode(myRegex, next, this);
-				//ParseNode newNode = new ParseNode(next);
-				System.out.println("New Node: " + newNode.getName());
-				ParseNode processedNode = recursiveCommandBuilder(newNode);
-				current.addChild(processedNode);
-				System.out.println("Added node: " + processedNode.getName());
-			}
-		}
-	}
-	
 	public void retrieveGenericKids(ParseNode current, String next) throws ParserException{
 		if (next.equals(OPEN_BRACKET)) {
 			ParseNode newGroup = NodeFactory.createNode(myRegex, GROUP, this);
-			System.out.println("The beginning of Group node: " + newGroup.getName());
 			ParseNode processedNode = recursiveCommandBuilder(newGroup);
 			current.addChild(processedNode);
 		}
@@ -216,7 +168,28 @@ public class Parser {
 			System.out.println("New Node: " + newNode.getName());
 			ParseNode processedNode = recursiveCommandBuilder(newNode);
 			current.addChild(processedNode);
-			System.out.println("Added node: " + processedNode.getName());
+		}
+	}
+	
+	public void retrieveChildren(ParseNode current, int loopTimes)
+			throws ParserException {
+		while (current.getChildCount() < loopTimes) {
+			checkStringEndsEarly("Missing parameters for command: "
+						+ current.getName());
+			String next = myCurProgramArray[++myCurIndex];
+			if (next.equals(CLOSED_BRACKET)) {
+				throw new ParserException("Insufficient arguemnts for command "
+						+ current.getName()
+						+ " before encountering end bracket.");
+			} else {
+				retrieveGenericKids(current, next);
+			}
+		}
+	}
+	
+	public void checkStringEndsEarly(String error) throws ParserException{
+		if (atEndOfString()) {
+			throw new ParserException(error);
 		}
 	}
 
