@@ -8,11 +8,12 @@ import Model.*;
 public abstract class SetPosition extends ActionCommand {
 	protected double myExecuteResultX;
 	protected double myExecuteResultY;
+	private List<String> myColors;
 
 	public SetPosition(List<Statement> statements, ViewAbstract view,
-			TurtleManager turtleManager) {
+			TurtleManager turtleManager, List<String> colors) {
 		super(statements, view, turtleManager);
-		// TODO Auto-generated constructor stub
+		myColors = colors;
 	}
 
 	@Override
@@ -34,7 +35,7 @@ public abstract class SetPosition extends ActionCommand {
 			} else {
 				Pen curPen = currentTurtle.getPen();
 				myView.drawShape(currentTurtle.getX(), currentTurtle.getY(),
-						currentTurtle.getID(), curPen.getStringColor(),
+						currentTurtle.getID(), myColors.get(curPen.getColorIndex()),
 						curPen.getThickness(), curPen.getPenStroke());
 			}
 		}

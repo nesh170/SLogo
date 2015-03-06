@@ -95,6 +95,7 @@ public class ViewFX extends ViewAbstract {
         System.out.println(myShapeMap.get(ID).getTranslateX() + " " + myShapeMap.get(ID).getTranslateY());
         double[] endCoordinates = ViewFunctions.rectToFXCoordinates(X, Y);
         Line turtleLine = new Line(startCoordinates[0],startCoordinates[1],endCoordinates[0],endCoordinates[1]);
+        System.out.println(penColor);
         turtleLine.setStroke(Color.web(penColor));
         turtleLine.setStrokeWidth(strokeWidth);
         turtleLine.setStyle(myStringResources.getString(strokeType.toLowerCase()));

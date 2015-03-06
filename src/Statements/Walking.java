@@ -10,10 +10,12 @@ import Model.TurtleManager;
 
 public abstract class Walking extends ActionCommand{
 	protected double myAngle;
+	private List<String> myColors;
 	
 	public Walking(List<Statement> statements, ViewAbstract view,
-			TurtleManager turtleManager) {
+			TurtleManager turtleManager, List<String> colors) {
 		super(statements, view, turtleManager);
+		myColors = colors;
 	}
 
 	@Override
@@ -29,7 +31,7 @@ public abstract class Walking extends ActionCommand{
 			} else {
 				Pen curPen = currentTurtle.getPen();
 				myView.drawShape(currentTurtle.getX(), currentTurtle.getY(),
-						currentTurtle.getID(), curPen.getStringColor(),
+						currentTurtle.getID(), myColors.get(curPen.getColorIndex()),
 						curPen.getThickness(), curPen.getPenStroke());
 			}
 		}

@@ -109,7 +109,5 @@ public class Controller {
         public void loadXML (String openFileChooser) {
             // TODO Auto-generated method stub
         }
-        
-
-
+  
 }

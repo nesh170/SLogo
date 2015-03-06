@@ -11,8 +11,8 @@ import view.ViewAbstract;
 public class Forward extends Walking {
 
 	public Forward(List<Statement> statements, ViewAbstract view,
-			TurtleManager turtleManager) {
-		super(statements, view, turtleManager);
+			TurtleManager turtleManager, List<String> colors) {
+		super(statements, view, turtleManager, colors);
 		myAngle = Constants.FORWARD_ANGLE;
 	}
 
