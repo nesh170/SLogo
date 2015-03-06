@@ -103,7 +103,7 @@ public class Controller {
 
         public void setToggleActive (int iD) {
             // TODO Model to do
-            
+            myWorkspaceList.get(myTabNumber.getValue()).getModel().processToggle(iD);
         }
         
 
