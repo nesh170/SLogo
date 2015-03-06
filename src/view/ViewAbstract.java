@@ -28,4 +28,6 @@ public abstract class ViewAbstract {
 	public abstract void visualActiveShape(boolean activeOrInactive, int ID);
 
 	public abstract Group getRoot();
+	
+	public abstract void changeShape(String shapeType, int ID);
 }
