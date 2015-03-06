@@ -55,7 +55,7 @@ public class ViewFX extends ViewAbstract {
             public void changed (ObservableValue<? extends Number> ov, Number value, Number newValue) {
                 changeLanuageinController(newValue.intValue());
             }
-        });
+        },e-> myController.saveXML(ViewFX.openFileChooser()),e->myController.loadXML(ViewFX.openFileChooser()));
         myPlayground = new TurtlePlayground(myRoot);
         myCodeElements = new CodePane(myRoot, e -> pushCodeToController());
         setUpVariablePane();
@@ -225,8 +225,5 @@ public class ViewFX extends ViewAbstract {
         // TODO Auto-generated method stub
         
     }
-    
-
-
 
 }
