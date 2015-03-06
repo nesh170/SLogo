@@ -1,6 +1,7 @@
 package parser;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -79,12 +80,11 @@ public class Parser {
 	}
 
 	public List<ParseNode> parse(String program) throws ParserException {
-		String processed = preProcessString(program);
 		myCurIndex = -1;
+		String processed = preProcessString(program);
 		if (processed == null) {
 			return null;
 		}
-		myCurProgramArray = processed.split(" ");
 		System.out.println("The length is "+myCurProgramArray.length);
 		//ArrayList<String> programArray = new ArrayList<>(Arrays.asList(myCurProgramArray));
 		List<ParseNode> topNodes = new ArrayList<>();
@@ -134,6 +134,19 @@ public class Parser {
 		for (Character c : correctArray) {
 			builder.append(c);
 		}
+		String toDeleteWhiteSpace = builder.toString();
+		ArrayList<String> voidOfSpace = new ArrayList<>();
+		List<String> spaceProcessing = Arrays.asList(toDeleteWhiteSpace.split(" "));
+		for(String e: spaceProcessing){
+			if(!e.equals(" ")){
+				voidOfSpace.add(e);
+			}
+		}
+		String[] validCommand = new String[voidOfSpace.size()];
+		for(int i = 0; i < voidOfSpace.size(); i++){
+			validCommand[i] = voidOfSpace.get(i);
+		}
+		myCurProgramArray = validCommand;
 		return builder.toString();
 	}
 
