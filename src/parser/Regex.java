@@ -18,10 +18,7 @@ public class Regex {
 	}
 
 	public boolean match(String input, Pattern regex) {
-		// THIS IS THE KEY LINE
-		return regex.matcher(input).find();
-		// basic strings can match also, but not using a Pattern
-		// return input.matches(regex);
+		return regex.matcher(input).matches();
 	}
 
 	public void changeLanguagePattern(String language){
