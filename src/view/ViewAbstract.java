@@ -32,5 +32,5 @@ public abstract class ViewAbstract {
 	
 	public abstract void changeShape(String shapeType, int ID);
 	
-	public abstract void getColorArray(List<String> colorList);
+	public abstract void updateColorList(List<String> colorList);
 }

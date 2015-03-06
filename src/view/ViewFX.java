@@ -1,6 +1,8 @@
 package view;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -52,6 +54,8 @@ public class ViewFX extends ViewAbstract {
         myLineRoot = new Group();
         myShapeRoot = new Group();
         myShapeMap = new HashMap<>();
+        List<String> lol = new ArrayList<>();
+        myColorElements = new ColorPane(myRoot,new ArrayList<>());
         new ButtonPane(myRoot, e -> changeBackgroundImage(), new ChangeListener<Number>() {
             @Override
             public void changed (ObservableValue<? extends Number> ov, Number value, Number newValue) {
@@ -223,9 +227,9 @@ public class ViewFX extends ViewAbstract {
     }
 
     @Override
-    public void getColorArray (List<String> colorList) {
-        // TODO Auto-generated method stub
-        
+    public void updateColorList(List<String> colorList) {
+        System.out.println("in here");
+        myColorElements.changeList(colorList);
     }
 
 }
