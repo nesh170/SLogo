@@ -30,8 +30,12 @@ public abstract class ViewAbstract {
 
 	public abstract Group getRoot();
 	
+	public abstract void stamp(int ID);
+	
 	public abstract void changeShape(String shapeType, int ID);
 	
 	public abstract void updateColorListView(List<String> colorList);
 
-}
+	public abstract boolean clearStamps();
+        
+    }
