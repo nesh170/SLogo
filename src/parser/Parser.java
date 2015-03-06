@@ -138,7 +138,8 @@ public class Parser {
 		ArrayList<String> voidOfSpace = new ArrayList<>();
 		List<String> spaceProcessing = Arrays.asList(toDeleteWhiteSpace.split(" "));
 		for(String e: spaceProcessing){
-			if(!e.equals(" ")){
+			if(!e.equals("")){
+				System.out.println("the valid command is "+e);
 				voidOfSpace.add(e);
 			}
 		}
