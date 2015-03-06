@@ -3,7 +3,6 @@ package Statements;
 import java.util.List;
 
 import view.ViewAbstract;
-import Constants.Constants;
 import Model.ModelTurtle;
 import Model.Pen;
 import Model.TurtleManager;
@@ -26,15 +25,19 @@ public abstract class Walking extends ActionCommand{
 			ModelTurtle currentTurtle = myTurtleManager.getTurtle(ID);
 			currentTurtle.moveTurtle(executeResult, myAngle);
 			System.out.println("X is "+currentTurtle.getX()+" Y is "+currentTurtle.getY());
-			if(!currentTurtle.isDrawing()){
-				myView.moveShape(currentTurtle.getX(), currentTurtle.getY(), currentTurtle.getID());
-			} else {
-				Pen curPen = currentTurtle.getPen();
-				myView.drawShape(currentTurtle.getX(), currentTurtle.getY(),
-						currentTurtle.getID(), myColors.get(curPen.getColorIndex()),
-						curPen.getThickness(), curPen.getPenStroke());
-			}
 		}
+		myTurtleManager.doToActiveTurtles(e -> updateView(e));
 		return executeResult;
 	}
+	
+	public void updateView(ModelTurtle t){
+		if(!t.isDrawing()){
+			myView.moveShape(t.getX(), t.getY(), t.getID());
+		} else {
+			myView.drawShape(t.getX(), t.getY(),
+					t.getID(), myColors.get(t.getPen().getColorIndex()),
+					t.getPen().getThickness(), t.getPen().getPenStroke());
+		}
+	}
+	
 }
