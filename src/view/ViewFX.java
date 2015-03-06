@@ -7,21 +7,25 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
+import Model.Pen;
 import sLogo_team02.Controller;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.Scene;
 import slogoEnums.ViewConstants;
 import javafx.scene.control.ListView;
 import javafx.scene.effect.Effect;
 import javafx.scene.effect.Glow;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
@@ -29,6 +33,7 @@ public class ViewFX extends ViewAbstract {
     private Group myRoot;
     private Group myLineRoot;
     private Group myShapeRoot;
+    private Group myStampRoot;
     private ColorPane myColorElements;
     private CodePane myCodeElements;
     private VariablePane myVariableElements;
@@ -36,10 +41,11 @@ public class ViewFX extends ViewAbstract {
     private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",new Locale("en", "US"));
     private Map<Integer, Shape> myShapeMap;
     private Controller myController;
+    private ShapeFactory myShapeFactory = new ShapeFactory();
     public static final Map<Boolean,Effect> ACTIVE_TURTLE_EFFECT = new HashMap<>();
      static{
-         ACTIVE_TURTLE_EFFECT.put(true, new Glow(1.0));
-         ACTIVE_TURTLE_EFFECT.put(false, new Glow(0.0));
+         ACTIVE_TURTLE_EFFECT.put(false, new Glow(1.0));
+         ACTIVE_TURTLE_EFFECT.put(true, new Glow(0.0));
      }
      
     public ViewFX (Controller controller) {
@@ -51,6 +57,7 @@ public class ViewFX extends ViewAbstract {
         myRoot = new Group();
         myLineRoot = new Group();
         myShapeRoot = new Group();
+        myStampRoot = new Group();
         myShapeMap = new HashMap<>();
         myColorElements = new ColorPane(myRoot,new ArrayList<>());
         new ButtonPane(myRoot, e -> changeBackgroundImage(), new ChangeListener<Number>() {
@@ -62,7 +69,7 @@ public class ViewFX extends ViewAbstract {
         myPlayground = new TurtlePlayground(myRoot);
         myCodeElements = new CodePane(myRoot, e -> pushCodeToController());
         setUpVariablePane();
-        myRoot.getChildren().addAll(myLineRoot, myShapeRoot);
+        myRoot.getChildren().addAll(myLineRoot, myShapeRoot,myStampRoot);
     }
 
     private void setUpVariablePane () {
@@ -113,8 +120,7 @@ public class ViewFX extends ViewAbstract {
 
     @Override
     public void addShape (String shapeType, double X, double Y, int ID) {
-       ShapeFactory factory = new ShapeFactory();
-       Shape tempShape = factory.makeShape(shapeType);
+       Shape tempShape = myShapeFactory.makeShape(shapeType,ViewConstants.SIZE.getVal());
        tempShape.setOnMouseClicked(new EventHandler<MouseEvent>() {
         @Override
         public void handle (MouseEvent mouseButton) {
@@ -221,7 +227,7 @@ public class ViewFX extends ViewAbstract {
         myShapeRoot.getChildren().remove(myShapeMap.get(ID));
         addShape(shapeType, 0, 0, ID);
         Shape newShape = myShapeMap.get(ID);
-        newShape.setTranslateX(coordinate[0]);newShape.setTranslateX(coordinate[1]);
+        newShape.setTranslateX(coordinate[0]);newShape.setTranslateY(coordinate[1]);
     }
 
     @Override
@@ -229,5 +235,35 @@ public class ViewFX extends ViewAbstract {
         System.out.println("in here");
         myColorElements.changeList(colorList);
     }
+
+    @Override
+    public void stamp(int ID){
+        Shape stampShape = myShapeFactory.makeCopy(myShapeMap.get(ID));
+        myStampRoot.getChildren().add(stampShape);
+    }
+    
+    //true if empty, false is filled
+    @Override
+    public boolean clearStamps(){
+        boolean stampContains = myStampRoot.getChildren().isEmpty();
+        myStampRoot.getChildren().clear();
+        return stampContains;
+    }
+
+    @Override
+    public void setUpDialogBox (Pen pen, String ID) {
+        Stage dialog = new Stage();
+        VBox dialogBox = new VBox(ViewConstants.VARIABLE_TABLE_SPACING.getVal());
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        //PenPropertiesDialogBox penPropBox = new PenPropertiesDialogBox(myPenRGB,myStrokeWidth,myStrokeType,myPenStatus);
+        //TurtlePropertiesDialogBox turtlePropBox = new TurtlePropertiesDialogBox(myImagePath,new double[]{myShape.getTranslateX(),myShape.getTranslateY()},myShape.rotateProperty().get());
+       // dialog.setTitle(myStringResources.getString("idText") + myID);
+        //dialogBox.getChildren().addAll(penPropBox.getVBox(),turtlePropBox.getVBox());
+        dialog.setScene(new Scene(dialogBox, ViewConstants.DBOX_WIDTH.getVal(), ViewConstants.DBOX_HEIGHT.getVal()));
+        dialog.show();
+    }
+    
+    
+    
 
 }

@@ -24,13 +24,23 @@ public class ModelTurtle implements ITurtle {
 		myShape = 1;
 	}
 
-	public void moveTurtle(double distance, double angle) {
+	public double moveTurtle(double distance, double angle) {
 		myCurX += Math.sin(Math.toRadians((angle + myAngle) % Constants.FULL_CIRCLE)) * distance;
 		System.out.println("myCurX is "+myCurX);
 		myCurY += Math.cos(Math.toRadians((angle + myAngle) % Constants.FULL_CIRCLE)) * distance;
 		System.out.println("myCurY is "+myCurY);
 		System.out.println();
 		myTotalDistance += distance;
+		return distance;
+	}
+	
+	public double relocateTurtle(double x, double y){
+		double distanceTraveled = Math.sqrt(Math.pow(x - myCurX, 2)
+				+ Math.pow(y - myCurY, 2));
+		myCurX = x;
+		myCurY = y;
+		myTotalDistance += distanceTraveled;
+		return distanceTraveled;
 	}
 
 	public void setShapeIndex(int index){

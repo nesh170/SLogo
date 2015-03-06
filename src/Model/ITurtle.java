@@ -2,7 +2,7 @@ package Model;
 
 public interface ITurtle {
 
-	public void moveTurtle(double distance, double angle);
+	public double moveTurtle(double distance, double angle);
 	public void setShapeIndex(int index);
 	public void jump(double x, double y);
 	public void rotate(double angle);
