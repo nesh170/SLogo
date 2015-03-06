@@ -8,8 +8,8 @@ import Model.TurtleManager;
 public class Backward extends Walking{
 
 	public Backward(List<Statement> statements, ViewAbstract view,
-			TurtleManager turtleManager) {
-		super(statements, view, turtleManager);
+			TurtleManager turtleManager, List<String> colors) {
+		super(statements, view, turtleManager, colors);
 		myAngle = Constants.BACKWARD_ANGLE;
 	}
 

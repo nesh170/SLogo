@@ -21,6 +21,7 @@ public class ModelTurtle {
 		myTotalDistance = 0;
 		myID = ID;
 		myPen = new Pen();
+		myShape = 1;
 	}
 
 	public void moveTurtle(double distance, double angle) {
@@ -32,6 +33,14 @@ public class ModelTurtle {
 		myTotalDistance += distance;
 	}
 
+	public void setShapeIndex(int index){
+		myShape = index;
+	}
+	
+	public int getShapeIndex(){
+		return myShape;
+	}
+	
 	public int getID() {
 		return myID;
 	}
@@ -91,6 +100,14 @@ public class ModelTurtle {
 	
 	public Pen getPen(){
 		return myPen;
+	}
+	
+	public void setPenColor(int index){
+		myPen.setColorIndex(index);
+	}
+	
+	public void setPenSize(double pixels){
+		myPen.setPenThickness(pixels);
 	}
 
 }

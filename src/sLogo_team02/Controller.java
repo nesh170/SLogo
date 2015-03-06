@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import exceptions.*;
 
 public class Controller {
-	public static final String TITLE ="SLOGO Team_02";
+	public static final String TITLE = "SLOGO Team_02";
 	private Stage myStage;
 	private Scene myScene;
 	private ViewAbstract myView;
@@ -20,48 +20,51 @@ public class Controller {
 	private Parser myParser;
 	private ProgramBuilder myProgBuilder;
 
-	public Controller(Stage stage){
+	public Controller(Stage stage) {
 		myStage = stage;
 		myParser = new Parser();
 	}
 
-	private void initializeViewAndModel(){
+	private void initializeViewAndModel() {
 		myView = new ViewFX(this);
 		myModel = new Model(myView);
-		myProgBuilder = new ProgramBuilder(myView, myModel.getTurtleManager(), 
-				myModel.getVariableManager(), myParser.getRegex(), myModel.getMethodManager());
+		myProgBuilder = new ProgramBuilder(myView, myModel.getTurtleManager(),
+				myModel.getVariableManager(), myParser.getRegex(),
+				myModel.getMethodManager(), myModel.getColors(),
+				myModel.getShapes());
 	}
 
-	public void setUpStage(){
+	public void setUpStage() {
 		initializeViewAndModel();
 		myStage.setScene(myScene);
 		myStage.setTitle(TITLE);
 		myStage.show();
 	}
 
-	public void setScene(Scene s){
+	public void setScene(Scene s) {
 		myScene = s;
 	}
 
-	public void updateVariable(String variableName,double value){
+	public void updateVariable(String variableName, double value) {
 		myModel.updateVariable(variableName, value);
 	}
 
-	public void updateMethodVariable(String variableName){
-	    //TODO for model
+	public void updateMethodVariable(String variableName) {
+		// TODO for model
 	}
 
 	public void executeProgram(String codeData) {
 		System.out.println(codeData);
-		try{
+		try {
 			List<ParseNode> topNodes = myParser.parse(codeData);
 			System.out.println("Printing after parsing: " + topNodes.size());
 			Program newProg = myProgBuilder.buildProgram(topNodes);
 			myModel.processCommand(newProg);
-		}catch(ParserException e){
+		} catch (ParserException e) {
 			myView.printError(e.toString());
-		}catch(NullPointerException e){
-			//If the user pressed run without any input, preprocess will return null, and we just want to ignore it
+		} catch (NullPointerException e) {
+			// If the user pressed run without any input, preprocess will return
+			// null, and we just want to ignore it
 		}
 	}
 
@@ -70,8 +73,8 @@ public class Controller {
 		myParser.changeLanguage(languagePath);
 	}
 
-    public void setPenUporDown (Boolean penUporDown, int ID) {
-        // TODO Model to register the changed value, up is false, down is true 
-    }
+	public void setPenUporDown(Boolean penUporDown, int ID) {
+		// TODO Model to register the changed value, up is false, down is true
+	}
 
 }

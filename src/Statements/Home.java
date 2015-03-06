@@ -8,8 +8,8 @@ import Model.TurtleManager;
 public class Home extends SetPosition {
 
 	public Home(List<Statement> statements, ViewAbstract view,
-			TurtleManager turtleManager) {
-		super(statements, view, turtleManager);
+			TurtleManager turtleManager, List<String> colors) {
+		super(statements, view, turtleManager, colors);
 	}
 
 	public double execute() {

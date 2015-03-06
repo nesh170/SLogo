@@ -15,18 +15,17 @@ public class Pen {
 	private boolean isDown;
 	private String myStroke;
 	private double myThickness;
-	private String myStringColor;
+	private int myColorIndex;
 
 	public Pen() {
 		isDown = Constants.SET_PEN_DOWN;
 		myStroke = DEFAULT_STROKE;
 		myThickness = DEFAULT_THICKNESS;
-		myStringColor = DEFAULT_COLOR;
+		myColorIndex = 0;
 	}
 
-	public void calculateAndSetColor(int r, int g, int b) {
-		myStringColor = String.format("#%02X%02X%02X", (int) (r * 255),
-				(int) (g * 255), (int) (b * 255));
+	public void setColorIndex(int index) {
+		myColorIndex = index;
 	}
 	
 	public void setStroke(String stroke){
@@ -51,8 +50,12 @@ public class Pen {
 		return myThickness;
 	}
 	
-	public String getStringColor(){
-		return myStringColor;
+	public int getColorIndex(){
+		return myColorIndex;
+	}
+	
+	public void setPenThickness(double pixels){
+		myThickness = pixels;
 	}
 
 }

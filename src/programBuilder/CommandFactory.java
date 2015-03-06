@@ -6,6 +6,7 @@ import parser.Regex;
 import view.ViewAbstract;
 import Model.*;
 import Statements.*;
+import exceptions.*;
 
 public class CommandFactory {
 
@@ -16,22 +17,22 @@ public class CommandFactory {
 	public static Statement generateCommand(String commandType,
 			List<List<Statement>> statements, ViewAbstract myView,
 			TurtleManager myTurtleManager, VariableManager myVariableManager,
-			Regex myRegex, MethodManager myMethodManager) {
+			Regex myRegex, MethodManager myMethodManager, List<String> colors) throws ParserException {
 	        
 		switch (commandType) {
 		case "Forward":
 			System.out.println("Making forward object");
-			return new Forward(statements.get(0), myView, myTurtleManager);
+			return new Forward(statements.get(0), myView, myTurtleManager, colors);
 		case "Backward":
-			return new Backward(statements.get(0), myView, myTurtleManager);
+			return new Backward(statements.get(0), myView, myTurtleManager, colors);
 		case "Left":
 		        return new Left(statements.get(0),myView,myTurtleManager);
 		case "SetTowards":
 		        return new SetTowards(statements.get(0),myView,myTurtleManager);
 		case "SetPosition":
-		        return new SetXY(statements.get(0),myView,myTurtleManager);
+		        return new SetXY(statements.get(0),myView,myTurtleManager, colors);
 		case "Home":
-		        return new Home(statements.get(0),myView,myTurtleManager);
+		        return new Home(statements.get(0),myView,myTurtleManager, colors);
 		case "Sum":
 			System.out.println("Making sum object");
 			return new Sum(statements.get(0), myView);
@@ -101,10 +102,10 @@ public class CommandFactory {
 			return new MakeUserInstruction(statements, myVariableManager, myMethodManager);
 		case "Tell":
 			return new Tell(statements.get(0), myTurtleManager);
+		case "SetPenColor":
+			return new SetPenColor(statements.get(0), myTurtleManager, colors, myView);
 		default:
-			// throw an error
-			System.out.println("There is something wrong when getting here!");
-			return new Forward(statements.get(0), myView, myTurtleManager);
+			throw new ParserException("Command not valid.");
 		}
 	}
 }
