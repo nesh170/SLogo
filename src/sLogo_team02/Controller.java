@@ -56,7 +56,7 @@ public class Controller {
 	            }
             });;
 		myStage.setScene(myScene);
-		myStage.setTitle(TITLE + WORKSPACES + "0");
+		myStage.setTitle(TITLE + WORKSPACES + Integer.toString(myTabNumber.getValue()));
 		myStage.show();
 	}
 
