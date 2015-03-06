@@ -1,6 +1,7 @@
 package view;
 
 import java.util.List;
+import Model.Pen;
 import javafx.scene.Group;
 
 public abstract class ViewAbstract {
@@ -37,5 +38,7 @@ public abstract class ViewAbstract {
 	public abstract void updateColorListView(List<String> colorList);
 
 	public abstract boolean clearStamps();
+	
+	public abstract void setUpDialogBox(Pen pen, String ID);
         
     }
