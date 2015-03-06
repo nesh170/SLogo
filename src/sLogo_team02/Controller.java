@@ -100,6 +100,11 @@ public class Controller {
         public void setPenUporDown (Boolean penUporDown, int ID) {
         // TODO Model to register the changed value, up is false, down is true 
         }
+
+        public void setToggleActive (int iD) {
+            // TODO Model to do
+            
+        }
         
 
 

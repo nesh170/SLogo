@@ -118,12 +118,12 @@ public class ViewFX extends ViewAbstract {
                 System.out.println("Primary");
             }
             else if(mouseButton.getButton()==MouseButton.SECONDARY){
-                //TODO set active
-                System.out.println("Secondary");
+                myController.setToggleActive(ID);
             }  
         }
     });
        myShapeMap.put(ID, tempShape);
+       visualActiveShape(true, ID);
        myShapeRoot.getChildren().add(tempShape);
     }
 
@@ -135,6 +135,7 @@ public class ViewFX extends ViewAbstract {
     //true is active, false is inactive
     @Override
     public void visualActiveShape(boolean activeOrInactive, int ID) {
+        System.out.println("Active or not " + activeOrInactive);
         myShapeMap.get(ID).setEffect(ACTIVE_TURTLE_EFFECT.get(activeOrInactive));
     }
     
