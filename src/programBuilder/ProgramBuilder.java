@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Constants.Constants;
+import Model.MethodManager;
 import Model.Program;
 import Model.TurtleManager;
 import Model.VariableManager;
@@ -16,12 +17,14 @@ public class ProgramBuilder {
 	private TurtleManager myTurtleManager;
 	private VariableManager myVariableManager;
 	private Regex myRegex;
+	private MethodManager myMethodManager;
 
-	public ProgramBuilder(ViewAbstract view, TurtleManager turtles, VariableManager vars){
+	public ProgramBuilder(ViewAbstract view, TurtleManager turtles, VariableManager vars, Regex regex, MethodManager methodManager){
 		myView = view;
 		myTurtleManager = turtles;
 		myVariableManager = vars;
-		myRegex = new Regex(Constants.SYNTAX, Constants.DEFAULT_LANGUAGE);
+		myRegex = regex;
+		myMethodManager = methodManager;
 	}
 	
 	public Program buildProgram(List<ParseNode> topNodes){
@@ -49,7 +52,15 @@ public class ProgramBuilder {
 			List<Statement> baseList = new ArrayList<>();
 			paramLists.add(baseList);
 			List<Statement> curList = baseList;
-			for(int i = 0; i < node.getNumChildren(); i++){
+			int looptimes = node.getChildCount();
+			if(node.getName().equals("to")){
+				looptimes--;
+				baseList.add(new MethodName(node.getChildren().get(0).getName()));
+				node.removeChild(0);
+				curList = new ArrayList<>();
+				paramLists.add(curList);
+			}
+			for(int i = 0; i < looptimes; i++){
 				ParseNode curChild = node.getChildren().get(i);
 				if(curChild.getName().equals("Group")){
 					if(i != 0){
@@ -65,8 +76,9 @@ public class ProgramBuilder {
 				}
 			}
 		}
-		
 		String commandType = myRegex.matchCommand(nodeName);
-		return CommandFactory.generateCommand(commandType, paramLists, myView, myTurtleManager, myVariableManager, myRegex);
+		//if commandType is null, check if it is a user defined before sending to command factory
+		return CommandFactory.generateCommand(commandType, paramLists, myView, 
+				myTurtleManager, myVariableManager, myRegex, myMethodManager);
 	}
 }

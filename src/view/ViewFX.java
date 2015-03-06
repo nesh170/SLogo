@@ -5,33 +5,40 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
+import sLogo_team02.Controller;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
-import javafx.geometry.Point2D;
 import javafx.scene.Group;
-import javafx.scene.Scene;
+import slogoEnums.ViewConstants;
 import javafx.scene.control.ListView;
+import javafx.scene.effect.Effect;
+import javafx.scene.effect.Glow;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Shape;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import sLogo_team02.Controller;
-import slogoEnums.ViewConstants;
 
 
 public class ViewFX extends ViewAbstract {
     private Group myRoot;
     private Group myLineRoot;
-    private Group myTurtleRoot;
+    private Group myShapeRoot;
     private CodePane myCodeElements;
     private VariablePane myVariableElements;
     private TurtlePlayground myPlayground;
-    private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",
-                                                                        new Locale("en", "US"));
-    private Map<Integer, ViewTurtle> myViewTurtlesMap;
+    private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",new Locale("en", "US"));
+    private Map<Integer, Shape> myShapeMap;
     private Controller myController;
-
+    public static final Map<Boolean,Effect> ACTIVE_TURTLE_EFFECT = new HashMap<>();
+     static{
+         ACTIVE_TURTLE_EFFECT.put(true, new Glow(1.0));
+         ACTIVE_TURTLE_EFFECT.put(false, new Glow(0.0));
+     }
+     
     public ViewFX (Controller controller) {
         myController = controller;
         initializeView();
@@ -40,8 +47,8 @@ public class ViewFX extends ViewAbstract {
     private void initializeView () {
         myRoot = new Group();
         myLineRoot = new Group();
-        myTurtleRoot = new Group();
-        myViewTurtlesMap = new HashMap<>();
+        myShapeRoot = new Group();
+        myShapeMap = new HashMap<>();
         new ButtonPane(myRoot, e -> changeBackgroundImage(), new ChangeListener<Number>() {
             @Override
             public void changed (ObservableValue<? extends Number> ov, Number value, Number newValue) {
@@ -49,13 +56,9 @@ public class ViewFX extends ViewAbstract {
             }
         });
         myPlayground = new TurtlePlayground(myRoot);
-        Scene viewScene =
-                new Scene(myRoot, ViewConstants.STAGE_WIDTH.getVal(),
-                          ViewConstants.STAGE_HEIGHT.getVal(), Color.ALICEBLUE);
         myCodeElements = new CodePane(myRoot, e -> pushCodeToController());
         setUpVariablePane();
-        myRoot.getChildren().addAll(myLineRoot, myTurtleRoot);
-        myController.setScene(viewScene);
+        myRoot.getChildren().addAll(myLineRoot, myShapeRoot);
     }
 
     private void setUpVariablePane () {
@@ -80,33 +83,66 @@ public class ViewFX extends ViewAbstract {
     }
 
     @Override
-    public void drawTurtle (double X, double Y, int ID) {
-        Line tempLine =
-                myViewTurtlesMap.get(ID).drawLine(new Point2D(X + ViewConstants.ORIGIN_X.getVal(),
-                                                              ViewConstants.REVERSE_DIRECTION
-                                                                      .getVal() *
-                                                                      Y +
-                                                                      ViewConstants.ORIGIN_Y
-                                                                              .getVal()));
-        myLineRoot.getChildren().add(tempLine);
-        moveTurtle(X, Y, ID);
+    public void drawShape(double X, double Y,int ID,String penColor,double strokeWidth,String strokeType) {
+        double[] startCoordinates = ViewFunctions.rectToFXCoordinates(myShapeMap.get(ID).getTranslateX(), ViewConstants.REVERSE_DIRECTION.getVal()*myShapeMap.get(ID).getTranslateY());
+        System.out.println(myShapeMap.get(ID).getTranslateX() + " " + myShapeMap.get(ID).getTranslateY());
+        double[] endCoordinates = ViewFunctions.rectToFXCoordinates(X, Y);
+        Line turtleLine = new Line(startCoordinates[0],startCoordinates[1],endCoordinates[0],endCoordinates[1]);
+        turtleLine.setStroke(Color.web(penColor));
+        turtleLine.setStrokeWidth(strokeWidth);
+        turtleLine.setStyle(myStringResources.getString(strokeType.toLowerCase()));
+        moveShape(X, Y, ID);
+        myLineRoot.getChildren().add(turtleLine);     
     }
 
     @Override
-    public void moveTurtle (double X, double Y, int ID) {
-        Point2D point = new Point2D(X, ViewConstants.REVERSE_DIRECTION.getVal() * Y);
-        myViewTurtlesMap.get(ID).setNewLocation(point);
+    public void moveShape (double X, double Y, int ID) {
+        myShapeMap.get(ID).setTranslateX(X);
+        myShapeMap.get(ID).setTranslateY(ViewConstants.REVERSE_DIRECTION.getVal()*Y);
     }
 
     @Override
-    public void rotateTurtle (double angle, int ID) {
-        myViewTurtlesMap.get(ID).rotate(angle);
+    public void rotateShape (double angle, int ID) {
+        myShapeMap.get(ID).rotateProperty().setValue(angle);
     }
 
+    @Override
+    public void addShape (String shapeType, double X, double Y, int ID) {
+       ShapeFactory factory = new ShapeFactory();
+       Shape tempShape = factory.makeShape(shapeType);
+       tempShape.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        @Override
+        public void handle (MouseEvent mouseButton) {
+            if(mouseButton.getButton()==MouseButton.PRIMARY){
+                //TODO open Dialog
+                System.out.println("Primary");
+            }
+            else if(mouseButton.getButton()==MouseButton.SECONDARY){
+                myController.setToggleActive(ID);
+            }  
+        }
+    });
+       myShapeMap.put(ID, tempShape);
+       visualActiveShape(true, ID);
+       myShapeRoot.getChildren().add(tempShape);
+    }
+
+    @Override
+    public void visibleShape(boolean hideOrShow, int ID) {
+        myShapeMap.get(ID).setVisible(hideOrShow);
+    }
+    
+    //true is active, false is inactive
+    @Override
+    public void visualActiveShape(boolean activeOrInactive, int ID) {
+        System.out.println("Active or not " + activeOrInactive);
+        myShapeMap.get(ID).setEffect(ACTIVE_TURTLE_EFFECT.get(activeOrInactive));
+    }
+    
     @Override
     public void clearScreen () {
         myLineRoot.getChildren().clear();
-        myTurtleRoot.getChildren().clear();
+        myShapeRoot.getChildren().clear();
         myCodeElements.clearTerminal();
     }
 
@@ -121,15 +157,6 @@ public class ViewFX extends ViewAbstract {
     }
 
     @Override
-    public void addTurtle (double X, double Y, int ID) {
-        Point2D point = new Point2D(X, Y);
-        ViewTurtle vt = new ViewTurtle(point, ViewConstants.TURTLE_SIZE.getVal(), ID);
-        vt.setNewLocation(point);
-        myViewTurtlesMap.put(ID, vt);
-        myTurtleRoot.getChildren().add(vt.getViewTurtles());
-    }
-
-    @Override
     public void addVariable (String variableName, Double value) {
         myVariableElements.addNumberVariables(variableName, value);
     }
@@ -138,7 +165,7 @@ public class ViewFX extends ViewAbstract {
     public void addMethodVariable (String methodName) {
         myVariableElements.addMethodVariable(methodName);
     }
-
+    
     private void pushCodeToController () {
         myController.executeProgram(myCodeElements.getCodeData());
     }
@@ -146,8 +173,7 @@ public class ViewFX extends ViewAbstract {
     private void updateVariableFromView (ListView.EditEvent<Double> t) {
         try {
             myVariableElements.setVariableValue(t.getIndex(), t.getNewValue());
-            myController.updateVariable(myVariableElements.getVariableName(t.getIndex()),
-                                        t.getNewValue());
+            myController.updateVariable(myVariableElements.getVariableName(t.getIndex()),t.getNewValue());
         }
         catch (NumberFormatException e) {
             printError(myStringResources.getString("wrongNumberType"));
@@ -155,29 +181,45 @@ public class ViewFX extends ViewAbstract {
     }
 
     private void changeBackgroundImage () {
-        String imageLocation = openFileChooser();
+        String path = ViewFX.openFileChooser();
         try{
-                myPlayground.changeBackground(imageLocation);
+                myPlayground.changeBackground(path);
         }
         catch(IllegalArgumentException | NullPointerException e){
                 printError(myStringResources.getString("invalidImageType"));
         }
     }
-
+   
+    private void changeLanuageinController (int index) {
+        ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText", new Locale("en", "US"));
+        myController.changeLanguage(myStringResources.getString("languageFile").split("\\s+")[index]);
+    }
+    
     public static String openFileChooser () {
     	FileChooser fileChooser = new FileChooser();
-	fileChooser.setInitialDirectory(new File((System.getProperty("user.dir"))));
-	File file = fileChooser.showOpenDialog(new Stage());
-	if(file==null){
-	    return "";
-	}
-	return file.toString();
+    	fileChooser.setInitialDirectory(new File((System.getProperty("user.dir"))));
+    	File file = fileChooser.showOpenDialog(new Stage());
+    	if(file==null){
+    		return "";
+    	}
+    	return file.toString();
     }
 
-    private void changeLanuageinController (int index) {
-        ResourceBundle myStringResources =
-                ResourceBundle.getBundle("resources.View.ViewText", new Locale("en", "US"));
-        myController
-                .changeLanguage(myStringResources.getString("languageFile").split("\\s+")[index]);
+    @Override
+    public Group getRoot () {
+        return myRoot;
     }
+
+    @Override
+    public void changeShape (String shapeType, int ID) {
+        double[] coordinate = new double[]{myShapeMap.get(ID).getTranslateX(),myShapeMap.get(ID).getTranslateY()};
+        myShapeRoot.getChildren().remove(myShapeMap.get(ID));
+        addShape(shapeType, 0, 0, ID);
+        Shape newShape = myShapeMap.get(ID);
+        newShape.setTranslateX(coordinate[0]);newShape.setTranslateX(coordinate[1]);
+    }
+    
+
+
+
 }

@@ -19,11 +19,11 @@ public class Turning extends ActionCommand {
 	public double execute() {
 		double executeResult = myStatements.get(0).execute();
 		double value = executeResult;
-		for (Integer ID : myTurtleManager.getActiveTurtles()) {
+		for (Integer ID : myTurtleManager.getActiveTurtleIDs()) {
 			ModelTurtle currentTurtle = myTurtleManager.getTurtle(ID);
 			executeResult = Constants.FULL_CIRCLE + (executeResult * myTurningDirection) % Constants.FULL_CIRCLE;
 			currentTurtle.rotate(executeResult);
-			myView.rotateTurtle(currentTurtle.getAngle(), currentTurtle.getID());
+			myView.rotateShape(currentTurtle.getAngle(), currentTurtle.getID());
 			System.out.println("Angle is " + currentTurtle.getAngle());
 		}
 		return value;

@@ -6,18 +6,21 @@ public class ModelTurtle {
 	private double myCurX;
 	private double myCurY;
 	private double myAngle;
-	private boolean myHiding;
+	private boolean isHiding;
 	private double myTotalDistance;
-	private boolean myPenUp;
+	private Pen myPen;
 	private int myID;
+	private int myShape;
+	private String myImagePath;
 
 	public ModelTurtle(int ID) {
-		myHiding = false;
+		isHiding = false;
 		myCurX = 0;
 		myCurY = 0;
 		myAngle = 0;
 		myTotalDistance = 0;
 		myID = ID;
+		myPen = new Pen();
 	}
 
 	public void moveTurtle(double distance, double angle) {
@@ -63,11 +66,11 @@ public class ModelTurtle {
 	}
 
 	public boolean isHiding() {
-		return myHiding;
+		return isHiding;
 	}
 
 	public void setHiding(boolean hiding) {
-		myHiding = hiding;
+		isHiding = hiding;
 	}
 	
 	public void setAngle(double angle){
@@ -78,12 +81,16 @@ public class ModelTurtle {
 		return myAngle;
 	}
 
-	public void setPenUp(boolean penUp) {
-		myPenUp = penUp;
+	public void setDrawing(boolean drawing) {
+		myPen.setPenDown(drawing);
 	}
-
-	public boolean isPenUp() {
-		return myPenUp;
+	
+	public boolean isDrawing() {
+		return myPen.isDown();
+	}
+	
+	public Pen getPen(){
+		return myPen;
 	}
 
 }

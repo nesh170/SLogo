@@ -17,11 +17,11 @@ public abstract class SetAngle extends ActionCommand {
 
 	@Override
 	public double execute() {
-		for (Integer ID : myTurtleManager.getActiveTurtles()) {
+		for (Integer ID : myTurtleManager.getActiveTurtleIDs()) {
 			ModelTurtle currentTurtle = myTurtleManager.getTurtle(ID);
 			myExecuteResult = Constants.FULL_CIRCLE + myExecuteResult % Constants.FULL_CIRCLE;
 			currentTurtle.setAngle(myExecuteResult);
-			myView.rotateTurtle(currentTurtle.getAngle(), currentTurtle.getID());
+			myView.rotateShape(currentTurtle.getAngle(), currentTurtle.getID());
 			System.out.println("The set angle is " + currentTurtle.getAngle() + " the result is "+myExecuteResult);
 		}
 		return myExecuteResult % Constants.FULL_CIRCLE;

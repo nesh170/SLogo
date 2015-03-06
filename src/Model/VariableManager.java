@@ -1,17 +1,21 @@
 package Model;
 
 import java.util.HashMap;
+import view.*;
 import java.util.Map;
 
 public class VariableManager {
 	private Map<String, Double> myVariables;
+	private ViewAbstract myView;
 	
-	public VariableManager(){
+	public VariableManager(ViewAbstract view){
 		myVariables = new HashMap<>();
+		myView = view;
 	}
 	
 	public void addVariable(String var, Double value){
 		myVariables.put(var, value);
+		myView.addVariable(var, value);
 	}
 	
 	public void removeVariable(String var){
