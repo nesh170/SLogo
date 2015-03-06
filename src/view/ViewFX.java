@@ -221,7 +221,7 @@ public class ViewFX extends ViewAbstract {
         myShapeRoot.getChildren().remove(myShapeMap.get(ID));
         addShape(shapeType, 0, 0, ID);
         Shape newShape = myShapeMap.get(ID);
-        newShape.setTranslateX(coordinate[0]);newShape.setTranslateX(coordinate[1]);
+        newShape.setTranslateX(coordinate[0]);newShape.setTranslateY(coordinate[1]);
     }
 
     @Override
