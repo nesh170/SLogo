@@ -2,7 +2,6 @@ package view;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -11,7 +10,6 @@ import java.util.ResourceBundle;
 import sLogo_team02.Controller;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import slogoEnums.ViewConstants;
@@ -54,7 +52,6 @@ public class ViewFX extends ViewAbstract {
         myLineRoot = new Group();
         myShapeRoot = new Group();
         myShapeMap = new HashMap<>();
-        List<String> lol = new ArrayList<>();
         myColorElements = new ColorPane(myRoot,new ArrayList<>());
         new ButtonPane(myRoot, e -> changeBackgroundImage(), new ChangeListener<Number>() {
             @Override
