@@ -13,14 +13,32 @@ public class ToNode extends CommandNode {
 		if (myParser.atEndOfString()) {
 			System.out.println("Missing the variable for to");
 			throw new ParserException(
-					"Insufficient arguements for make command.");
+					"Insufficient arguements for to command.");
 		}	
 		String methodName = myParser.getNextElement();
-				//myCurProgramArray[myCurIndex+1];
 		myParser.incrementCurIndex();
-		ParseNode newNode = NodeFactory.createNode(myParser.getRegex(), myParser.getCurrentElement(), myParser);
-		//ParseNode newNode = new ParseNode(myCurProgramArray[++myCurIndex]);
+		ParseNode newNode = new CommandNode(myParser.getCurrentElement(), myParser, Parser.USER_DEFINED);
 		this.addChild(newNode);
+		
+		int i = myParser.getCurIndex() + 1;
+		String curString = myParser.getElementAtIndex(i);
+		if(!curString.equals(Parser.OPEN_BRACKET)){
+			throw new ParserException(
+					"Inaccurate syntax for to command.  Missing open bracket for variable declaration.");
+		}
+		i++;
+		curString = myParser.getElementAtIndex(i);
+		while(!curString.equals(Parser.CLOSED_BRACKET)){
+			
+			if (!(myParser.getRegex().matchSyntax(curString).equals("Variable"))) {
+				throw new ParserException(
+						"Incorrect variable list in method declaration");
+			}
+			myParser.addVariableToTable(curString);
+			curString = myParser.getElementAtIndex(i);
+			i++;
+		}
+		
 		myParser.retrieveChildren(this, getNumParams());
 		myParser.addMethod(methodName, this.getChildren().get(1).getChildCount());
 		System.out.println("The user instruction is "+ methodName);

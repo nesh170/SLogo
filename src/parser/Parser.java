@@ -47,6 +47,10 @@ public class Parser {
 		return myCurProgramArray[myCurIndex];
 	}
 	
+	public String getElementAtIndex(int index){
+		return myCurProgramArray[index];
+	}
+	
 	public String getNextElement() {
 		if(!atEndOfString()){
 			return myCurProgramArray[myCurIndex+1];
@@ -76,22 +80,22 @@ public class Parser {
 
 	public List<ParseNode> parse(String program) throws ParserException {
 		String processed = preProcessString(program);
+		myCurIndex = -1;
 		if (processed == null) {
 			return null;
 		}
 		myCurProgramArray = processed.split(" ");
+		System.out.println("The length is "+myCurProgramArray.length);
 		//ArrayList<String> programArray = new ArrayList<>(Arrays.asList(myCurProgramArray));
 		List<ParseNode> topNodes = new ArrayList<>();
 		// loop through the string array until it's empty{
 		while (myCurIndex < myCurProgramArray.length - 1) {
-			//NODE FACTORY HERE
 			ParseNode curNode = NodeFactory.createNode(myRegex, myCurProgramArray[++myCurIndex], this);
 			//ParseNode curNode = new ParseNode(myCurProgramArray[++myCurIndex]);
 			System.out.println("Root Node: " + curNode.getName());
 			ParseNode processedNode = recursiveCommandBuilder(curNode);
 			topNodes.add(processedNode);
 		}
-		myCurIndex = -1;
 		return topNodes;
 	}
 
@@ -112,7 +116,6 @@ public class Parser {
 		for (char c : program.toCharArray()) {
 			programArray.add(c);
 		}
-		// System.out.println("the programarray is " + programArray);
 
 		boolean deleteFlag = false;
 		for (int i = 0; i < programArray.size(); i++) {
@@ -120,103 +123,23 @@ public class Parser {
 				deleteFlag = true;
 			}
 			if (programArray.get(i) == '\n') {
-				// System.out.println("ever comes here");
 				deleteFlag = false;
 				continue;
 			}
 			if (!deleteFlag) {
 				correctArray.add(programArray.get(i));
-				// System.out.println("added is " + programArray.get(i));
 			}
 		}
-		// System.out.println("the correct array is");
 		StringBuilder builder = new StringBuilder(correctArray.size());
 		for (Character c : correctArray) {
-			// System.out.print((c));
 			builder.append(c);
 		}
-		// System.out.println();
-		// pre-process the string to remove comments
 		return builder.toString();
 	}
 
 	public ParseNode recursiveCommandBuilder(ParseNode current)
 			throws ParserException {
-		String nodeName = current.getName();
-
-		String type = myRegex.matchSyntax(nodeName);
-		//potential null pointer exception
-		switch (type) {
-		case "Command":
-			String commandType = myRegex.matchCommand(nodeName);
-			System.out.println("The type for the node " + nodeName + " is "
-					+ commandType);
-			// check if commmandtype is null, this means it may be a user
-			// defined command and call appropriate helper
-			if (commandType == null) {
-				// check if user defined method and act accordingly
-				//if user begins with bracket then screwed
-				if (nodeName.equals(GROUP)) {
-					commandType = GROUP;
-				} else {
-					// System.out.println("Command type is null");
-					// return null;
-					throw new ParserException("Invalid Command");
-				}
-			}
-			//need to define user-defined command beforehand
-			//and the numParam needs to be accessible from the parse method table
-			int loopTimes = 0;
-			if(!commandType.equals(USER_DEFINED)){
-				try {
-					loopTimes = Constants.getNumParam(commandType);
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					e.printStackTrace();
-				}
-			}
-			switch (commandType) {
-			//potentially catch missing parameters
-			case USER_DEFINED:
-				loopTimes = myProgMethodsAndParams.get(nodeName);
-				retrieveChildren(current, loopTimes);
-				break;
-			case "MakeVariable":
-				return current.finishProcessing();
-			case TO:
-				if (atEndOfString()) {
-					System.out.println("Missing the variable for to");
-					throw new ParserException(
-							"Insufficient arguements for make command.");
-				}	
-				String methodName = myCurProgramArray[myCurIndex+1];
-				ParseNode newNode = NodeFactory.createNode(myRegex, myCurProgramArray[++myCurIndex], this);
-				//ParseNode newNode = new ParseNode(myCurProgramArray[++myCurIndex]);
-				current.addChild(newNode);
-				retrieveChildren(current, loopTimes);
-				myProgMethodsAndParams.put(methodName, current.getChildren().get(1).getChildCount());
-				System.out.println("The user instruction is "+ methodName);
-				System.out.println("In the myProgmehotdpasdfslkfjs the num is "+current.getChildren().get(1).getChildCount());
-				System.out.println("In the myProgmehotdpasd the num is "+current.getChildren().get(2).getChildCount());
-				break;
-				//return current.finishProcessing();
-			case GROUP:
-				return current.finishProcessing();
-			case "Repeat":
-				return current.finishProcessing();
-			default:
-				return current.finishProcessing();
-			}
-			return current;
-		case "Constant":
 			return current.finishProcessing();
-		case "Variable":
-			return current.finishProcessing();
-		default:
-			System.out.println("YOU SCREWED UP SOMEWHERE");
-		}
-		throw new ParserException("Type mismatch on element: " + nodeName);
 	}
 
 	// duplicated with method below, refactor
@@ -235,7 +158,6 @@ public class Parser {
 				groupComplete = true;
 			} else if (next.equals(OPEN_BRACKET)) {
 				ParseNode newGroup = NodeFactory.createNode(myRegex, GROUP, this);
-				//ParseNode newGroup = new ParseNode(GROUP);
 				System.out.println("The beginning of Group node: " + newGroup.getName());
 				ParseNode processedNode = recursiveCommandBuilder(newGroup);
 				groupLeader.addChild(processedNode);
@@ -279,6 +201,22 @@ public class Parser {
 				current.addChild(processedNode);
 				System.out.println("Added node: " + processedNode.getName());
 			}
+		}
+	}
+	
+	public void retrieveGenericKids(ParseNode current, String next) throws ParserException{
+		if (next.equals(OPEN_BRACKET)) {
+			ParseNode newGroup = NodeFactory.createNode(myRegex, GROUP, this);
+			System.out.println("The beginning of Group node: " + newGroup.getName());
+			ParseNode processedNode = recursiveCommandBuilder(newGroup);
+			current.addChild(processedNode);
+		}
+		else {
+			ParseNode newNode = NodeFactory.createNode(myRegex, next, this);
+			System.out.println("New Node: " + newNode.getName());
+			ParseNode processedNode = recursiveCommandBuilder(newNode);
+			current.addChild(processedNode);
+			System.out.println("Added node: " + processedNode.getName());
 		}
 	}
 

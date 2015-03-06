@@ -6,6 +6,9 @@ public class NodeFactory {
 
 	public static ParseNode createNode(Regex regex, String nodeName, Parser parser) throws ParserException{
 		String type = regex.matchSyntax(nodeName);
+		if(type == null){
+			throw new ParserException("Incorrect syntax on following element: " + nodeName);
+		}
 		switch (type) {
 		case "Command":
 			String commandType = regex.matchCommand(nodeName);
@@ -16,7 +19,7 @@ public class NodeFactory {
 				else if (nodeName.equals(Parser.GROUP)) {
 					commandType = Parser.GROUP;
 				} else {
-					throw new ParserException("Invalid Command");
+					throw new ParserException("Invalid command entered: " + nodeName);
 				}
 			}
 			switch(commandType){
