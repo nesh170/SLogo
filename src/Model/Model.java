@@ -31,6 +31,10 @@ public class Model {
 	public void processCommand(Program program) {
 		program.execute();
 	}
+	
+	public void processToggle(Integer ID){
+		myTurtleManager.toggleTurtle(ID);
+	}
 
 	public void updateVariable(String name, double newValue){
 		myVariableManager.addVariable(name, newValue);

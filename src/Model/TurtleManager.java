@@ -72,4 +72,24 @@ public class TurtleManager {
 	public ModelTurtle getTurtle(Integer ID){
 		return myTurtles.get(ID);
 	}
+	
+	public void toggleTurtle(Integer ID){
+		boolean found = false;
+		for(Integer i: myActiveTurtleIDs){
+			if(ID.equals(i)){
+				found = true;
+				break;
+			}	
+		}
+		if(found){
+			myActiveTurtleIDs.remove(ID);
+			myView.visualActiveShape(false, ID);
+			System.out.println("Set Turtle to Inactive");
+		}
+		else{
+			myActiveTurtleIDs.add(ID);
+			myView.visualActiveShape(true, ID);
+			System.out.println("Set Turtle to Active");
+		}
+	}
 }
