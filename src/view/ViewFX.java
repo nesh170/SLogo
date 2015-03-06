@@ -57,11 +57,9 @@ public class ViewFX extends ViewAbstract {
             }
         });
         myPlayground = new TurtlePlayground(myRoot);
-        Scene viewScene = new Scene(myRoot, ViewConstants.STAGE_WIDTH.getVal(), ViewConstants.STAGE_HEIGHT.getVal(), Color.ALICEBLUE);
         myCodeElements = new CodePane(myRoot, e -> pushCodeToController());
         setUpVariablePane();
         myRoot.getChildren().addAll(myLineRoot, myShapeRoot);
-        myController.setScene(viewScene);
     }
 
     private void setUpVariablePane () {
@@ -205,6 +203,11 @@ public class ViewFX extends ViewAbstract {
     		return "";
     	}
     	return file.toString();
+    }
+
+    @Override
+    public Group getRoot () {
+        return myRoot;
     }
     
 
