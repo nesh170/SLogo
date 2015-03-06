@@ -83,7 +83,7 @@ public class XmlParser {
 			double x = Double.parseDouble(xPos.getTextContent());
 			double y = Double.parseDouble(yPos.getTextContent());
 			int id = Integer.parseInt(myID.getTextContent());
-			myTurtleManager.addTurtle(myID, x, y);
+			//myTurtleManager.addTurtle(myID, x, y);
 		}
 	}
 	

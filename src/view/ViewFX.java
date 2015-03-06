@@ -5,17 +5,18 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
+
 import sLogo_team02.Controller;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import slogoEnums.ViewConstants;
 import javafx.scene.control.ListView;
-
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
@@ -26,6 +27,7 @@ public class ViewFX extends ViewAbstract {
     private Group myRoot;
     private Group myLineRoot;
     private Group myTurtleRoot;
+    private ColorPane myColorElements;
     private CodePane myCodeElements;
     private VariablePane myVariableElements;
     private TurtlePlayground myPlayground;
