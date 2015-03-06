@@ -93,12 +93,7 @@ public class Controller {
 		myWorkspaceList.get(myTabNumber.getValue()).getParser().changeLanguage(languagePath);
 	}
 
-        public void setPenUporDown (Boolean penUporDown, int ID) {
-        // TODO Model to register the changed value, up is false, down is true 
-        }
-
         public void setToggleActive (int iD) {
-            // TODO Model to do
             myWorkspaceList.get(myTabNumber.getValue()).getModel().processToggle(iD);
         }
 
@@ -106,7 +101,7 @@ public class Controller {
             // TODO Auto-generated method stub
         }
 
-        public void loadXML (String openFileChooser) {
+        public void loadXML (String path) {
             // TODO Auto-generated method stub
         }
   
