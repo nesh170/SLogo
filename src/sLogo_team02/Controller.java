@@ -101,6 +101,14 @@ public class Controller {
             // TODO Model to do
             myWorkspaceList.get(myTabNumber.getValue()).getModel().processToggle(iD);
         }
+
+        public void saveXML (String path) {
+            // TODO Auto-generated method stub
+        }
+
+        public void loadXML (String openFileChooser) {
+            // TODO Auto-generated method stub
+        }
         
 
 

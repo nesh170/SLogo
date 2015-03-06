@@ -23,20 +23,22 @@ public class ButtonPane {
 			"resources.View.ViewText", new Locale("en", "US"));;
 
 	public ButtonPane(Group root, EventHandler<ActionEvent> handler,
-			ChangeListener<Number> listener) {
+			ChangeListener<Number> listener,EventHandler<ActionEvent> saveHandler, EventHandler<ActionEvent> loadHandler) {
 		myRoot = root;
-		initializeButtonPane(listener, handler);
+		initializeButtonPane(listener, handler,saveHandler,loadHandler);
 	}
 
 	private void initializeButtonPane(ChangeListener<Number> listener,
-			EventHandler<ActionEvent> handler) {
+			EventHandler<ActionEvent> handler,EventHandler<ActionEvent> saveHandler, EventHandler<ActionEvent> loadHandler) {
 		GridPane buttonPane = new GridPane();
 		Node[] nodeArray = {
 				generateLanguageBox(listener),
 				createButton(handler,
 						myStringResources.getString("changeImage")),
 				createButton(e -> loadHelpPage(),
-						myStringResources.getString("helpScreen")) };
+						myStringResources.getString("helpScreen")),
+				createButton(saveHandler,myStringResources.getString("saveButton")),
+				createButton(loadHandler, myStringResources.getString("loadButton"))};
 		for (int col = 0; col < nodeArray.length; col++) {
 			buttonPane.add(nodeArray[col], col, 1);
 		}

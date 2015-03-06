@@ -57,7 +57,7 @@ public class ViewFX extends ViewAbstract {
             public void changed (ObservableValue<? extends Number> ov, Number value, Number newValue) {
                 changeLanuageinController(newValue.intValue());
             }
-        });
+        },e-> myController.saveXML(ViewFX.openFileChooser()),e->myController.loadXML(ViewFX.openFileChooser()));
         myPlayground = new TurtlePlayground(myRoot);
         myCodeElements = new CodePane(myRoot, e -> pushCodeToController());
         setUpVariablePane();
@@ -222,13 +222,10 @@ public class ViewFX extends ViewAbstract {
         newShape.setTranslateX(coordinate[0]);newShape.setTranslateX(coordinate[1]);
     }
 
-//    @Override
-//    public void getColorArray (List<String> colorList) {
-//        // TODO Auto-generated method stub
-//        
-//    }
-    
-
-
+    @Override
+    public void getColorArray (List<String> colorList) {
+        // TODO Auto-generated method stub
+        
+    }
 
 }
