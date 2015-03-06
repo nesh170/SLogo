@@ -229,5 +229,6 @@ public class ViewFX extends ViewAbstract {
         System.out.println("in here");
         myColorElements.changeList(colorList);
     }
+    
 
 }

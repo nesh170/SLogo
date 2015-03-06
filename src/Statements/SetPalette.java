@@ -21,11 +21,16 @@ public class SetPalette extends Command {
 			if (index < 0 || index > myColors.size()) {
 				throw new ExecutionException(
 						"Specified index for new color is out of bounds.");
-			} else {
-				myColors.add(calculateStringColor((int) myStatements.get(1)
+			} else if(index<myColors.size()) {
+				myColors.set(index,calculateStringColor((int) myStatements.get(1)
 						.execute(), (int) myStatements.get(2).execute(),
 						(int) myStatements.get(3).execute()));
 				myView.updateColorListView(myColors);
+			} else if(index==myColors.size()){
+                                myColors.add(calculateStringColor((int) myStatements.get(1)
+                                               .execute(), (int) myStatements.get(2).execute(),
+                                                (int) myStatements.get(3).execute()));
+                                myView.updateColorListView(myColors);
 			}
 		} catch (ExecutionException e) {
 			myView.printError(e.toString());
@@ -34,8 +39,7 @@ public class SetPalette extends Command {
 	}
 
 	public String calculateStringColor(int r, int g, int b) {
-		return String.format("#%02X%02X%02X", (int) (r * 255), (int) (g * 255),
-				(int) (b * 255));
+		return String.format("#%02X%02X%02X", r,g,b);
 	}
 
 }

@@ -42,5 +42,9 @@ public class TurtlePlayground {
         }
         throw new NullPointerException();
     }
+    
+    public void changeColorBackground(String color){
+        myPlayground.setFill(Color.web(color));
+    }
 
 }
