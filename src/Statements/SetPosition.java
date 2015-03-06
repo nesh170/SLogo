@@ -21,14 +21,7 @@ public abstract class SetPosition extends ActionCommand {
 		double distanceTraveled = 0;
 		for (Integer ID : myTurtleManager.getActiveTurtleIDs()) {
 			ModelTurtle currentTurtle = myTurtleManager.getTurtle(ID);
-			double oldX = currentTurtle.getX();
-			double oldY = currentTurtle.getY();
-			currentTurtle.setX(myExecuteResultX);
-			currentTurtle.setY(myExecuteResultY);
-			distanceTraveled = Math.sqrt(Math.pow(myExecuteResultX - oldX, 2)
-					+ Math.pow(myExecuteResultY - oldY, 2));
-			System.out.println("X is " + currentTurtle.getX() + " Y is "
-					+ currentTurtle.getY());
+			distanceTraveled = currentTurtle.relocateTurtle(myExecuteResultX, myExecuteResultY);
 			if (!currentTurtle.isDrawing()) {
 				myView.moveShape(currentTurtle.getX(), currentTurtle.getY(),
 						currentTurtle.getID());
