@@ -1,6 +1,8 @@
 package view;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -9,6 +11,7 @@ import java.util.ResourceBundle;
 import sLogo_team02.Controller;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import slogoEnums.ViewConstants;
@@ -28,6 +31,7 @@ public class ViewFX extends ViewAbstract {
     private Group myRoot;
     private Group myLineRoot;
     private Group myShapeRoot;
+    private ColorPane myColorElements;
     private CodePane myCodeElements;
     private VariablePane myVariableElements;
     private TurtlePlayground myPlayground;
@@ -50,6 +54,8 @@ public class ViewFX extends ViewAbstract {
         myLineRoot = new Group();
         myShapeRoot = new Group();
         myShapeMap = new HashMap<>();
+        List<String> lol = new ArrayList<>();
+        myColorElements = new ColorPane(myRoot,new ArrayList<>());
         new ButtonPane(myRoot, e -> changeBackgroundImage(), new ChangeListener<Number>() {
             @Override
             public void changed (ObservableValue<? extends Number> ov, Number value, Number newValue) {
@@ -89,6 +95,7 @@ public class ViewFX extends ViewAbstract {
         System.out.println(myShapeMap.get(ID).getTranslateX() + " " + myShapeMap.get(ID).getTranslateY());
         double[] endCoordinates = ViewFunctions.rectToFXCoordinates(X, Y);
         Line turtleLine = new Line(startCoordinates[0],startCoordinates[1],endCoordinates[0],endCoordinates[1]);
+        System.out.println(penColor);
         turtleLine.setStroke(Color.web(penColor));
         turtleLine.setStrokeWidth(strokeWidth);
         turtleLine.setStyle(myStringResources.getString(strokeType.toLowerCase()));
@@ -222,8 +229,8 @@ public class ViewFX extends ViewAbstract {
 
     @Override
     public void updateColorListView (List<String> colorList) {
-        // TODO Auto-generated method stub
-        
+        System.out.println("in here");
+        myColorElements.changeList(colorList);
     }
 
 }

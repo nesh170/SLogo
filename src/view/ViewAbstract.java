@@ -33,4 +33,5 @@ public abstract class ViewAbstract {
 	public abstract void changeShape(String shapeType, int ID);
 	
 	public abstract void updateColorListView(List<String> colorList);
+
 }

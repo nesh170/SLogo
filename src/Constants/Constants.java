@@ -1,17 +1,19 @@
 package Constants;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.List;
 
 public class Constants {
 
 	public static final String DEFAULT_LANGUAGE = "resources/languages/English";
 	public static final String SYNTAX = "resources/languages/Syntax";
-	
+
 	public static final double FULL_CIRCLE = 360;
 	public static final double FORWARD_ANGLE = 0;
 	public static final double BACKWARD_ANGLE = 180;
 	public static final double LEFT_DIRECTION = -1;
-	public static final double RIGHT_DIRECRION= 1;
+	public static final double RIGHT_DIRECRION = 1;
 	public static final double STARTING_XCOR = 0;
 	public static final double STARTING_YCOR = 0;
 	public static final double PEN_UP_VALUE = 0;
@@ -28,7 +30,7 @@ public class Constants {
 	public static final Integer FIRST_TURTLE_YCOR = 0;
 	public static final String DEFAULT_SHAPE = "triangle";
 	public static final String MISSING_VARIABLE_MESSAGE = "Trying to use undefined variable";
-	
+
 	public static final int FORWARD = 1;
 	public static final int BACKWARD = 1;
 	public static final int LEFT = 1;
@@ -61,7 +63,7 @@ public class Constants {
 	public static final int NATURALLOG = 1;
 	public static final int POWER = 1;
 	public static final int PI = 0;
-	public static final int LESSTHAN= 2;
+	public static final int LESSTHAN = 2;
 	public static final int GREATERTHAN = 2;
 	public static final int EQUAL = 2;
 	public static final int NOTEQUAL = 2;
@@ -76,18 +78,26 @@ public class Constants {
 	public static final int IFELSE = 3;
 	public static final int MAKEUSERINSTRUCTION = 3;
 	public static final int TELL = 1;
+	public static final int SETPENCOLOR = 1;
 	
 	
-    public static int getNumParam (String paramName) throws IllegalArgumentException,
-                                             IllegalAccessException {
-        Field[] fields = Constants.class.getDeclaredFields();
-        for (Field field : fields) {
-            field.setAccessible(true);
-            String fieldString = field.toString();
-            if (fieldString.endsWith("." + paramName.toUpperCase())) { return (int) field.get(null); }
-        }
-        System.out.println("returning max value");
-        return Integer.MAX_VALUE;
-    }
-	
+	public static final List<String> DEFAULT_SHAPES = Arrays.asList("triangle",
+			"circle");
+	public static final List<String> DEFAULT_COLORS = Arrays.asList("#000000",
+			"#FFFFFF", "#FF0000", "#70B8FF");
+
+	public static int getNumParam(String paramName)
+			throws IllegalArgumentException, IllegalAccessException {
+		Field[] fields = Constants.class.getDeclaredFields();
+		for (Field field : fields) {
+			field.setAccessible(true);
+			String fieldString = field.toString();
+			if (fieldString.endsWith("." + paramName.toUpperCase())) {
+				return (int) field.get(null);
+			}
+		}
+		System.out.println("returning max value");
+		return Integer.MAX_VALUE;
+	}
+
 }

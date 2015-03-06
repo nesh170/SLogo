@@ -9,8 +9,8 @@ import Constants.*;
 public class SetXY extends SetPosition{
 
 	public SetXY(List<Statement> statements, ViewAbstract view,
-			TurtleManager turtleManager) {
-		super(statements, view, turtleManager);
+			TurtleManager turtleManager, List<String> colors) {
+		super(statements, view, turtleManager, colors);
 	}
 	
 	public double execute(){
@@ -18,10 +18,5 @@ public class SetXY extends SetPosition{
 		myExecuteResultY = myStatements.get(1).execute();
 		return super.execute();
 	}
-
-//	@Override
-//	public static int getNumParams() {
-//		return Constants.SET_XY_PARAMS;
-//	}
 
 }
