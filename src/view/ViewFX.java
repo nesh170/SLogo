@@ -2,12 +2,14 @@ package view;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import sLogo_team02.Controller;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import slogoEnums.ViewConstants;
@@ -27,6 +29,7 @@ public class ViewFX extends ViewAbstract {
     private Group myRoot;
     private Group myLineRoot;
     private Group myShapeRoot;
+    private ColorPane myColorElements;
     private CodePane myCodeElements;
     private VariablePane myVariableElements;
     private TurtlePlayground myPlayground;
@@ -219,11 +222,11 @@ public class ViewFX extends ViewAbstract {
         newShape.setTranslateX(coordinate[0]);newShape.setTranslateX(coordinate[1]);
     }
 
-    @Override
-    public void getColorArray (List<String> colorList) {
-        // TODO Auto-generated method stub
-        
-    }
+//    @Override
+//    public void getColorArray (List<String> colorList) {
+//        // TODO Auto-generated method stub
+//        
+//    }
     
 
 

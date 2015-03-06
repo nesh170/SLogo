@@ -30,4 +30,5 @@ public abstract class ViewAbstract {
 	public abstract Group getRoot();
 	
 	public abstract void changeShape(String shapeType, int ID);
+	
 }

@@ -75,10 +75,9 @@ public class PenPropertiesDialogBox {
         //TODO edit this to support the new resources it will crash, update to controeller
         HBox strokeTypeBox = new HBox();
         List<String> strokeTypeArray = Arrays.asList(myStringResources.getString("strokeWidthChoice").split("\\s+"));
-        List<String> strokeTypeCSS = Arrays.asList(myStringResources.getString("strokeWidthCSS").split("\\s+"));
         ChoiceBox<String> strokeChoice = new ChoiceBox<>(FXCollections.observableArrayList(strokeTypeArray));
-        strokeChoice.setValue(strokeTypeArray.get(strokeTypeCSS.indexOf(myStrokeType.getValue())));
-        strokeChoice.getSelectionModel().selectedIndexProperty().addListener(e-> myStrokeType.set(strokeTypeCSS.get(strokeChoice.getSelectionModel().getSelectedIndex())));
+        strokeChoice.setValue(myStrokeType.getValue());
+        strokeChoice.getSelectionModel().selectedIndexProperty().addListener(e-> myStrokeType.set(strokeChoice.getSelectionModel().getSelectedItem()));
         strokeTypeBox.getChildren().addAll(new Text(myStringResources.getString("penStroke")),strokeChoice);
         myDialogVBox.getChildren().add(strokeTypeBox);
     }

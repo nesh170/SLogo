@@ -1,0 +1,36 @@
+<defaultsetting>
+	<background>
+		<width>800</width>
+		<height>600</height>
+		<color>Black</color> 
+	 	<imagePath> </imagePath> 
+	</background>
+		
+	<turtleImage>
+		<image_path> </image_path>	
+	</turtleImage>
+	
+	<num_Turtles>
+		<numTurtle>2</numTurtle>
+		<turtle>
+			<xPos>-10</xPos>
+			<yPos>0</yPos>
+			<id>1</id>
+		</turtle>
+		<turtle>
+			<xPos>10</xPos>
+			<yPos>0</yPos>
+			<id>2</id>
+		</turtle>
+	</num_Turtles>
+	
+	<fileToLoad>
+		<filePath> </filePath>
+		<filePath> </filePath>
+		<filePath> </filePath>
+	</fileToLoad>
+	
+	<command_language>
+		English
+	</command_language>
+</defaultsetting>	
