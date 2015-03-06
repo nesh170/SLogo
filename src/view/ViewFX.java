@@ -29,6 +29,7 @@ public class ViewFX extends ViewAbstract {
     private Group myRoot;
     private Group myLineRoot;
     private Group myShapeRoot;
+    private Group myStampRoot;
     private ColorPane myColorElements;
     private CodePane myCodeElements;
     private VariablePane myVariableElements;
@@ -36,10 +37,11 @@ public class ViewFX extends ViewAbstract {
     private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",new Locale("en", "US"));
     private Map<Integer, Shape> myShapeMap;
     private Controller myController;
+    private ShapeFactory myShapeFactory = new ShapeFactory();
     public static final Map<Boolean,Effect> ACTIVE_TURTLE_EFFECT = new HashMap<>();
      static{
-         ACTIVE_TURTLE_EFFECT.put(true, new Glow(1.0));
-         ACTIVE_TURTLE_EFFECT.put(false, new Glow(0.0));
+         ACTIVE_TURTLE_EFFECT.put(false, new Glow(1.0));
+         ACTIVE_TURTLE_EFFECT.put(true, new Glow(0.0));
      }
      
     public ViewFX (Controller controller) {
@@ -51,6 +53,7 @@ public class ViewFX extends ViewAbstract {
         myRoot = new Group();
         myLineRoot = new Group();
         myShapeRoot = new Group();
+        myStampRoot = new Group();
         myShapeMap = new HashMap<>();
         myColorElements = new ColorPane(myRoot,new ArrayList<>());
         new ButtonPane(myRoot, e -> changeBackgroundImage(), new ChangeListener<Number>() {
@@ -113,8 +116,7 @@ public class ViewFX extends ViewAbstract {
 
     @Override
     public void addShape (String shapeType, double X, double Y, int ID) {
-       ShapeFactory factory = new ShapeFactory();
-       Shape tempShape = factory.makeShape(shapeType);
+       Shape tempShape = myShapeFactory.makeShape(shapeType,ViewConstants.SIZE.getVal());
        tempShape.setOnMouseClicked(new EventHandler<MouseEvent>() {
         @Override
         public void handle (MouseEvent mouseButton) {
@@ -229,6 +231,22 @@ public class ViewFX extends ViewAbstract {
         System.out.println("in here");
         myColorElements.changeList(colorList);
     }
+
+    @Override
+    public void stamp(int ID){
+        Shape stampShape = myShapeFactory.makeCopy(myShapeMap.get(ID));
+        myStampRoot.getChildren().add(stampShape);
+    }
+    
+    //true if empty, false is filled
+    @Override
+    public boolean clearStamps(){
+        boolean stampContains = myStampRoot.getChildren().isEmpty();
+        myStampRoot.getChildren().clear();
+        return stampContains;
+    }
+    
+    
     
 
 }

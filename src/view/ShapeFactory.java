@@ -19,15 +19,23 @@ public class ShapeFactory {
         return tempShape;
     }
     
+    public Shape makeCopy(Shape shape){
+        Shape copyShape = makeShape(shape.getClass().getName().substring((int) Math.round(ViewConstants.REFLECTIONSUBSTRING.getVal())), ViewConstants.SIZE.getVal());
+        copyShape.setTranslateX(shape.getTranslateX());copyShape.setTranslateY(shape.getTranslateY());
+        copyShape.setFill(shape.getFill());copyShape.setEffect(shape.getEffect());
+        return copyShape;
+    }
+    
     /**
      * For the user to have more shapes, you need to add to the switch statement below.
      * @param shapeType
      * @return
      */
-    public Shape makeShape(String shapeType){
-        switch (shapeType) {
-            case "circle": return makeCircle(ViewConstants.SIZE.getVal());
-            case "triangle": return makeTriangle(ViewConstants.SIZE.getVal());
+    public Shape makeShape(String shapeType, double size){
+        switch (shapeType.toLowerCase()) {
+            case "circle": return makeCircle(size);
+            case "triangle": return makeTriangle(size);
+            case "polygon": return makeTriangle(size);
         }
         return null;
     }
