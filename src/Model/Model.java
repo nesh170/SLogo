@@ -22,6 +22,7 @@ public class Model {
 		myMethodManager = new MethodManager();
 		initializeDefaultShapes();
 		initializeDefaultColors();
+		myView.getColorArray(myColors);
 	}
 	
 	public List<String> getColors(){
