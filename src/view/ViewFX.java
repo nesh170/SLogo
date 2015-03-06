@@ -2,19 +2,15 @@ package view;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
-import com.sun.org.apache.xpath.internal.axes.ReverseAxesWalker;
 import sLogo_team02.Controller;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.Scene;
 import slogoEnums.ViewConstants;
 import javafx.scene.control.ListView;
 import javafx.scene.effect.Effect;
@@ -59,13 +55,11 @@ public class ViewFX extends ViewAbstract {
             public void changed (ObservableValue<? extends Number> ov, Number value, Number newValue) {
                 changeLanuageinController(newValue.intValue());
             }
-        });
+        },e-> myController.saveXML(ViewFX.openFileChooser()),e->myController.loadXML(ViewFX.openFileChooser()));
         myPlayground = new TurtlePlayground(myRoot);
-        Scene viewScene = new Scene(myRoot, ViewConstants.STAGE_WIDTH.getVal(), ViewConstants.STAGE_HEIGHT.getVal(), Color.ALICEBLUE);
         myCodeElements = new CodePane(myRoot, e -> pushCodeToController());
         setUpVariablePane();
         myRoot.getChildren().addAll(myLineRoot, myShapeRoot);
-        myController.setScene(viewScene);
     }
 
     private void setUpVariablePane () {
@@ -95,6 +89,7 @@ public class ViewFX extends ViewAbstract {
         System.out.println(myShapeMap.get(ID).getTranslateX() + " " + myShapeMap.get(ID).getTranslateY());
         double[] endCoordinates = ViewFunctions.rectToFXCoordinates(X, Y);
         Line turtleLine = new Line(startCoordinates[0],startCoordinates[1],endCoordinates[0],endCoordinates[1]);
+        System.out.println(penColor);
         turtleLine.setStroke(Color.web(penColor));
         turtleLine.setStrokeWidth(strokeWidth);
         turtleLine.setStyle(myStringResources.getString(strokeType.toLowerCase()));
@@ -125,12 +120,12 @@ public class ViewFX extends ViewAbstract {
                 System.out.println("Primary");
             }
             else if(mouseButton.getButton()==MouseButton.SECONDARY){
-                //TODO set active
-                System.out.println("Secondary");
+                myController.setToggleActive(ID);
             }  
         }
     });
        myShapeMap.put(ID, tempShape);
+       visualActiveShape(true, ID);
        myShapeRoot.getChildren().add(tempShape);
     }
 
@@ -142,6 +137,7 @@ public class ViewFX extends ViewAbstract {
     //true is active, false is inactive
     @Override
     public void visualActiveShape(boolean activeOrInactive, int ID) {
+        System.out.println("Active or not " + activeOrInactive);
         myShapeMap.get(ID).setEffect(ACTIVE_TURTLE_EFFECT.get(activeOrInactive));
     }
     
@@ -210,8 +206,25 @@ public class ViewFX extends ViewAbstract {
     	}
     	return file.toString();
     }
-    
 
+    @Override
+    public Group getRoot () {
+        return myRoot;
+    }
 
+    @Override
+    public void changeShape (String shapeType, int ID) {
+        double[] coordinate = new double[]{myShapeMap.get(ID).getTranslateX(),myShapeMap.get(ID).getTranslateY()};
+        myShapeRoot.getChildren().remove(myShapeMap.get(ID));
+        addShape(shapeType, 0, 0, ID);
+        Shape newShape = myShapeMap.get(ID);
+        newShape.setTranslateX(coordinate[0]);newShape.setTranslateX(coordinate[1]);
+    }
+
+    @Override
+    public void getColorArray (List<String> colorList) {
+        // TODO Auto-generated method stub
+        
+    }
 
 }

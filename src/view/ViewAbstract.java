@@ -1,5 +1,8 @@
 package view;
 
+import java.util.List;
+import javafx.scene.Group;
+
 public abstract class ViewAbstract {
 
 	public abstract void drawShape(double X, double Y, int ID, String penColor,
@@ -25,4 +28,9 @@ public abstract class ViewAbstract {
 
 	public abstract void visualActiveShape(boolean activeOrInactive, int ID);
 
+	public abstract Group getRoot();
+	
+	public abstract void changeShape(String shapeType, int ID);
+	
+	public abstract void getColorArray(List<String> colorList);
 }
