@@ -5,7 +5,6 @@ import java.util.List;
 import parser.*;
 import slogoEnums.ViewConstants;
 import Model.Program;
-import Model.XmlParser;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
