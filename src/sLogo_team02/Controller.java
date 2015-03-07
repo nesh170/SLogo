@@ -5,6 +5,7 @@ import java.util.List;
 import parser.*;
 import slogoEnums.ViewConstants;
 import Model.Program;
+import Model.XmlParser;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -26,9 +27,12 @@ public class Controller {
 	private SimpleIntegerProperty myTabNumber = new SimpleIntegerProperty(0);
 	private Menu myMenu;
 	private MenuBar myMenuBar;
+	private XmlParser myXMLParser;
 	
 	public Controller(Stage stage){
 	    myStage = stage;
+	    myXMLParser = new XmlParser();
+	    
 	}
 
 	private void addWorkspace(){
@@ -96,11 +100,11 @@ public class Controller {
         }
 
         public void saveXML (String path) {
-
+            //TODO to be done later
         }
 
         public void loadXML (String path) {
-            // TODO Auto-generated method stub
+            myXMLParser.loadXML(path,myWorkspaceList.get(myTabNumber.getValue()).getModel());
         }
 
         public void initiateDialogBox (int iD) {
