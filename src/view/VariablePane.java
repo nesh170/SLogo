@@ -104,7 +104,7 @@ public class VariablePane {
 		myMethodList = FXCollections.observableArrayList();
 		ListView<String> methodListView = new ListView<String>(myMethodList);
 		methodListView.getSelectionModel().selectedItemProperty().addListener(listener);
-		myVariableBox.getChildren().add(methodListView);
+		myVariableBox.getChildren().addAll(new Text(myStringResources.getString("methodTable")),methodListView);
 	}
 
 

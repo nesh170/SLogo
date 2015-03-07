@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import parser.*;
 import slogoEnums.ViewConstants;
+import Model.Pen;
 import Model.Program;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
@@ -103,6 +104,11 @@ public class Controller {
 
         public void loadXML (String path) {
             // TODO Auto-generated method stub
+        }
+
+        public void initiateDialogBox (int iD) {
+            // TODO Auto-generated method stub
+            myWorkspaceList.get(myTabNumber.getValue()).getView().setUpDialogBox(new Pen(), iD, null);
         }
   
 }
