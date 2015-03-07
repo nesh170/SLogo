@@ -11,12 +11,23 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 import Model.SingleTurtle;
 
+
+/**
+ * This method is the XMLWriter. It obtains an unmodifiable hashmap from the model and uses it to
+ * write to the XML File. It currently only writes in the turtlesID, X location and Y location.
+ * 
+ * @author Sivaneshwaran
+ *
+ */
 public class XmlWriter {
     private XMLStreamWriter writer;
     private String XMLVersion = "1.0";
-    private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.XML.XMLText",new Locale("en", "US"));
-    
-    public void beginXMLWriting (String path, Map<Integer, SingleTurtle> map) throws XMLStreamException, FileNotFoundException {
+    private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.XML.XMLText",
+                                                                        new Locale("en", "US"));
+
+    public void beginXMLWriting (String path, Map<Integer, SingleTurtle> map)
+                                                                             throws XMLStreamException,
+                                                                             FileNotFoundException {
         XMLOutputFactory factory = XMLOutputFactory.newInstance();
         writer = factory.createXMLStreamWriter(new FileOutputStream(new File(path)));
         writer.writeStartDocument(XMLVersion);
@@ -29,10 +40,10 @@ public class XmlWriter {
         writer.flush();
         writer.close();
     }
-    
-    private void writeToXML(Map<Integer, SingleTurtle> map) throws XMLStreamException{
+
+    private void writeToXML (Map<Integer, SingleTurtle> map) throws XMLStreamException {
         writeHelper(myStringResources.getString("numTurtle"), map.keySet().size());
-        for(Integer k:map.keySet()){
+        for (Integer k : map.keySet()) {
             writer.writeStartElement(myStringResources.getString("turtle"));
             writeHelper("x", map.get(k).getX());
             writeHelper("y", map.get(k).getY());
@@ -40,11 +51,11 @@ public class XmlWriter {
             writer.writeEndElement();
         }
     }
-    
-    private void writeHelper(String element, Number value) throws XMLStreamException{
+
+    private void writeHelper (String element, Number value) throws XMLStreamException {
         writer.writeStartElement(myStringResources.getString(element));
         writer.writeCharacters(value.toString());
         writer.writeEndElement();
     }
-    
+
 }

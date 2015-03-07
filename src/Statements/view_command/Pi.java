@@ -1,28 +1,23 @@
 package Statements.view_command;
 
 import java.util.List;
-
 import Statements.Statement;
 import Statements.command.Command;
 import view.ViewAbstract;
-import Constants.*;
 
-public class Pi extends Command{
+/**
+ * @author Sierra, Yancheng
+ */
+public class Pi extends Command {
 
-	public Pi(List<Statement> statements, ViewAbstract view) {
-		super(statements, view);
-	}
+    public Pi (List<Statement> statements, ViewAbstract view) {
+        super(statements, view);
+    }
 
-	@Override
-	public double execute() {
-		double pi = Math.PI;
-		getMyView().printMessage("" + pi);
-		return pi;
-	}
-
-//	@Override
-//	public int getNumParams() {
-//		return Constants.PI_PARAMS;
-//	}
-
+    @Override
+    public double execute () {
+        double pi = Math.PI;
+        getMyView().printMessage("" + pi);
+        return pi;
+    }
 }

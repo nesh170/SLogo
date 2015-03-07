@@ -3,7 +3,11 @@ package Statements.operator;
 import java.util.List;
 
 import Statements.Statement;
-
+/**
+ * 
+ * @author Sivaneshwaran
+ *
+ */
 public class Equal extends Operator {
 
 	public Equal(List<Statement> statements) {

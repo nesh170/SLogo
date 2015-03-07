@@ -4,6 +4,10 @@ import java.util.List;
 
 import Statements.Statement;
 
+/**
+ * @author Sivaneshwaran
+ */
+
 public class Or extends Operator {
     
     public Or (List<Statement> statements) {
