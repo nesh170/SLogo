@@ -9,6 +9,8 @@ import Statements.Statement;
 // TODO: Auto-generated Javadoc
 /**
  * The Class Program.
+ * @author sierrasmith95
+ * @version $Revision: 1.0 $
  */
 public class Program {
 	

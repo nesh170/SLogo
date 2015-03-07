@@ -10,6 +10,11 @@ import view.*;
 import Constants.*;
 
 /**
+ * This class is a turtle container object.  It is a composite object in our composite design implementation, which
+ * has all of the capabilities defined by the ITurtle interface and additional functionality to add, delete, activate,
+ * and clear turtles.
+ * 
+ * @author Sierra, Yancheng
  */
 public class MultipleTurtles implements ITurtle {
 	private Map<Integer, SingleTurtle> myTurtles;
@@ -18,7 +23,8 @@ public class MultipleTurtles implements ITurtle {
 	private ViewAbstract myView;
 
 	/**
-	 * Constructor for MultipleTurtles.
+	 * Constructor for MultipleTurtles. Takes in a view and initializes turtle list and active
+	 * turtle list to be empty.
 	 * @param view ViewAbstract
 	 */
 	public MultipleTurtles(ViewAbstract view){
@@ -29,7 +35,7 @@ public class MultipleTurtles implements ITurtle {
 	}
 
 	/**
-	 * Method setActiveTurtles.
+	 * Takes in a list of integers and sets turtles with those IDs to be the active turtles
 	 * @param activeTurtleIDs List<Integer>
 	 */
 	public void setActiveTurtles(List<Integer> activeTurtleIDs){
@@ -46,31 +52,39 @@ public class MultipleTurtles implements ITurtle {
 		}
 	}
 
+	/**
+	 * Cleares the list of active turtle objects
+	 */
 	private void clearActiveTurtleList() {
 		myActiveTurtles.clear();
 	}
 
+	/**
+	 * Clears the list of active turtle IDs.
+	 */
 	private void clearActiveTurtleIDs(){
 		myActiveTurtleIDs = new ArrayList<>();
 	}
 
+	/**
+	 * Removes all of the turtles from the model.
+	 */
 	public void clearTurtles(){
 		myTurtles = new HashMap<>();
 		clearActiveTurtleIDs();
 		clearActiveTurtleList();
 	}
 
-	//should return immutable list instead
 	/**
-	 * Method getActiveTurtleIDs.
+	 *Returns a list of IDs of the active turtles.
 	 * @return List<Integer>
 	 */
 	public List<Integer> getActiveTurtleIDs(){
-		return myActiveTurtleIDs;
+		return Collections.unmodifiableList(myActiveTurtleIDs);
 	}
 	
 	/**
-	 * Method getActiveTurtles.
+	 * Returns a list of active turtle objects.
 	 * @return List<SingleTurtle>
 	 */
 	public List<SingleTurtle> getActiveTurtles(){
@@ -78,7 +92,7 @@ public class MultipleTurtles implements ITurtle {
 	}
 
 	/**
-	 * Method doToActiveTurtles.
+	 * Takes in a function and applies it to all active turtles.
 	 * @param action Consumer<? super SingleTurtle>
 	 * @see Model.ITurtle#doToActiveTurtles(Consumer<? super SingleTurtle>)
 	 */
@@ -87,7 +101,7 @@ public class MultipleTurtles implements ITurtle {
 	}
 	
 	/**
-	 * Method doToSpecifiedTurtles.
+	 * Takes in a function and applies it to the list of turtles passed in.
 	 * @param turtles List<SingleTurtle>
 	 * @param action Consumer<? super SingleTurtle>
 	 */
@@ -96,7 +110,8 @@ public class MultipleTurtles implements ITurtle {
 	}
 
 	/**
-	 * Method addTurtle.
+	 * Adds a new turtle with the ID specified.  Places the turtle at the home location and automatically
+	 * activates it.
 	 * @param turtleID Integer
 	 */
 	public void addTurtle(Integer turtleID){
@@ -108,19 +123,20 @@ public class MultipleTurtles implements ITurtle {
 	}
 	
 	/**
-	 * Method addTurtle.
+	 * Adds a turtle with the given ID at the specified location (x,y) and automatically activates it.
 	 * @param X double
 	 * @param Y double
 	 * @param turtleID int
 	 */
 	public void addTurtle(double X, double Y, int turtleID){
 	    addTurtle(turtleID);
-	    myTurtles.get(turtleID).setX(X);myTurtles.get(turtleID).setY(Y);
+	    myTurtles.get(turtleID).setX(X);
+	    myTurtles.get(turtleID).setY(Y);
 	    myView.moveShape(X, Y, turtleID);
 	}
 
 	/**
-	 * Method getTurtle.
+	 * Returns the turtle with the given ID.  Assumes the turtle ID is valid.
 	 * @param ID Integer
 	 * @return SingleTurtle
 	 */
@@ -129,10 +145,11 @@ public class MultipleTurtles implements ITurtle {
 	}
 	
 	/**
-	 * Method toggleTurtle.
+	 * Toggles whether or not the turtle with the given ID is active.  Assumes the turtle
+	 * ID is valid.
 	 * @param ID Integer
 	 */
-	public void toggleTurtle(Integer ID){
+	public void toggleActive(Integer ID){
 		boolean found = false;
 		for(Integer i: myActiveTurtleIDs){
 			if(ID.equals(i)){
@@ -151,7 +168,6 @@ public class MultipleTurtles implements ITurtle {
 			System.out.println("Set Turtle to Active");
 		}
 	}
-	//ITurtle Methods
 	
 	/**
 	 * Method moveTurtle.
@@ -204,7 +220,7 @@ public class MultipleTurtles implements ITurtle {
 		myActiveTurtles.forEach(e -> e.setDrawing(drawing));
 	}
 	/**
-	 * Method setPenColor.
+	 * Sets pen color index of the active turtles
 	 * @param index int
 	 * @see Model.ITurtle#setPenColor(int)
 	 */
@@ -213,7 +229,7 @@ public class MultipleTurtles implements ITurtle {
 	}
 	
 	/**
-	 * Method setPenSize.
+	 * Sets the pen size of all of the active turtles
 	 * @param pixels double
 	 * @see Model.ITurtle#setPenSize(double)
 	 */
@@ -222,7 +238,7 @@ public class MultipleTurtles implements ITurtle {
 	}
 	
 	/**
-	 * Method jump.
+	 * Jumps all the active turtles to the specified location.
 	 * @param x double
 	 * @param y double
 	 * @see Model.ITurtle#jump(double, double)
@@ -232,7 +248,7 @@ public class MultipleTurtles implements ITurtle {
 	}
 	
 	/**
-	 * Method rotate.
+	 * Rotates the active turtles
 	 * @param angle double
 	 * @see Model.ITurtle#rotate(double)
 	 */
@@ -241,7 +257,7 @@ public class MultipleTurtles implements ITurtle {
 	}
 	
 	/**
-	 * Method setAngle.
+	 * Sets the angle of active turtles
 	 * @param angle double
 	 * @return double
 	 * @see Model.ITurtle#setAngle(double)
@@ -252,7 +268,7 @@ public class MultipleTurtles implements ITurtle {
 	}
 	
 	/**
-	 * Method doToActiveExceptFirst.
+	 * Applies the action to all actives turtles except the first one
 	 * @param action Consumer<? super SingleTurtle>
 	 */
 	private void doToActiveExceptFirst(Consumer<? super SingleTurtle> action){
@@ -262,7 +278,7 @@ public class MultipleTurtles implements ITurtle {
 	}
 	
 	/**
-	 * Method getTurtleMap.
+	 * Returns an unmodifiable map of turtle IDs to SingleTurtle objects
 	 * @return Map<Integer,SingleTurtle>
 	 */
 	public Map<Integer, SingleTurtle> getTurtleMap(){
