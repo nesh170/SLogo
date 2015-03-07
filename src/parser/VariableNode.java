@@ -13,6 +13,9 @@ import exceptions.*;
 import Constants.*;
 
 /**
+ * 
+ * @author Yancheng, Sierra
+ *
  */
 public class VariableNode extends ParseNode {
 

@@ -7,6 +7,8 @@ import Statements.Statement;
 import exceptions.ParserException;
 
 /**
+ * 
+ * @author Yancheng, Sierra
  */
 public class ToNode extends CommandNode {
 

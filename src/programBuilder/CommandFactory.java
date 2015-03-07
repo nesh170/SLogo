@@ -3,8 +3,8 @@ package programBuilder;
 import java.util.List;
 
 import parser.Regex;
+import slogoEnums.ErrorMessage;
 import view.ViewAbstract;
-import Constants.ErrorMessage;
 import Model.*;
 import Statements.*;
 import Statements.action_command.*;

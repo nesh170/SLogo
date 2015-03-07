@@ -6,12 +6,24 @@ import Model.VariableManager;
 import Statements.Statement;
 import Statements.Variable;
 
+/**
+ * @author Yancheng, Sierra
+ */
 public class For extends Loop {
 
+	/**
+	 * Constructor for For.
+	 * @param params List<List<Statement>>
+	 * @param manager VariableManager
+	 */
 	public For(List<List<Statement>> params, VariableManager manager) {
 		super(params, manager);
 	}
 
+	/**
+	 * Method execute.
+	 * @return double
+	 */
 	@Override
 	public double execute() {		
 		int start = (int) getMyParams().get(0).get(1).execute();

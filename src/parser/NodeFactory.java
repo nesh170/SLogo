@@ -1,6 +1,6 @@
 package parser;
 
-import Constants.ErrorMessage;
+import slogoEnums.ErrorMessage;
 import exceptions.ParserException;
 
 // TODO: Auto-generated Javadoc

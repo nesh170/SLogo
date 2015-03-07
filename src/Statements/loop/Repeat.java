@@ -5,7 +5,11 @@ import java.util.List;
 import Constants.*;
 import Model.*;
 import Statements.Statement;
-
+/**
+ * 
+ * @author Yancheng, Sierra
+ *
+ */
 public class Repeat extends Loop{
 
 	public Repeat(List<List<Statement>> params, VariableManager manager) {

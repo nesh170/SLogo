@@ -3,6 +3,8 @@ package parser;
 import exceptions.ParserException;
 
 /**
+ * 
+ * @author Yancheng, Sierra
  */
 public class UserDefinedNode extends CommandNode {
 
