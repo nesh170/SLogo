@@ -11,7 +11,7 @@ public class NodeFactory {
 			throw new ParserException(ErrorMessage.INCORRECT_SYNTAX.getVal()+ nodeName);
 		}
 		switch (type) {
-		case "Command":
+		case Parser.COMMAND:
 			String commandType = regex.matchCommand(nodeName);
 			if (commandType == null) {
 				if(parser.methodExists(nodeName)){
@@ -42,7 +42,7 @@ public class NodeFactory {
 		case Parser.VARIABLE:
 			return new VariableNode(nodeName, parser);
 		default:
-			throw new ParserException("Type mismatch on element: " + nodeName);
+			throw new ParserException(ErrorMessage.TYPE_MISMATCH.getVal() + nodeName);
 		}
 	}
 }

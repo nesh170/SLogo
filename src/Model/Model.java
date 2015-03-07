@@ -68,4 +68,8 @@ public class Model {
 		System.out.println("added variable to manager: " + myVariableManager.getVarValue(name));
 	}
 	
+	public void sendInfoForDialog(int ID){
+		myView.setUpDialogBox(myTurtleManager.getTurtle(ID).getPen(), ID, myColors);
+	}
+	
 }

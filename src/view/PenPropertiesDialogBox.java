@@ -55,7 +55,7 @@ public class PenPropertiesDialogBox {
     private void generateStrokeWidthChoiceBox(){
         List<String> strokeTypeArray = Arrays.asList(myStringResources.getString("strokeWidthChoice").split("\\s+"));
         ChoiceBox<String> strokeChoice= choiceBoxGenerator(strokeTypeArray,myPen.getPenStroke(),"penStroke"); //this string literal is used to get the string from resource bundle
-        strokeChoice.getSelectionModel().selectedIndexProperty().addListener(e-> myPen.setStroke(strokeChoice.getSelectionModel().getSelectedItem()));
+        strokeChoice.getSelectionModel().selectedIndexProperty().addListener(e-> myPen.setStroke(strokeTypeArray.get(strokeChoice.getSelectionModel().getSelectedIndex())));
     }
     
     private ChoiceBox<String> choiceBoxGenerator(List<String> list, String initialValue, String title){
