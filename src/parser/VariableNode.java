@@ -35,7 +35,7 @@ public class VariableNode extends ParseNode {
 	 */
 	@Override
 	public ParseNode finishProcessing() throws ParserException{
-		if(!myParser.variableExists(getName())){
+		if(!getMyParser().variableExists(getName())){
 			throw new ParserException(Constants.MISSING_VARIABLE_MESSAGE);
 		}
 		return this;

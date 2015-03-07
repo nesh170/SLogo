@@ -26,8 +26,8 @@ public class RepeatNode extends CommandNode {
 	 */
 	@Override
 	public ParseNode finishProcessing() throws ParserException{
-		myParser.addVariableToTable(Parser.REPCOUNT);
-		myParser.retrieveChildren(this, getNumParams());
+		getMyParser().addVariableToTable(Parser.REPCOUNT);
+		getMyParser().retrieveChildren(this, getNumParams());
 		return this;
 	}
 

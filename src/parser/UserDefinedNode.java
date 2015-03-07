@@ -25,8 +25,8 @@ public class UserDefinedNode extends CommandNode {
 	 */
 	@Override
 	public ParseNode finishProcessing() throws ParserException{
-		int loopTimes = myParser.getUserMethodParams(getName());
-		myParser.retrieveChildren(this, loopTimes);
+		int loopTimes = getMyParser().getUserMethodParams(getName());
+		getMyParser().retrieveChildren(this, loopTimes);
 		return this;
 	}
 

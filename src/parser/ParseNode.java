@@ -26,7 +26,8 @@ public abstract class ParseNode {
 	private List<ParseNode> myChildren;
 	
 	/** The my parser. */
-	protected Parser myParser;
+	private Parser myParser;
+
 
 	/**
 	 * Instantiates a new parses the node.
@@ -83,6 +84,11 @@ public abstract class ParseNode {
 	 */
 	public void removeChild(int index) {
 		myChildren.remove(index);
+	}
+	
+	
+	public Parser getMyParser() {
+		return myParser;
 	}
 
 	/**This method is used in Parser to processes child nodes and adds them to the current node in the

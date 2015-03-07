@@ -29,37 +29,37 @@ public class ToNode extends CommandNode {
 	 */
 	@Override
 	public ParseNode finishProcessing() throws ParserException{
-		if (myParser.atEndOfString()) {
+		if (getMyParser().atEndOfString()) {
 			System.out.println("Missing the variable for to");
 			throw new ParserException(
 					"Insufficient arguements for to command.");
 		}	
-		String methodName = myParser.getNextElement();
-		myParser.incrementCurIndex();
-		ParseNode newNode = new CommandNode(myParser.getCurrentElement(), myParser, Parser.USER_DEFINED);
+		String methodName = getMyParser().getNextElement();
+		getMyParser().incrementCurIndex();
+		ParseNode newNode = new CommandNode(getMyParser().getCurrentElement(), getMyParser(), Parser.USER_DEFINED);
 		this.addChild(newNode);
 		
-		int i = myParser.getCurIndex() + 1;
-		String curString = myParser.getElementAtIndex(i);
+		int i = getMyParser().getCurIndex() + 1;
+		String curString = getMyParser().getElementAtIndex(i);
 		if(!curString.equals(Parser.OPEN_BRACKET)){
 			throw new ParserException(
 					"Inaccurate syntax for to command.  Missing open bracket for variable declaration.");
 		}
 		i++;
-		curString = myParser.getElementAtIndex(i);
+		curString = getMyParser().getElementAtIndex(i);
 		while(!curString.equals(Parser.CLOSED_BRACKET)){
 			
-			if (!(myParser.getRegex().matchSyntax(curString).equals("Variable"))) {
+			if (!(getMyParser().getRegex().matchSyntax(curString).equals("Variable"))) {
 				throw new ParserException(
 						"Incorrect variable list in method declaration");
 			}
-			myParser.addVariableToTable(curString);
-			curString = myParser.getElementAtIndex(i);
+			getMyParser().addVariableToTable(curString);
+			curString = getMyParser().getElementAtIndex(i);
 			i++;
 		}
 		
-		myParser.retrieveChildren(this, getNumParams());
-		myParser.addMethod(methodName, this.getChildren().get(1).getChildCount());
+		getMyParser().retrieveChildren(this, getNumParams());
+		getMyParser().addMethod(methodName, this.getChildren().get(1).getChildCount());
 		System.out.println("The user instruction is "+ methodName);
 		System.out.println("In the myProgmehotdpasdfslkfjs the num is "+this.getChildren().get(1).getChildCount());
 		System.out.println("In the myProgmehotdpasd the num is "+this.getChildren().get(2).getChildCount());

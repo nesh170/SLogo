@@ -10,9 +10,9 @@ public class ForNode extends CommandNode {
 	
 	@Override
 	public ParseNode finishProcessing() throws ParserException{
-		String variableForLoop = myParser.getElementAtIndex(myParser.getCurIndex()+2);
-		myParser.addVariableToTable(variableForLoop);
-		myParser.retrieveChildren(this, getNumParams());
+		String variableForLoop = getMyParser().getElementAtIndex(getMyParser().getCurIndex()+2);
+		getMyParser().addVariableToTable(variableForLoop);
+		getMyParser().retrieveChildren(this, getNumParams());
 		return this;
 	}
 

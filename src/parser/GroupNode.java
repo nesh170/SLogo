@@ -26,7 +26,7 @@ public class GroupNode extends CommandNode{
 	 */
 	@Override
 	public ParseNode finishProcessing() throws ParserException{
-		myParser.getGroupKids(this);
+		getMyParser().getGroupKids(this);
 		return this;
 	}
 }

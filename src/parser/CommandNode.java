@@ -43,7 +43,7 @@ public class CommandNode extends ParseNode {
 	 */
 	@Override
 	public ParseNode finishProcessing() throws ParserException {
-		myParser.retrieveChildren(this, getNumParams());
+		getMyParser().retrieveChildren(this, getNumParams());
 		return this;
 	}
 

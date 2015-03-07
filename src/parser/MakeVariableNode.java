@@ -10,19 +10,19 @@ public class MakeVariableNode extends CommandNode {
 	
 	@Override
 	public ParseNode finishProcessing() throws ParserException{
-		if (myParser.atEndOfString()) {
+		if (getMyParser().atEndOfString()) {
 			throw new ParserException(
 					"Insufficient arguements for make command.");
 		}
-		String variable = myParser.getNextElement();
+		String variable = getMyParser().getNextElement();
 				//myCurProgramArray[myCurIndex + 1];
-		if (!(myParser.getRegex().matchSyntax(variable).equals("Variable"))) {
+		if (!(getMyParser().getRegex().matchSyntax(variable).equals("Variable"))) {
 			throw new ParserException(
 					"Incorrect format for variable declared after make.");
 		}
 		//note that we never clear the program variable table
-		myParser.addVariableToTable(variable);
-		myParser.retrieveChildren(this, getNumParams());
+		getMyParser().addVariableToTable(variable);
+		getMyParser().retrieveChildren(this, getNumParams());
 		return this;
 	}
 }
