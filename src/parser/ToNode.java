@@ -54,15 +54,9 @@ public class ToNode extends CommandNode {
 	@Override
 	public void doSpecificPrep(List<Statement> base){
 		decrementNumChildren();
-		
-		//		looptimes--;
 		base.add(new MethodName(this.getChildren().get(0).getName()));
 		this.removeChild(0);
 		resetCurList();
-		addCurListToParams();
-//		curList = new ArrayList<>();
-//		paramLists.add(curList);
-
-		
+		addCurListToParams();		
 	}
 }
