@@ -78,7 +78,7 @@ public class PenPropertiesDialogBox {
     }
     
     private void togglePenStatus (ToggleButton penToggle) {
-        myPen.setPenDown(!myPen.isDown());;
+        myPen.setPenDown(!myPen.isDown());
         createPenToggleString(penToggle);
     }
 
