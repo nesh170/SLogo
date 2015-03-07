@@ -21,7 +21,7 @@ public class Turning extends ActionCommand {
 		double executeResult = getMyStatements().get(0).execute();
 		double value = executeResult;
 		executeResult = Constants.FULL_CIRCLE + (executeResult * myTurningDirection) % Constants.FULL_CIRCLE;
-		getMyTurtles().rotate(value);
+		getMyTurtles().rotate(executeResult);
 		getMyTurtles().doToActiveTurtles(t -> getMyView().rotateShape(t.getAngle(), t.getID()));
 		return value;
 	}
