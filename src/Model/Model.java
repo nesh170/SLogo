@@ -127,7 +127,7 @@ public class Model {
 	 * @param ID the id
 	 */
 	public void toggleActive(Integer ID){
-		myTurtleManager.toggleTurtle(ID);
+		myTurtleManager.toggleActive(ID);
 	}
 
 	/**
