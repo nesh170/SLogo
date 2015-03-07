@@ -7,10 +7,15 @@ import Statements.operator.Operator;
 import view.ViewAbstract;
 
 public abstract class Command extends Operator{
-	protected ViewAbstract myView;
+	private ViewAbstract myView;
 	
+
 	public Command(List<Statement> statements, ViewAbstract view) {
 		super(statements);
 		myView = view;
 	}
+	public ViewAbstract getMyView() {
+		return myView;
+	}
+	
 }

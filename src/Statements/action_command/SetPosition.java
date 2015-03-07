@@ -17,8 +17,8 @@ public abstract class SetPosition extends Relocate {
 
 	@Override
 	public double execute() {
-		double result = myTurtles.relocateTurtle(myExecuteResultX, myExecuteResultY);
-		myTurtles.doToActiveTurtles(e -> updateView(e));
+		double result = getMyTurtles().relocateTurtle(myExecuteResultX, myExecuteResultY);
+		getMyTurtles().doToActiveTurtles(e -> updateView(e));
 		return result;
 	}
 

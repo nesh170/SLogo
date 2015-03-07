@@ -12,7 +12,7 @@ public class Right extends Turning{
 	public Right(List<Statement> statements, ViewAbstract view,
 			ITurtle turtleManager) {
 		super(statements, view, turtleManager);
-		myTurningDirection = Constants.RIGHT_DIRECRION;
+		setMyTurningDirection(Constants.RIGHT_DIRECRION);
 	}
 
 }

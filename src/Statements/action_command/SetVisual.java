@@ -20,7 +20,7 @@ public abstract class SetVisual extends ActionCommand {
 
 	@Override
 	public double execute() {
-		int index = (int) myStatements.get(0).execute();
+		int index = (int) getMyStatements().get(0).execute();
 		try{
 			if(index >= myVisualList.size() || index < 0){
 				throw new ExecutionException(myErrorMessage);
@@ -28,7 +28,7 @@ public abstract class SetVisual extends ActionCommand {
 				completeOperation(index);
 			}
 		}catch(ExecutionException e){
-			myView.printError(e.toString());
+			getMyView().printError(e.toString());
 		}
 		return (double) index;
 	}

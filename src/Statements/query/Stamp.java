@@ -11,7 +11,7 @@ public class Stamp extends Query {
 
 	@Override
 	public double execute() {
-		myView.stamp(0);
+		getMyView().stamp(0);
 		return 0;
 	}
 

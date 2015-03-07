@@ -12,7 +12,7 @@ public class Or extends Operator {
 
     @Override
     public double execute () {
-        if(myStatements.get(0).execute()!=0 || myStatements.get(1).execute()!=0){ 
+        if(getMyStatements().get(0).execute()!=0 || getMyStatements().get(1).execute()!=0){ 
             return 1; 
         }
         return 0;

@@ -8,8 +8,9 @@ import Model.*;
 import Statements.Statement;
 
 public class Turning extends ActionCommand {
-	protected double myTurningDirection;
+	private double myTurningDirection;
 	
+
 	public Turning(List<Statement> statements, ViewAbstract view,
 			ITurtle turtleManager) {
 		super(statements, view, turtleManager);
@@ -17,11 +18,19 @@ public class Turning extends ActionCommand {
 
 	@Override
 	public double execute() {
-		double executeResult = myStatements.get(0).execute();
+		double executeResult = getMyStatements().get(0).execute();
 		double value = executeResult;
 		executeResult = Constants.FULL_CIRCLE + (executeResult * myTurningDirection) % Constants.FULL_CIRCLE;
-		myTurtles.rotate(value);
-		myTurtles.doToActiveTurtles(t -> myView.rotateShape(t.getAngle(), t.getID()));
+		getMyTurtles().rotate(value);
+		getMyTurtles().doToActiveTurtles(t -> getMyView().rotateShape(t.getAngle(), t.getID()));
 		return value;
+	}
+	
+	public double getMyTurningDirection() {
+		return myTurningDirection;
+	}
+	
+	public void setMyTurningDirection(double myTurningDirection) {
+		this.myTurningDirection = myTurningDirection;
 	}
 }

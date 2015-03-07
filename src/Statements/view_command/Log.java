@@ -15,8 +15,8 @@ public class Log extends Command{
 
 	@Override
 	public double execute() {
-		double result = Math.log(myStatements.get(0).execute());
-		myView.printMessage("" + result);
+		double result = Math.log(getMyStatements().get(0).execute());
+		getMyView().printMessage("" + result);
 		return result;
 	}
 

@@ -19,7 +19,7 @@ public class Tell extends Operator{
 	public double execute() {
 		System.out.println("Executing tell");
 		List<Integer> turtleIDs = new ArrayList<>();
-		for(Statement instruct : myStatements){
+		for(Statement instruct : getMyStatements()){
 			turtleIDs.add((int)instruct.execute());
 		}
 		myTurtleManager.setActiveTurtles(turtleIDs);

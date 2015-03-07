@@ -19,8 +19,8 @@ public class MakeUserInstruction extends Loop {
 
 	@Override
 	public double execute() {
-		String methodName = ((MethodName) myParams.get(0).get(0)).getName();
-		myMethodManager.addMethod(methodName, myParams.get(1), myParams.get(2));
+		String methodName = ((MethodName) getMyParams().get(0).get(0)).getName();
+		myMethodManager.addMethod(methodName, getMyParams().get(1), getMyParams().get(2));
 		System.out.println("Very successfully added a method"+ methodName);
 		return 1;
 	}

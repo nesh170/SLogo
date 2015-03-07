@@ -14,8 +14,8 @@ public class Tan extends Command {
 
 	@Override
 	public double execute() {
-		double result = Math.tan(Math.toRadians(myStatements.get(0).execute()));
-		myView.printMessage("" + result);
+		double result = Math.tan(Math.toRadians(getMyStatements().get(0).execute()));
+		getMyView().printMessage("" + result);
 		return result;
 	}
 

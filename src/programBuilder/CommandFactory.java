@@ -4,53 +4,15 @@ import java.util.List;
 
 import parser.Regex;
 import view.ViewAbstract;
+import Constants.ErrorMessage;
 import Model.*;
 import Statements.*;
-import Statements.action_command.Backward;
-import Statements.action_command.Forward;
-import Statements.action_command.Home;
-import Statements.action_command.Left;
-import Statements.action_command.Right;
-import Statements.action_command.SetHeading;
-import Statements.action_command.SetPenColor;
-import Statements.action_command.SetPenSize;
-import Statements.action_command.SetShape;
-import Statements.action_command.SetTowards;
-import Statements.action_command.SetXY;
-import Statements.command.MakeVariable;
-import Statements.command.SetPalette;
-import Statements.loop.For;
-import Statements.loop.MakeUserInstruction;
-import Statements.loop.Repeat;
-import Statements.operator.And;
-import Statements.operator.LessThan;
-import Statements.operator.Not;
-import Statements.operator.NotEqual;
-import Statements.operator.Or;
-import Statements.operator.Tell;
-import Statements.query.ClearScreen;
-import Statements.query.ClearStamps;
-import Statements.query.Heading;
-import Statements.query.HideTurtle;
-import Statements.query.PenDownP;
-import Statements.query.SetPenDown;
-import Statements.query.SetPenUp;
-import Statements.query.ShowTurtle;
-import Statements.query.ShowingP;
-import Statements.query.Stamp;
-import Statements.query.XCor;
-import Statements.query.YCor;
-import Statements.view_command.ATan;
-import Statements.view_command.Cos;
-import Statements.view_command.Difference;
-import Statements.view_command.Log;
-import Statements.view_command.Pi;
-import Statements.view_command.Pow;
-import Statements.view_command.Quotient;
-import Statements.view_command.RandomGen;
-import Statements.view_command.Sin;
-import Statements.view_command.Sum;
-import Statements.view_command.Tan;
+import Statements.action_command.*;
+import Statements.command.*;
+import Statements.loop.*;
+import Statements.operator.*;
+import Statements.query.*;
+import Statements.view_command.*;
 import exceptions.*;
 
 public class CommandFactory {
@@ -68,7 +30,7 @@ public class CommandFactory {
 
 		switch (commandType) {
 		case "Forward":
-			System.out.println("Making forward object");
+			//System.out.println("Making forward object");
 			return new Forward(statements.get(0), myView, myTurtleManager,
 					colors);
 		case "Backward":
@@ -83,13 +45,13 @@ public class CommandFactory {
 		case "Home":
 			return new Home(statements.get(0), myView, myTurtleManager, colors);
 		case "Sum":
-			System.out.println("Making sum object");
+			//System.out.println("Making sum object");
 			return new Sum(statements.get(0), myView);
 		case "Difference":
-			System.out.println("Making difference object");
+			//System.out.println("Making difference object");
 			return new Difference(statements.get(0), myView);
 		case "Quotient":
-			System.out.println("Making quotient object");
+			//System.out.println("Making quotient object");
 			return new Quotient(statements.get(0), myView);
 		case "XCoordinate":
 			return new XCor(myView, myTurtleManager);
@@ -167,8 +129,10 @@ public class CommandFactory {
 			return new Stamp(myView, myTurtleManager);
 		case "ClearStamps":
 			return new ClearStamps(myView, myTurtleManager);
+		case "IfElse":
+			return new IfElse(statements);
 		default:
-			throw new ParserException("Command not valid.");
+			throw new ParserException(ErrorMessage.INVALID_COMMAND.getVal());
 		}
 	}
 }

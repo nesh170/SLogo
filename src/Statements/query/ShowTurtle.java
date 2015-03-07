@@ -13,9 +13,9 @@ public class ShowTurtle extends Query {
 	@Override
 	public double execute() {
 		System.out.println("Show Turtle");
-		for(SingleTurtle t: myTurtleManager.getActiveTurtles()){
+		for(SingleTurtle t: getMyTurtleManager().getActiveTurtles()){
 			t.setHiding(false);
-			myView.visibleShape(!t.isHiding(), t.getID());
+			getMyView().visibleShape(!t.isHiding(), t.getID());
 		}
 		return 1;
 	}

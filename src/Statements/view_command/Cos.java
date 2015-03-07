@@ -16,8 +16,8 @@ public class Cos extends Command{
 	@Override
 	public double execute() {
 		//cos(90) is not equal to 1 when testing, but 6.123e-17???
-		double result = Math.cos(Math.toRadians(myStatements.get(0).execute()));
-		myView.printMessage("" + result);
+		double result = Math.cos(Math.toRadians(getMyStatements().get(0).execute()));
+		getMyView().printMessage("" + result);
 		return result;
 	}
 

@@ -15,8 +15,8 @@ public class Pow extends Command{
 
 	@Override
 	public double execute() {
-		double result = Math.pow(myStatements.get(0).execute(), myStatements.get(1).execute());
-		myView.printMessage("" + result);
+		double result = Math.pow(getMyStatements().get(0).execute(), getMyStatements().get(1).execute());
+		getMyView().printMessage("" + result);
 		return result;
 	}
 
