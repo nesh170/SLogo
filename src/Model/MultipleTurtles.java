@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +47,7 @@ public class MultipleTurtles implements ITurtle {
 	public void clearTurtles(){
 		myTurtles = new HashMap<>();
 		clearActiveTurtleIDs();
+		clearActiveTurtleList();
 	}
 
 	//should return immutable list instead
@@ -71,6 +73,12 @@ public class MultipleTurtles implements ITurtle {
 		myActiveTurtleIDs.add(turtleID);
 		myActiveTurtles.add(myTurtles.get(turtleID));
 		myView.addShape(Constants.DEFAULT_SHAPE, 0, 0, turtleID);
+	}
+	
+	public void addTurtle(double X, double Y, int turtleID){
+	    addTurtle(turtleID);
+	    myTurtles.get(turtleID).setX(X);myTurtles.get(turtleID).setY(Y);
+	    myView.moveShape(X, Y, turtleID);
 	}
 
 	public SingleTurtle getTurtle(Integer ID){
@@ -145,4 +153,10 @@ public class MultipleTurtles implements ITurtle {
 		activeCopy.remove(0);
 		doToSpecifiedTurtles(activeCopy, action);
 	}
+	
+	public Map<Integer, SingleTurtle> getTurtleMap(){
+	    return Collections.unmodifiableMap(myTurtles);
+	}
+	
+	
 }

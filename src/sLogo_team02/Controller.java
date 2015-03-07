@@ -1,11 +1,13 @@
 package sLogo_team02;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.stream.XMLStreamException;
+import com.sun.xml.internal.bind.marshaller.XMLWriter;
 import parser.*;
 import slogoEnums.ViewConstants;
 import Model.Program;
-import Model.XmlParser;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -21,6 +23,7 @@ import exceptions.*;
 public class Controller {
 	public static final String TITLE ="SLOGO Team_02 ";
 	public static final String WORKSPACES = "Workspace ";
+	public static final String INVALID_XML="Invalid XML File";
 	private Stage myStage;
 	private Scene myScene;
 	private List<Workspace> myWorkspaceList = new ArrayList<Workspace>();
@@ -28,10 +31,12 @@ public class Controller {
 	private Menu myMenu;
 	private MenuBar myMenuBar;
 	private XmlParser myXMLParser;
+	private XmlWriter myXMLWriter;
 	
 	public Controller(Stage stage){
 	    myStage = stage;
 	    myXMLParser = new XmlParser();
+	    myXMLWriter = new XmlWriter();
 	    
 	}
 
@@ -100,10 +105,17 @@ public class Controller {
         }
 
         public void saveXML (String path) {
-            //TODO to be done later
+            try {
+                myXMLWriter.beginXMLWriting(path, myWorkspaceList.get(myTabNumber.getValue()).getModel().getTurtleMap());
+            }
+            catch (Exception e) {
+                myWorkspaceList.get(myTabNumber.getValue()).getView().printError(INVALID_XML);
+            }
         }
 
         public void loadXML (String path) {
+            myWorkspaceList.get(myTabNumber.getValue()).getView().clearScreen();
+            myWorkspaceList.get(myTabNumber.getValue()).getModel().clearTurtles();
             myXMLParser.loadXML(path,myWorkspaceList.get(myTabNumber.getValue()).getModel());
         }
 
