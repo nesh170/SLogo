@@ -9,7 +9,7 @@ public class Pen {
 	public static final String SOLID_STROKE = "Regular";
 	public static final String DEFAULT_STROKE = DASHED_STROKE;
 	public static final double DEFAULT_THICKNESS = 1.0;
-	// defualt color is black
+	// default color is black
 	public static final String DEFAULT_COLOR = "#000000";
 
 	private boolean isDown;
