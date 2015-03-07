@@ -13,9 +13,7 @@ public class For extends Loop {
 	}
 
 	@Override
-	public double execute() {
-		System.out.println("Executing for Loop.");
-		
+	public double execute() {		
 		int start = (int) getMyParams().get(0).get(1).execute();
 		int end = (int) getMyParams().get(0).get(2).execute();
 		int increment = (int) getMyParams().get(0).get(3).execute();
@@ -25,7 +23,6 @@ public class For extends Loop {
 			for(Statement curStatement: getMyParams().get(1)){
 				result = curStatement.execute();
 			}
-			
 		}
 		return result;
 	}
