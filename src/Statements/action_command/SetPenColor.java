@@ -5,7 +5,6 @@ import java.util.List;
 import Model.*;
 import Statements.Statement;
 import view.*;
-import exceptions.*;
 
 public class SetPenColor extends SetVisual{
 

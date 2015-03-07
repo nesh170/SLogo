@@ -1,5 +1,9 @@
 package parser;
 
+import java.util.List;
+
+import Statements.MethodName;
+import Statements.Statement;
 import exceptions.ParserException;
 
 public class ToNode extends CommandNode {
@@ -45,5 +49,20 @@ public class ToNode extends CommandNode {
 		System.out.println("In the myProgmehotdpasdfslkfjs the num is "+this.getChildren().get(1).getChildCount());
 		System.out.println("In the myProgmehotdpasd the num is "+this.getChildren().get(2).getChildCount());
 		return this;
+	}
+	
+	@Override
+	public void doSpecificPrep(List<Statement> base){
+		decrementNumChildren();
+		
+		//		looptimes--;
+		base.add(new MethodName(this.getChildren().get(0).getName()));
+		this.removeChild(0);
+		resetCurList();
+		addCurListToParams();
+//		curList = new ArrayList<>();
+//		paramLists.add(curList);
+
+		
 	}
 }
