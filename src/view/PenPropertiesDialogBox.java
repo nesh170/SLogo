@@ -9,6 +9,7 @@ import slogoEnums.ViewConstants;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Slider;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -25,7 +26,7 @@ public class PenPropertiesDialogBox {
         generateColorPicker(colorList); //need to check whether it is working
         generateSlider();
         generateStrokeWidthChoiceBox();
-//        generateTogglePen();
+        generateTogglePen();
     }
 
     private void generateColorPicker(List<String> colorList){
@@ -66,29 +67,29 @@ public class PenPropertiesDialogBox {
         return tempChoiceBox;
     }
     
-//    private void generateTogglePen(){
-//        //Up or down pen
-//        HBox toggleBox = new HBox();
-//        ToggleButton penToggle = new ToggleButton(); //Up is false
-//        createPenToggleString(penToggle);
-//        penToggle.selectedProperty().addListener(e-> togglePenStatus(penToggle));
-//        toggleBox.getChildren().addAll(new Text(myStringResources.getString("penToggle")),penToggle);
-//        myDialogVBox.getChildren().add(toggleBox);
-//    }
-//    
-//    private void togglePenStatus (ToggleButton penToggle) {
-//        myPenStatus.set(!myPenStatus.getValue());
-//        createPenToggleString(penToggle);
-//    }
-//
-//    private void createPenToggleString (ToggleButton penToggle) {
-//        if(myPenStatus.get()){
-//            penToggle.setText(myStringResources.getString("penDown"));
-//        }
-//        else{
-//            penToggle.setText(myStringResources.getString("penUp"));
-//        }
-//    }
+    private void generateTogglePen(){
+        //Up or down pen
+        HBox toggleBox = new HBox();
+        ToggleButton penToggle = new ToggleButton(); //Up is false
+        createPenToggleString(penToggle);
+        penToggle.selectedProperty().addListener(e-> togglePenStatus(penToggle));
+        toggleBox.getChildren().addAll(new Text(myStringResources.getString("penToggle")),penToggle);
+        myDialogVBox.getChildren().add(toggleBox);
+    }
+    
+    private void togglePenStatus (ToggleButton penToggle) {
+        myPen.setPenDown(!myPen.isDown());;
+        createPenToggleString(penToggle);
+    }
+
+    private void createPenToggleString (ToggleButton penToggle) {
+        if(myPen.isDown()){
+            penToggle.setText(myStringResources.getString("penDown"));
+        }
+        else{
+            penToggle.setText(myStringResources.getString("penUp"));
+        }
+    }
 
     public VBox getVBox(){
         return myDialogVBox;

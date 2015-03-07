@@ -126,7 +126,6 @@ public class ViewFX extends ViewAbstract {
         public void handle (MouseEvent mouseButton) {
             if(mouseButton.getButton()==MouseButton.PRIMARY){
                 myController.initiateDialogBox(ID);
-                System.out.println("Primary");
             }
             else if(mouseButton.getButton()==MouseButton.SECONDARY){
                 myController.setToggleActive(ID);
