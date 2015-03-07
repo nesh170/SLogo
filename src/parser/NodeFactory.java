@@ -1,5 +1,6 @@
 package parser;
 
+import Constants.ErrorMessage;
 import exceptions.ParserException;
 
 public class NodeFactory {
@@ -7,7 +8,7 @@ public class NodeFactory {
 	public static ParseNode createNode(Regex regex, String nodeName, Parser parser) throws ParserException{
 		String type = regex.matchSyntax(nodeName);
 		if(type == null){
-			throw new ParserException("Incorrect syntax on following element: " + nodeName);
+			throw new ParserException(ErrorMessage.INCORRECT_SYNTAX.getVal()+ nodeName);
 		}
 		switch (type) {
 		case "Command":
@@ -19,7 +20,7 @@ public class NodeFactory {
 				else if (nodeName.equals(Parser.GROUP)) {
 					commandType = Parser.GROUP;
 				} else {
-					throw new ParserException("Invalid command entered: " + nodeName);
+					throw new ParserException(ErrorMessage.INVALID_COMMAND.getVal() + nodeName);
 				}
 			}
 			switch(commandType){
@@ -27,18 +28,18 @@ public class NodeFactory {
 				
 			case Parser.GROUP:
 				return new GroupNode(nodeName, parser, commandType);
-			case "MakeVariable":
+			case Parser.MAKEVARIABLE:
 				return new MakeVariableNode(nodeName, parser, commandType);
-			case "Repeat":
+			case Parser.REPEAT:
 				return new RepeatNode(nodeName, parser, commandType);
 			case Parser.TO:
 				return new ToNode(nodeName, parser, commandType);
 			default:
 				return new CommandNode(nodeName, parser, commandType);
 			}
-		case "Constant":
+		case Parser.CONSTANT:
 			return new ConstantNode(nodeName, parser);
-		case "Variable":
+		case Parser.VARIABLE:
 			return new VariableNode(nodeName, parser);
 		default:
 			throw new ParserException("Type mismatch on element: " + nodeName);

@@ -18,6 +18,11 @@ public class Parser {
 	public static final String GROUP = "Group";
 	public static final String REPCOUNT = ":repcount";
 	public static final String TO = "MakeUserInstruction";
+	public static final String MAKEVARIABLE = "MakeVariable";
+	public static final String REPEAT = "Repeat";
+	public static final String CONSTANT = "Constant";
+	public static final String VARIABLE = "Variable";
+	
 
 	private Regex myRegex;
 	private int myCurIndex;
@@ -105,10 +110,8 @@ public class Parser {
 
 	public String preProcessString(String program) {
 		String[] splitProgram = program.split(" ");
-		// System.out.println("originally the program is " + program);
-		// check if string is empty
 		if (splitProgram.length < 1 | program.length() < 1) {
-			System.out.println("String empty or full of spaces");
+			//System.out.println("String empty or full of spaces");
 			return null;
 		}
 		List<Character> programArray = new ArrayList<Character>();
@@ -117,19 +120,7 @@ public class Parser {
 			programArray.add(c);
 		}
 
-		boolean deleteFlag = false;
-		for (int i = 0; i < programArray.size(); i++) {
-			if (programArray.get(i) == '#') {
-				deleteFlag = true;
-			}
-			if (programArray.get(i) == '\n') {
-				deleteFlag = false;
-				continue;
-			}
-			if (!deleteFlag) {
-				correctArray.add(programArray.get(i));
-			}
-		}
+		deleteComments(programArray, correctArray);
 		StringBuilder builder = new StringBuilder(correctArray.size());
 		for (Character c : correctArray) {
 			builder.append(c);
@@ -139,7 +130,7 @@ public class Parser {
 		List<String> spaceProcessing = Arrays.asList(toDeleteWhiteSpace.split(" "));
 		for(String e: spaceProcessing){
 			if(!e.equals("")){
-				System.out.println("the valid command is "+e);
+				//System.out.println("the valid command is "+e);
 				voidOfSpace.add(e);
 			}
 		}
@@ -149,6 +140,23 @@ public class Parser {
 		}
 		myCurProgramArray = validCommand;
 		return builder.toString();
+	}
+	
+	private void deleteComments(List<Character> originalArray, List<Character> processedArray){
+		boolean check = false;
+		for (int i = 0; i < originalArray.size(); i++) {
+			if (originalArray.get(i) == '#') {
+				check = true;
+			}
+			if (originalArray.get(i) == '\n') {
+				check = false;
+				continue;
+			}
+			if (!check) {
+				processedArray.add(originalArray.get(i));
+			}
+		}
+		return;
 	}
 
 	public ParseNode recursiveCommandBuilder(ParseNode current)
