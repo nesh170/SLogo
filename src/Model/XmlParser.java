@@ -17,12 +17,27 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class XmlParser.
+ */
 public class XmlParser {
+	
+	/** The my file. */
 	private File myFile;
+	
+	/** The my filename. */
 	private String myFilename;
+	
+	/** The my root. */
 	private Element myRoot;
+	
+	/** The my turtle manager. */
 	private MultipleTurtles myTurtleManager;
 
+	/**
+	 * Parses the xml file.
+	 */
 	public void parseXmlFile(){
 		try {		
 		        System.out.println("XML FILE PASS"+myFilename);
@@ -46,6 +61,11 @@ public class XmlParser {
 		parseFile((Element)myRoot.getElementsByTagName("command_language").item(0));
 	}
 	
+	/**
+	 * Parses the background.
+	 *
+	 * @param e the e
+	 */
 	public void parseBackground(Element e) {
 		Element width = (Element)e.getElementsByTagName("width");
 		Element height = (Element)e.getElementsByTagName("height");
@@ -57,10 +77,20 @@ public class XmlParser {
 		String backColor = color.getTextContent();
 	}
 	
+	/**
+	 * Parses the image.
+	 *
+	 * @param e the e
+	 */
 	public void parseImage(Element e) {
 		
 	}
 	
+	/**
+	 * Parses the turtle.
+	 *
+	 * @param e the e
+	 */
 	public void parseTurtle(Element e) {
 		Element number = (Element)e.getElementsByTagName("numTurtle").item(0);
 		int num = Integer.parseInt(number.getTextContent());
@@ -76,15 +106,31 @@ public class XmlParser {
 		}
 	}
 	
+	/**
+	 * Parses the language.
+	 *
+	 * @param e the e
+	 */
 	public void parseLanguage(Element e) {
 		String language = e.getTextContent();
 		
 	}
 	
+	/**
+	 * Parses the file.
+	 *
+	 * @param e the e
+	 */
 	public void parseFile(Element e) {
 		
 	}
 
+    /**
+     * Load xml.
+     *
+     * @param path the path
+     * @param model the model
+     */
     public void loadXML (String path, Model model) {
         myFilename = path;
         parseXmlFile();

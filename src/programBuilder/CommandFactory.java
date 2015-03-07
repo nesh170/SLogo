@@ -15,13 +15,35 @@ import Statements.query.*;
 import Statements.view_command.*;
 import exceptions.*;
 
+// TODO: Auto-generated Javadoc
+/**
+ * A factory for creating Command objects.
+ */
 public class CommandFactory {
 
+	/**
+	 * Instantiates a new command factory.
+	 */
 	public CommandFactory() {
 	}
 
 	// remember to group all the parameters
 	// change my
+	/**
+	 * Generate command.
+	 *
+	 * @param commandType the command type
+	 * @param statements the statements
+	 * @param myView the my view
+	 * @param myTurtleManager the my turtle manager
+	 * @param myVariableManager the my variable manager
+	 * @param myRegex the my regex
+	 * @param myMethodManager the my method manager
+	 * @param colors the colors
+	 * @param shapes the shapes
+	 * @return the statement
+	 * @throws ParserException the parser exception
+	 */
 	public static Statement generateCommand(String commandType,
 			List<List<Statement>> statements, ViewAbstract myView,
 			MultipleTurtles myTurtleManager, VariableManager myVariableManager,

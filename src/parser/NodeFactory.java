@@ -3,8 +3,21 @@ package parser;
 import Constants.ErrorMessage;
 import exceptions.ParserException;
 
+// TODO: Auto-generated Javadoc
+/**
+ * A factory for creating Node objects.
+ */
 public class NodeFactory {
 
+	/**
+	 * Creates a new Node object.
+	 *
+	 * @param regex the regex
+	 * @param nodeName the node name
+	 * @param parser the parser
+	 * @return the parses the node
+	 * @throws ParserException the parser exception
+	 */
 	public static ParseNode createNode(Regex regex, String nodeName, Parser parser) throws ParserException{
 		String type = regex.matchSyntax(nodeName);
 		if(type == null){
