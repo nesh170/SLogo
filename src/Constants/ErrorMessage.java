@@ -5,7 +5,11 @@ import java.util.ResourceBundle;
 
 public enum ErrorMessage {
 	INCORRECT_SYNTAX("syntax_cannot_find"),
-	INVALID_COMMAND("invalid_command");
+	INVALID_COMMAND("invalid_command"),
+	MISSING_END_BRACKET("missing_end_bracket"),
+	BEFORE_END_BRACKET("before_bracket"),
+	TYPE_MISMATCH("type_mismatch"),
+	MISSING_PARAMETER("missing_parameter");
 	private String myString;
 	private ErrorMessage(String errorText){
 		myString = errorText;

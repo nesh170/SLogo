@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import exceptions.*;
-import Constants.Constants;
+import Constants.*;
 
 public class Parser {
 	public static final String USER_DEFINED = "UserDefined";
@@ -22,6 +22,7 @@ public class Parser {
 	public static final String REPEAT = "Repeat";
 	public static final String CONSTANT = "Constant";
 	public static final String VARIABLE = "Variable";
+	public static final String COMMAND = "Command";
 	
 
 	private Regex myRegex;
@@ -90,14 +91,14 @@ public class Parser {
 		if (processed == null) {
 			return null;
 		}
-		System.out.println("The length is "+myCurProgramArray.length);
+		//System.out.println("The length is "+myCurProgramArray.length);
 		//ArrayList<String> programArray = new ArrayList<>(Arrays.asList(myCurProgramArray));
 		List<ParseNode> topNodes = new ArrayList<>();
 		// loop through the string array until it's empty{
 		while (myCurIndex < myCurProgramArray.length - 1) {
 			ParseNode curNode = NodeFactory.createNode(myRegex, myCurProgramArray[++myCurIndex], this);
 			//ParseNode curNode = new ParseNode(myCurProgramArray[++myCurIndex]);
-			System.out.println("Root Node: " + curNode.getName());
+			//System.out.println("Root Node: " + curNode.getName());
 			ParseNode processedNode = recursiveCommandBuilder(curNode);
 			topNodes.add(processedNode);
 		}
@@ -168,7 +169,7 @@ public class Parser {
 	public void getGroupKids(ParseNode groupLeader) throws ParserException {
 		boolean groupComplete = false;
 		while (!groupComplete) {
-			checkStringEndsEarly("Invalid grouping format: missing end bracket.");
+			checkStringEndsEarly(ErrorMessage.MISSING_END_BRACKET.getVal());
 			String next = myCurProgramArray[++myCurIndex];
 			if (next.equals(CLOSED_BRACKET)) {
 				groupComplete = true;
@@ -196,13 +197,13 @@ public class Parser {
 	public void retrieveChildren(ParseNode current, int loopTimes)
 			throws ParserException {
 		while (current.getChildCount() < loopTimes) {
-			checkStringEndsEarly("Missing parameters for command: "
+			checkStringEndsEarly(ErrorMessage.MISSING_PARAMETER.getVal()
 						+ current.getName());
 			String next = myCurProgramArray[++myCurIndex];
 			if (next.equals(CLOSED_BRACKET)) {
-				throw new ParserException("Insufficient arguemnts for command "
+				throw new ParserException(ErrorMessage.MISSING_PARAMETER.getVal()
 						+ current.getName()
-						+ " before encountering end bracket.");
+						+ ErrorMessage.BEFORE_END_BRACKET);
 			} else {
 				retrieveGenericKids(current, next);
 			}
