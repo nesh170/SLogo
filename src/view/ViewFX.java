@@ -65,7 +65,7 @@ public class ViewFX extends ViewAbstract {
             public void changed (ObservableValue<? extends Number> ov, Number value, Number newValue) {
                 changeLanuageinController(newValue.intValue());
             }
-        },e-> myController.saveXML(ViewFX.openFileChooser()),e->myController.loadXML(ViewFX.openFileChooser()));
+        },e-> myController.saveXML(ViewFX.openFileChooser(false)),e->myController.loadXML(ViewFX.openFileChooser(true)));
         myPlayground = new TurtlePlayground(myRoot);
         myCodeElements = new CodePane(myRoot, e -> pushCodeToController());
         setUpVariablePane();
@@ -167,7 +167,7 @@ public class ViewFX extends ViewAbstract {
     }
 
     @Override
-    public void addVariable (String variableName, Double value) {
+    public void addVariable (String variableName, double value) {
         myVariableElements.addNumberVariables(variableName, value);
     }
 
@@ -191,7 +191,7 @@ public class ViewFX extends ViewAbstract {
     }
 
     private void changeBackgroundImage () {
-        String path = ViewFX.openFileChooser();
+        String path = ViewFX.openFileChooser(true);
         try{
                 myPlayground.changeBackground(path);
         }
@@ -205,10 +205,16 @@ public class ViewFX extends ViewAbstract {
         myController.changeLanguage(myStringResources.getString("languageFile").split("\\s+")[index]);
     }
     
-    public static String openFileChooser () {
+    public static String openFileChooser (boolean open) {
     	FileChooser fileChooser = new FileChooser();
     	fileChooser.setInitialDirectory(new File((System.getProperty("user.dir"))));
-    	File file = fileChooser.showOpenDialog(new Stage());
+    	File file;
+    	if(open){
+    	file = fileChooser.showOpenDialog(new Stage());
+    	}
+    	else{
+    	file = fileChooser.showSaveDialog(new Stage());  
+    	}
     	if(file==null){
     		return "";
     	}

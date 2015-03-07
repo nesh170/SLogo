@@ -31,7 +31,7 @@ public class TurtlePropertiesDialogBox {
 
     private void createImageButton(Shape shape){
         Button imageButton = new Button(myStringResources.getString("chooseImage"));
-        imageButton.setOnAction(e->shape.setFill(ViewFunctions.paintFromPath(ViewFX.openFileChooser())));
+        imageButton.setOnAction(e->shape.setFill(ViewFunctions.paintFromPath(ViewFX.openFileChooser(true))));
         myDialogVBox.getChildren().add(imageButton);
     }
 

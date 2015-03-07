@@ -96,7 +96,7 @@ public class Controller {
         }
 
         public void saveXML (String path) {
-            // TODO Auto-generated method stub
+
         }
 
         public void loadXML (String path) {
