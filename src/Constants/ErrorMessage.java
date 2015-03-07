@@ -9,6 +9,8 @@ public enum ErrorMessage {
 	MISSING_END_BRACKET("missing_end_bracket"),
 	BEFORE_END_BRACKET("before_bracket"),
 	TYPE_MISMATCH("type_mismatch"),
+	INVALID_SHAPE_INDEX("invalid_shape_index"),
+	INVALID_COLOR_INDEX("invalid_color_index"),
 	MISSING_PARAMETER("missing_parameter");
 	private String myString;
 	private ErrorMessage(String errorText){

@@ -6,13 +6,14 @@ import exceptions.ExecutionException;
 import view.ViewAbstract;
 import Model.*;
 import Statements.Statement;
+import Constants.*;
 
 public class SetShape extends SetVisual {
 	
 	public SetShape(List<Statement> statements, ViewAbstract view,
 			ITurtle turtleManager, List<String> shapes) {
 		super(statements, view, turtleManager, shapes);
-		setErrorMessage("Invalid index for turtle shape.");
+		setErrorMessage(ErrorMessage.INVALID_SHAPE_INDEX.getVal());
 	}
 
 	@Override
