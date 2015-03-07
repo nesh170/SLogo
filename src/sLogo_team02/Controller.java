@@ -104,8 +104,7 @@ public class Controller {
         }
 
         public void initiateDialogBox (int iD) {
-            // TODO Auto-generated method stub
-            
+            myWorkspaceList.get(myTabNumber.getValue()).getModel().sendInfoForDialog(iD);
         }
   
 }
