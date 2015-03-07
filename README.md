@@ -23,5 +23,5 @@ CS 308: Slogo
     * Change Pen Properties of individual turtles
 * Impression/ Suggestions:
 	* We thought Slogo was a really interesting project. It really stimulated our thinking in design. 
-	* Use IfElse with caution as it does not promote good design as learnt in Duke CompSci 308. However no inheritance hierachy is supported.
+	* Use IfElse with caution as it does not promote good design as learnt in Duke CompSci 308. However no inheritance hierachy is supported. ):
 

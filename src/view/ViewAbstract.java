@@ -40,5 +40,7 @@ public abstract class ViewAbstract {
 	public abstract boolean clearStamps();
 	
 	public abstract void setUpDialogBox(Pen pen, int ID, List<String> colorList);
+	
+	public abstract void changeBackgroundColor(String color);
         
     }

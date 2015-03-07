@@ -132,6 +132,7 @@ public class ViewFX extends ViewAbstract {
             }  
         }
     });
+       tempShape.setTranslateX(X);tempShape.setTranslateY(ViewConstants.REVERSE_DIRECTION.getVal()*Y);
        myShapeMap.put(ID, tempShape);
        visualActiveShape(true, ID);
        myShapeRoot.getChildren().add(tempShape);
@@ -266,6 +267,11 @@ public class ViewFX extends ViewAbstract {
         dialogBox.getChildren().addAll(penPropBox.getVBox(),turtlePropBox.getVBox());
         dialog.setScene(new Scene(dialogBox, ViewConstants.DBOX_WIDTH.getVal(), ViewConstants.DBOX_HEIGHT.getVal()));
         dialog.show();
+    }
+
+    @Override
+    public void changeBackgroundColor (String color) {
+        myPlayground.changeColorBackground(color);
     }
     
     

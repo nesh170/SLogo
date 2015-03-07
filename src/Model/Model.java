@@ -2,7 +2,7 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Map;
 import view.ViewAbstract;
 import Constants.*;
 
@@ -145,4 +145,15 @@ public class Model {
 		myView.setUpDialogBox(myTurtleManager.getTurtle(ID).getPen(), ID, myColors);
 	}
 	
+	public void clearTurtles(){
+	    myTurtleManager.clearTurtles();
+	}
+	
+	public void addTurtle(double X, double Y, int ID){
+	       myTurtleManager.addTurtle(X, Y, ID);
+	}
+	
+	public Map<Integer, SingleTurtle> getTurtleMap(){
+	    return myTurtleManager.getTurtleMap();
+	}
 }
