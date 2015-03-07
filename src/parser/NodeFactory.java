@@ -47,6 +47,8 @@ public class NodeFactory {
 				return new RepeatNode(nodeName, parser, commandType);
 			case Parser.TO:
 				return new ToNode(nodeName, parser, commandType);
+			case Parser.FOR:
+				return new ForNode(nodeName, parser, commandType);
 			default:
 				return new CommandNode(nodeName, parser, commandType);
 			}

@@ -52,6 +52,9 @@ public class Parser {
 	
 	/** The Constant COMMAND. */
 	public static final String COMMAND = "Command";
+	
+	/** The Constant FOR. */
+	public static final String FOR = "For";
 
 	/** The my regex. */
 	private Regex myRegex;
@@ -198,11 +201,8 @@ public class Parser {
 			return null;
 		}
 		List<ParseNode> topNodes = new ArrayList<>();
-		// loop through the string array until it's empty{
 		while (myCurIndex < myCurProgramArray.length - 1) {
 			ParseNode curNode = NodeFactory.createNode(myRegex, myCurProgramArray[++myCurIndex], this);
-			//ParseNode curNode = new ParseNode(myCurProgramArray[++myCurIndex]);
-			//System.out.println("Root Node: " + curNode.getName());
 			ParseNode processedNode = recursiveCommandBuilder(curNode);
 			topNodes.add(processedNode);
 		}
@@ -229,7 +229,6 @@ public class Parser {
 	public String preProcessString(String program) {
 		String[] splitProgram = program.split(" ");
 		if (splitProgram.length < 1 | program.length() < 1) {
-			//System.out.println("String empty or full of spaces");
 			return null;
 		}
 		List<Character> programArray = new ArrayList<Character>();
@@ -294,7 +293,6 @@ public class Parser {
 			return current.finishProcessing();
 	}
 
-	// duplicated with method below, refactor
 	/**
 	 * In the syntax tree, if a node is a group then it will 
 	 * process its child nodes here.
