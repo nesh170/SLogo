@@ -114,9 +114,14 @@ public class Controller {
         }
 
         public void loadXML (String path) {
-            myWorkspaceList.get(myTabNumber.getValue()).getView().clearScreen();
-            myWorkspaceList.get(myTabNumber.getValue()).getModel().clearTurtles();
-            myXMLParser.loadXML(path,myWorkspaceList.get(myTabNumber.getValue()).getModel());
+            try {
+                myWorkspaceList.get(myTabNumber.getValue()).getView().clearScreen();
+                myWorkspaceList.get(myTabNumber.getValue()).getModel().clearTurtles();
+                myXMLParser.loadXML(path, myWorkspaceList.get(myTabNumber.getValue()).getModel());
+            }
+            catch (Exception e) {
+                myWorkspaceList.get(myTabNumber.getValue()).getView().printError(INVALID_XML);
+            }
         }
 
         public void initiateDialogBox (int iD) {
