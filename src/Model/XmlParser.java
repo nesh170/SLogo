@@ -24,9 +24,9 @@ public class XmlParser {
 	private File myFile;
 	private String myFilename;
 	private Element myRoot;
-	private TurtleManager myTurtleManager;
+	private MultipleTurtles myTurtleManager;
 	
-	public XmlParser (File file, TurtleManager tm) {
+	public XmlParser (File file, MultipleTurtles tm) {
 		myFile = file;
 		myFilename = myFile.getPath();
 		myTurtleManager = tm;

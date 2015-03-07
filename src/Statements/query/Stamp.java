@@ -1,11 +1,11 @@
 package Statements.query;
 
 import view.ViewAbstract;
-import Model.TurtleManager;
+import Model.MultipleTurtles;
 
 public class Stamp extends Query {
 
-	public Stamp(ViewAbstract view, TurtleManager manager) {
+	public Stamp(ViewAbstract view, MultipleTurtles manager) {
 		super(view, manager);
 	}
 

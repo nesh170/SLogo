@@ -57,5 +57,5 @@ public class Pen {
 	public void setPenThickness(double pixels){
 		myThickness = pixels;
 	}
-
+	
 }

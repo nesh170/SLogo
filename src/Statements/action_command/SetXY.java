@@ -3,14 +3,13 @@ package Statements.action_command;
 import java.util.List;
 
 import view.ViewAbstract;
-import Model.TurtleManager;
+import Model.*;
 import Statements.Statement;
-import Constants.*;
 
 public class SetXY extends SetPosition{
 
 	public SetXY(List<Statement> statements, ViewAbstract view,
-			TurtleManager turtleManager, List<String> colors) {
+			ITurtle turtleManager, List<String> colors) {
 		super(statements, view, turtleManager, colors);
 	}
 	

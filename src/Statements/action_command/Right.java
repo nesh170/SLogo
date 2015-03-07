@@ -4,13 +4,13 @@ import java.util.List;
 
 import Constants.Constants;
 import view.ViewAbstract;
-import Model.TurtleManager;
+import Model.*;
 import Statements.Statement;
 
 public class Right extends Turning{
 
 	public Right(List<Statement> statements, ViewAbstract view,
-			TurtleManager turtleManager) {
+			ITurtle turtleManager) {
 		super(statements, view, turtleManager);
 		myTurningDirection = Constants.RIGHT_DIRECRION;
 	}

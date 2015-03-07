@@ -4,15 +4,14 @@ import java.util.List;
 
 import Constants.Constants;
 import view.ViewAbstract;
-import Model.ModelTurtle;
-import Model.TurtleManager;
+import Model.*;
 import Statements.Statement;
 
 public class Turning extends ActionCommand {
 	protected double myTurningDirection;
 	
 	public Turning(List<Statement> statements, ViewAbstract view,
-			TurtleManager turtleManager) {
+			ITurtle turtleManager) {
 		super(statements, view, turtleManager);
 	}
 
@@ -20,14 +19,9 @@ public class Turning extends ActionCommand {
 	public double execute() {
 		double executeResult = myStatements.get(0).execute();
 		double value = executeResult;
-		for (Integer ID : myTurtleManager.getActiveTurtleIDs()) {
-			ModelTurtle currentTurtle = myTurtleManager.getTurtle(ID);
-			executeResult = Constants.FULL_CIRCLE + (executeResult * myTurningDirection) % Constants.FULL_CIRCLE;
-			currentTurtle.rotate(executeResult);
-			myView.rotateShape(currentTurtle.getAngle(), currentTurtle.getID());
-			System.out.println("Angle is " + currentTurtle.getAngle());
-		}
+		executeResult = Constants.FULL_CIRCLE + (executeResult * myTurningDirection) % Constants.FULL_CIRCLE;
+		myTurtles.rotate(value);
+		myTurtles.doToActiveTurtles(t -> myView.rotateShape(t.getAngle(), t.getID()));
 		return value;
 	}
-
 }

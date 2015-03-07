@@ -3,14 +3,14 @@ package Statements.action_command;
 import java.util.List;
 
 import view.ViewAbstract;
-import Model.TurtleManager;
+import Model.*;
 import Statements.Statement;
 import exceptions.*;
 
 public class SetPenSize extends ActionCommand {
 
 	public SetPenSize(List<Statement> statements, ViewAbstract view,
-			TurtleManager turtleManager) {
+			ITurtle turtleManager) {
 		super(statements, view, turtleManager);
 	}
 
@@ -21,7 +21,7 @@ public class SetPenSize extends ActionCommand {
 			if(newSize < 0){
 				throw new ExecutionException("Pen width can't be negative");
 			}else{
-				myTurtleManager.doToActiveTurtles(e -> e.setPenSize(newSize));
+				myTurtles.setPenSize(newSize);
 			}
 		}catch (ExecutionException e){
 			myView.printError(e.toString());

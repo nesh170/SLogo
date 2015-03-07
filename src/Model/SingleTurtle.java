@@ -1,8 +1,12 @@
 package Model;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+
 import Constants.Constants;
 
-public class ModelTurtle {
+public class SingleTurtle implements ITurtle {
 	private double myCurX;
 	private double myCurY;
 	private double myAngle;
@@ -11,9 +15,8 @@ public class ModelTurtle {
 	private Pen myPen;
 	private int myID;
 	private int myShape;
-	private String myImagePath;
 
-	public ModelTurtle(int ID) {
+	public SingleTurtle(int ID) {
 		isHiding = false;
 		myCurX = 0;
 		myCurY = 0;
@@ -92,8 +95,10 @@ public class ModelTurtle {
 		isHiding = hiding;
 	}
 	
-	public void setAngle(double angle){
+	public double setAngle(double angle){
+		double deltaAngle = Math.abs(myAngle - (angle % Constants.FULL_CIRCLE));
 		myAngle = angle % Constants.FULL_CIRCLE;
+		return deltaAngle;
 	}
 
 	public double getAngle() {
@@ -118,6 +123,12 @@ public class ModelTurtle {
 	
 	public void setPenSize(double pixels){
 		myPen.setPenThickness(pixels);
+	}
+	
+	public void doToActiveTurtles(Consumer<? super SingleTurtle> action){
+		List<SingleTurtle> thisTurtle = new ArrayList<>();
+		thisTurtle.add(this);
+		thisTurtle.forEach((Consumer<? super SingleTurtle>)action);
 	}
 
 }

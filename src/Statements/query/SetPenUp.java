@@ -4,11 +4,11 @@ import java.util.List;
 
 import Constants.Constants;
 import view.ViewAbstract;
-import Model.TurtleManager;
+import Model.MultipleTurtles;
 
 public class SetPenUp extends Query{
 
-	public SetPenUp(ViewAbstract view, TurtleManager manager) {
+	public SetPenUp(ViewAbstract view, MultipleTurtles manager) {
 		super(view, manager);
 	}
 

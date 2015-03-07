@@ -4,59 +4,40 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import Model.Pen;
 import slogoEnums.ViewConstants;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 public class PenPropertiesDialogBox {
     private VBox myDialogVBox;
     private ResourceBundle myStringResources = ResourceBundle.getBundle("resources.View.ViewText",new Locale("en", "US"));
-    private SimpleStringProperty myPenRGB;
-    private SimpleDoubleProperty myStrokeWidth;
-    private SimpleStringProperty myStrokeType;
-    private SimpleBooleanProperty myPenStatus;
+    private Pen myPen;
     
-    public PenPropertiesDialogBox(SimpleStringProperty penRGB, SimpleDoubleProperty strokeWidth, SimpleStringProperty strokeType, SimpleBooleanProperty penStatus){
+    public PenPropertiesDialogBox(Pen pen, List<String> colorList){
         myDialogVBox = new VBox(ViewConstants.VARIABLE_TABLE_SPACING.getVal());
         myDialogVBox.getChildren().add(new Text(myStringResources.getString("penTitle")));
-        myPenRGB = penRGB;
-        myStrokeWidth = strokeWidth;
-        myStrokeType = strokeType;
-        myPenStatus = penStatus;
-        generateColorPicker();
+        myPen = pen;
+        generateColorPicker(colorList); //need to check whether it is working
         generateSlider();
         generateStrokeWidthChoiceBox();
         generateTogglePen();
     }
 
-    private void generateColorPicker(){
-        //TODO set new pen color
-      HBox ColorBox = new HBox();
-      ColorPicker colorPick = new ColorPicker(Color.web(myPenRGB.get()));
-      colorPick.setOnAction(e-> myPenRGB.setValue(toRGBCode(colorPick.getValue())));
-      ColorBox.getChildren().addAll(new Text(myStringResources.getString("choosePenColor")),colorPick);
-      myDialogVBox.getChildren().add(ColorBox);
-    }
-    
-    private String toRGBCode (Color color) {
-        return String.format("#%02X%02X%02X", (int) (color.getRed() * 255), (int) (color.getGreen() * 255), (int) (color.getBlue() * 255));
+    private void generateColorPicker(List<String> colorList){
+      ChoiceBox<String> colorChoice = choiceBoxGenerator(colorList, colorList.get(myPen.getColorIndex()), "choosePenColor");
+      colorChoice.getSelectionModel().selectedIndexProperty().addListener(e-> myPen.setColorIndex(colorChoice.getSelectionModel().getSelectedIndex()));
     }
     
     private void generateSlider(){
-        //TODO tell controller about this
         HBox SliderBox = new HBox();
-        Slider strokeWidth = new Slider(0, 10.0, myStrokeWidth.get());
-        Text SlideValue = new Text(String.format("%.2f",myStrokeWidth.get()));
+        Slider strokeWidth = new Slider(0, 10.0, myPen.getThickness());
+        Text SlideValue = new Text(String.format("%.2f",myPen.getThickness()));
         strokeWidth.valueProperty().addListener(e-> updateValue(strokeWidth.getValue(),SlideValue));
         strokeWidth.setShowTickLabels(true);
         strokeWidth.setShowTickMarks(true);
@@ -67,19 +48,23 @@ public class PenPropertiesDialogBox {
     }
     
     private void updateValue (double value, Text slideValue) {
-        myStrokeWidth.setValue(value);
-        slideValue.setText(String.format("%.2f",myStrokeWidth.getValue()));
+        myPen.setPenThickness(value);
+        slideValue.setText(String.format("%.2f",myPen.getThickness()));
     }
     
     private void generateStrokeWidthChoiceBox(){
-        //TODO edit this to support the new resources it will crash, update to controeller
-        HBox strokeTypeBox = new HBox();
         List<String> strokeTypeArray = Arrays.asList(myStringResources.getString("strokeWidthChoice").split("\\s+"));
-        ChoiceBox<String> strokeChoice = new ChoiceBox<>(FXCollections.observableArrayList(strokeTypeArray));
-        strokeChoice.setValue(myStrokeType.getValue());
-        strokeChoice.getSelectionModel().selectedIndexProperty().addListener(e-> myStrokeType.set(strokeChoice.getSelectionModel().getSelectedItem()));
-        strokeTypeBox.getChildren().addAll(new Text(myStringResources.getString("penStroke")),strokeChoice);
-        myDialogVBox.getChildren().add(strokeTypeBox);
+        ChoiceBox<String> strokeChoice= choiceBoxGenerator(strokeTypeArray,myPen.getPenStroke(),"penStroke"); //this string literal is used to get the string from resource bundle
+        strokeChoice.getSelectionModel().selectedIndexProperty().addListener(e-> myPen.setStroke(strokeChoice.getSelectionModel().getSelectedItem()));
+    }
+    
+    private ChoiceBox<String> choiceBoxGenerator(List<String> list, String initialValue, String title){
+        HBox tempBox = new HBox();
+        ChoiceBox<String> tempChoiceBox = new ChoiceBox<>(FXCollections.observableArrayList(list));
+        tempChoiceBox.setValue(initialValue);
+        tempBox.getChildren().addAll(new Text(myStringResources.getString(title)),tempChoiceBox);
+        myDialogVBox.getChildren().add(tempBox);
+        return tempChoiceBox;
     }
     
     private void generateTogglePen(){
@@ -93,12 +78,12 @@ public class PenPropertiesDialogBox {
     }
     
     private void togglePenStatus (ToggleButton penToggle) {
-        myPenStatus.set(!myPenStatus.getValue());
+        myPen.setPenDown(!myPen.isDown());;
         createPenToggleString(penToggle);
     }
 
     private void createPenToggleString (ToggleButton penToggle) {
-        if(myPenStatus.get()){
+        if(myPen.isDown()){
             penToggle.setText(myStringResources.getString("penDown"));
         }
         else{

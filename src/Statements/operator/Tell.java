@@ -3,14 +3,14 @@ package Statements.operator;
 import java.util.ArrayList;
 import java.util.List;
 
-import Model.TurtleManager;
+import Model.MultipleTurtles;
 import Statements.Statement;
 
 public class Tell extends Operator{
 
-	private TurtleManager myTurtleManager;
+	private MultipleTurtles myTurtleManager;
 	
-	public Tell(List<Statement> statements, TurtleManager turtleManager){
+	public Tell(List<Statement> statements, MultipleTurtles turtleManager){
 		super(statements);
 		myTurtleManager = turtleManager;
 	}
