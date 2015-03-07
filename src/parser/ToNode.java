@@ -6,12 +6,25 @@ import Statements.MethodName;
 import Statements.Statement;
 import exceptions.ParserException;
 
+/**
+ */
 public class ToNode extends CommandNode {
 
+	/**ToNode handles the command used to create user-defined methods. 
+	 * Constructor for ToNode.
+	 * @param name String
+	 * @param parser Parser
+	 * @param commandType String
+	 */
 	public ToNode(String name, Parser parser, String commandType) {
 		super(name, parser, commandType);
 	}
 	
+	/**
+	 * Method finishProcessing.
+	 * @return ParseNode
+	 * @throws ParserException
+	 */
 	@Override
 	public ParseNode finishProcessing() throws ParserException{
 		if (myParser.atEndOfString()) {
@@ -51,6 +64,11 @@ public class ToNode extends CommandNode {
 		return this;
 	}
 	
+	/**This method adds the name of the user-defined method as a child node 
+	 * and calls recursion on the next node.
+	 * Method doSpecificPrep.
+	 * @param base List<Statement>
+	 */
 	@Override
 	public void doSpecificPrep(List<Statement> base){
 		decrementNumChildren();

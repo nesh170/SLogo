@@ -11,9 +11,11 @@ import java.util.Set;
 import exceptions.*;
 import Constants.*;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class Parser.
+/** The parser analyzes the the command that the user types in 
+ * to build a syntax tree consisted of nodes with command names. 
+ * 
+ * @author Yancheng, Sierra
+ *
  */
 public class Parser {
 	
@@ -85,16 +87,16 @@ public class Parser {
 	}
 	
 	/**
-	 * Increment cur index.
+	 * Increment the current index.
 	 */
 	public void incrementCurIndex(){
 		myCurIndex += 1;
 	}
 	
 	/**
-	 * Gets the cur index.
+	 * Gets the current index.
 	 *
-	 * @return the cur index
+	 * @return the current index
 	 */
 	public int getCurIndex(){
 		return myCurIndex;
@@ -181,10 +183,11 @@ public class Parser {
 	}
 
 	/**
-	 * Parses the.
+	 * This method starts the parsing process and creates a head node for each 
+	 * independent command
 	 *
 	 * @param program the program
-	 * @return the list
+	 * @return a list of independent command nodes
 	 * @throws ParserException the parser exception
 	 */
 	public List<ParseNode> parse(String program) throws ParserException {
@@ -215,10 +218,12 @@ public class Parser {
 	}
 
 	/**
-	 * Pre process string.
+	 * This method pre-processes the user-typed command string and get rids of 
+	 * comments and new lines in the string. It also splits up the string into 
+	 * a string array based on white spaces. 
 	 *
-	 * @param program the program
-	 * @return the string
+	 * @param user-typed command string
+	 * @return the pre-processed string
 	 */
 	public String preProcessString(String program) {
 		String[] splitProgram = program.split(" ");
@@ -254,7 +259,7 @@ public class Parser {
 	}
 	
 	/**
-	 * Delete comments.
+	 * This method deletes the comments in the command string.
 	 *
 	 * @param originalArray the original array
 	 * @param processedArray the processed array
@@ -277,7 +282,7 @@ public class Parser {
 	}
 
 	/**
-	 * Recursive command builder.
+	 * A generic call the triggers the parsing process on the current node.
 	 *
 	 * @param current the current
 	 * @return the parses the node
@@ -290,7 +295,8 @@ public class Parser {
 
 	// duplicated with method below, refactor
 	/**
-	 * Gets the group kids.
+	 * In the syntax tree, if a node is a group then it will 
+	 * process its child nodes here.
 	 *
 	 * @param groupLeader the group leader
 	 * @return the group kids
@@ -311,7 +317,8 @@ public class Parser {
 	}
 
 	/**
-	 * Retrieve generic kids.
+	 * This is the generic method for nodes to add their child nodes and calls the 
+	 * method on the child nodes to recursively build the tree. 
 	 *
 	 * @param current the current
 	 * @param next the next
@@ -331,7 +338,8 @@ public class Parser {
 	}
 	
 	/**
-	 * Retrieve children.
+	 * This method retrieves a node's expected number of child nodes and detects 
+	 * end bracket syntax error.
 	 *
 	 * @param current the current
 	 * @param loopTimes the loop times
@@ -354,7 +362,8 @@ public class Parser {
 	}
 	
 	/**
-	 * Check string ends early.
+	 * Check if the command string reaches the end before expected command 
+	 * elements are processed.
 	 *
 	 * @param error the error
 	 * @throws ParserException the parser exception
@@ -366,9 +375,9 @@ public class Parser {
 	}
 
 	/**
-	 * At end of string.
+	 * Check if it has reached the end of the command string.
 	 *
-	 * @return true, if successful
+	 * @return true, if at the end
 	 */
 	public boolean atEndOfString() {
 		return (myCurIndex == myCurProgramArray.length - 1);

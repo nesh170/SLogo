@@ -8,31 +8,67 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
+/**Regex searches for a pattern for a given string using regular expression. 
+ * 
+ * @author Sierra, Yancheng, Duvall
+ *
+ */
 public class Regex {
 	private List<Map.Entry<String, Pattern>> mySyntaxPatterns;
 	private List<Map.Entry<String, Pattern>> myLanguagePatterns;
 
+	/**
+	 * Constructor for Regex.
+	 * @param syntax String
+	 * @param language String
+	 */
 	public Regex(String syntax, String language) {
 		mySyntaxPatterns = makePatterns(syntax);
 		myLanguagePatterns = makePatterns(language);
 	}
 
+	/**
+	 * Method match.
+	 * @param input String
+	 * @param regex Pattern
+	 * @return boolean
+	 */
 	public boolean match(String input, Pattern regex) {
 		return regex.matcher(input).matches();
 	}
 
+	/**
+	 * Method changeLanguagePattern.
+	 * @param language String
+	 */
 	public void changeLanguagePattern(String language){
 		myLanguagePatterns = makePatterns(language);
 	}
 	
+	/**
+	 * Method matchSyntax.
+	 * @param toMatch String
+	 * @return String
+	 */
 	public String matchSyntax(String toMatch){
 		return findMatch(toMatch, mySyntaxPatterns);
 	}
 	
+	/**
+	 * Method matchCommand.
+	 * @param toMatch String
+	 * @return String
+	 */
 	public String matchCommand(String toMatch){
 		return findMatch(toMatch, myLanguagePatterns);
 	}
 	
+	/**
+	 * Method findMatch.
+	 * @param test String
+	 * @param patterns List<Map.Entry<String,Pattern>>
+	 * @return String
+	 */
 	private String findMatch(String test,
 			List<Map.Entry<String, Pattern>> patterns) {
 		String result = null;
@@ -52,6 +88,11 @@ public class Regex {
 		return result;
 	}
 
+	/**
+	 * Method makePatterns.
+	 * @param syntax String
+	 * @return List<Map.Entry<String,Pattern>>
+	 */
 	public List<Map.Entry<String, Pattern>> makePatterns(String syntax) {
 		ResourceBundle resources = ResourceBundle.getBundle(syntax);
 		List<Map.Entry<String, Pattern>> patterns = new ArrayList<>();

@@ -12,12 +12,24 @@ import Statements.Variable;
 import exceptions.*;
 import Constants.*;
 
+/**
+ */
 public class VariableNode extends ParseNode {
 
+	/**VariableNode handles variables in the command.
+	 * Constructor for VariableNode.
+	 * @param name String
+	 * @param parser Parser
+	 */
 	public VariableNode(String name, Parser parser) {
 		super(name, parser);
 	}
 
+	/**
+	 * Method finishProcessing.
+	 * @return ParseNode
+	 * @throws ParserException
+	 */
 	@Override
 	public ParseNode finishProcessing() throws ParserException{
 		if(!myParser.variableExists(getName())){
@@ -26,6 +38,19 @@ public class VariableNode extends ParseNode {
 		return this;
 	}
 
+	/**
+	 * Method buildStatement.
+	 * @param builder ProgramBuilder
+	 * @param myView ViewAbstract
+	 * @param myTurtleManager MultipleTurtles
+	 * @param myVariableManager VariableManager
+	 * @param myRegex Regex
+	 * @param myMethodManager MethodManager
+	 * @param colors List<String>
+	 * @param shapes List<String>
+	 * @return Statement
+	 * @throws ParserException
+	 */
 	@Override
 	public Statement buildStatement(ProgramBuilder builder,ViewAbstract myView,
 			MultipleTurtles myTurtleManager, VariableManager myVariableManager,

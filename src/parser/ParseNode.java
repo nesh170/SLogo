@@ -11,9 +11,11 @@ import Model.MultipleTurtles;
 import Model.VariableManager;
 import Statements.*;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class ParseNode.
+/**The Parsenode is the head of the parsing node hierarchy. Each ParseNode has 
+ * a list of child nodes with name of the command string.
+ * 
+ * @author Yancheng, Sierra
+ *
  */
 public abstract class ParseNode {
 	
@@ -83,7 +85,8 @@ public abstract class ParseNode {
 		myChildren.remove(index);
 	}
 
-	/**
+	/**This method is used in Parser to processes child nodes and adds them to the current node in the
+	 * syntax tree.
 	 * Finish processing.
 	 *
 	 * @return the parses the node
@@ -91,7 +94,8 @@ public abstract class ParseNode {
 	 */
 	public abstract ParseNode finishProcessing() throws ParserException;
 
-	/**
+	/** This method is used in ProgramBuilder to add child statements to the parent 
+	 * statement.
 	 * Builds the statement.
 	 *
 	 * @param builder the builder

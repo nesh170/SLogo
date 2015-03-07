@@ -13,23 +13,44 @@ import Statements.Statement;
 import Constants.Constants;
 import exceptions.*;
 
+/**CommandNode is the node that provides implementation for normal 
+ * commands (not including constant, group and to) in parsing and program building.
+ * 
+ * @author Yancheng, Sierra
+ *
+ */
 public class CommandNode extends ParseNode {
 	private String mySpecificCommand;
 	private int myNumChildren;
 	private List<List<Statement>> myParams;
 	private List<Statement> curList;
 
+	/**
+	 * Constructor for CommandNode.
+	 * @param name String
+	 * @param parser Parser
+	 * @param commandType String
+	 */
 	public CommandNode(String name, Parser parser, String commandType) {
 		super(name, parser);
 		mySpecificCommand = commandType;
 	}
 
+	/**This method collects the child nodes for the current node.
+	 * Method finishProcessing.
+	 * @return ParseNode
+	 * @throws ParserException
+	 */
 	@Override
 	public ParseNode finishProcessing() throws ParserException {
 		myParser.retrieveChildren(this, getNumParams());
 		return this;
 	}
 
+	/** This method fetches the expected number of the child nodes.
+	 * Method getNumParams.
+	 * @return int
+	 */
 	public int getNumParams() {
 		int loopTimes = 0;
 		try {
@@ -42,6 +63,20 @@ public class CommandNode extends ParseNode {
 		return loopTimes;
 	}
 
+	/** This method adds child commands to the parent's list and calls recursion on 
+	 * each child. 
+	 * Method buildStatement.
+	 * @param builder ProgramBuilder
+	 * @param myView ViewAbstract
+	 * @param myTurtleManager MultipleTurtles
+	 * @param myVariableManager VariableManager
+	 * @param myRegex Regex
+	 * @param myMethodManager MethodManager
+	 * @param colors List<String>
+	 * @param shapes List<String>
+	 * @return Statement
+	 * @throws ParserException
+	 */
 	@Override
 	public Statement buildStatement(ProgramBuilder builder,
 			ViewAbstract myView, MultipleTurtles myTurtleManager,
@@ -71,13 +106,15 @@ public class CommandNode extends ParseNode {
 		}
 
 		String commandType = myRegex.matchCommand(this.getName());
-		// if commandType is null, check if it is a user defined before sending
-		// to command factory
 		return CommandFactory.generateCommand(commandType, paramLists, myView,
 				myTurtleManager, myVariableManager, myRegex, myMethodManager,
 				colors, shapes);
 	}
 	
+	/**
+	 * Method doSpecificPrep.
+	 * @param base List<Statement>
+	 */
 	public void doSpecificPrep(List<Statement> base){
 	}
 	
