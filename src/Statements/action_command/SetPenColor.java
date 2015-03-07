@@ -7,6 +7,7 @@ import Statements.Statement;
 import view.*;
 import exceptions.*;
 import Constants.*;
+import exceptions.*;
 
 public class SetPenColor extends SetVisual{
 

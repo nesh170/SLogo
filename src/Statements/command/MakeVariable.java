@@ -2,7 +2,6 @@ package Statements.command;
 
 import java.util.List;
 
-import Constants.*;
 import Model.VariableManager;
 import Statements.Statement;
 import Statements.Variable;
@@ -23,9 +22,5 @@ public class MakeVariable extends Command{
 //		myView.addVariable(((Variable)myStatements.get(0)).getName(), value);
 		return value;
 	}
-
-//	public static int getNumParams() {
-//		return Constants.MAKE_PARAMS;
-//	}
 
 }

@@ -23,7 +23,6 @@ public class Parser {
 	public static final String CONSTANT = "Constant";
 	public static final String VARIABLE = "Variable";
 	public static final String COMMAND = "Command";
-	
 
 	private Regex myRegex;
 	private int myCurIndex;
@@ -91,8 +90,6 @@ public class Parser {
 		if (processed == null) {
 			return null;
 		}
-		//System.out.println("The length is "+myCurProgramArray.length);
-		//ArrayList<String> programArray = new ArrayList<>(Arrays.asList(myCurProgramArray));
 		List<ParseNode> topNodes = new ArrayList<>();
 		// loop through the string array until it's empty{
 		while (myCurIndex < myCurProgramArray.length - 1) {
@@ -131,7 +128,6 @@ public class Parser {
 		List<String> spaceProcessing = Arrays.asList(toDeleteWhiteSpace.split(" "));
 		for(String e: spaceProcessing){
 			if(!e.equals("")){
-				//System.out.println("the valid command is "+e);
 				voidOfSpace.add(e);
 			}
 		}
@@ -188,7 +184,6 @@ public class Parser {
 		}
 		else {
 			ParseNode newNode = NodeFactory.createNode(myRegex, next, this);
-			System.out.println("New Node: " + newNode.getName());
 			ParseNode processedNode = recursiveCommandBuilder(newNode);
 			current.addChild(processedNode);
 		}
@@ -219,5 +214,4 @@ public class Parser {
 	public boolean atEndOfString() {
 		return (myCurIndex == myCurProgramArray.length - 1);
 	}
-
 }

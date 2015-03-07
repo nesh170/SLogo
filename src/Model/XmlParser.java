@@ -7,13 +7,10 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 import java.util.ResourceBundle;
-
 import javafx.scene.paint.Color;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -25,21 +22,13 @@ public class XmlParser {
 	private String myFilename;
 	private Element myRoot;
 	private MultipleTurtles myTurtleManager;
-	
-	public XmlParser (File file, MultipleTurtles tm) {
-		myFile = file;
-		myFilename = myFile.getPath();
-		myTurtleManager = tm;
-	}
 
 	public void parseXmlFile(){
 		try {		
+		        System.out.println("XML FILE PASS"+myFilename);
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			//Using factory get an instance of document builder
 			DocumentBuilder db = dbf.newDocumentBuilder();
-			//parse using builder to get DOM representation of the XML file
 			Document dom = db.parse(myFilename);			
-			//get the root element
 			myRoot = dom.getDocumentElement();
 		}catch(ParserConfigurationException pce) {			
 			pce.printStackTrace();
@@ -95,5 +84,13 @@ public class XmlParser {
 	public void parseFile(Element e) {
 		
 	}
+
+    public void loadXML (String path, Model model) {
+        myFilename = path;
+        parseXmlFile();
+        
+        
+    }
+
 }
 
