@@ -21,7 +21,7 @@ public abstract class ViewAbstract {
 
 	public abstract void addShape(String shapeType, double X, double Y, int ID);
 
-	public abstract void addVariable(String variableName, Double value);
+	public abstract void addVariable(String variableName, double value);
 
 	public abstract void addMethodVariable(String methodName);
 

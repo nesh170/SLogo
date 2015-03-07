@@ -14,7 +14,7 @@ public class SetTowards extends SetAngle{
 
 	@Override
 	public double execute() {
-		myExecuteResult = Math.toDegrees(Math.atan(myStatements.get(0).execute()/myStatements.get(1).execute()));
+		setMyExecuteResult(Math.toDegrees(Math.atan(getMyStatements().get(0).execute()/getMyStatements().get(1).execute())));
 		return super.execute();
 	}
 

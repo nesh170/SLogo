@@ -18,9 +18,9 @@ public abstract class Relocate extends ActionCommand {
 
 	public void updateView(SingleTurtle t){
 		if(!t.isDrawing()){
-			myView.moveShape(t.getX(), t.getY(), t.getID());
+			getMyView().moveShape(t.getX(), t.getY(), t.getID());
 		} else {
-			myView.drawShape(t.getX(), t.getY(),
+			getMyView().drawShape(t.getX(), t.getY(),
 					t.getID(), myColors.get(t.getPen().getColorIndex()),
 					t.getPen().getThickness(), t.getPen().getPenStroke());
 		}

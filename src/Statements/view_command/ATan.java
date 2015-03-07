@@ -15,8 +15,8 @@ public class ATan extends Command{
 
 	@Override
 	public double execute() {
-		double result = Math.toDegrees(Math.atan(myStatements.get(0).execute()));
-		myView.printMessage("" + result);
+		double result = Math.toDegrees(Math.atan(getMyStatements().get(0).execute()));
+		getMyView().printMessage("" + result);
 		return result;
 	}
 

@@ -12,6 +12,6 @@ public class Backward extends Walking{
 	public Backward(List<Statement> statements, ViewAbstract view,
 			MultipleTurtles turtleManager, List<String> colors) {
 		super(statements, view, turtleManager, colors);
-		myAngle = Constants.BACKWARD_ANGLE;
+		setMyAngle(Constants.BACKWARD_ANGLE);
 	}
 }

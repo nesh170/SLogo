@@ -18,8 +18,8 @@ public class RandomGen extends Command{
 
 	@Override
 	public double execute() {
-		double result = myRandom.nextDouble()*myStatements.get(0).execute();
-		myView.printMessage("" + result);
+		double result = myRandom.nextDouble()*getMyStatements().get(0).execute();
+		getMyView().printMessage("" + result);
 		return result;
 	}
 

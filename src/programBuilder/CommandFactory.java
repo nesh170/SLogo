@@ -4,6 +4,7 @@ import java.util.List;
 
 import parser.Regex;
 import view.ViewAbstract;
+import Constants.ErrorMessage;
 import Model.*;
 import Statements.*;
 import Statements.action_command.*;
@@ -29,7 +30,7 @@ public class CommandFactory {
 
 		switch (commandType) {
 		case "Forward":
-			System.out.println("Making forward object");
+			//System.out.println("Making forward object");
 			return new Forward(statements.get(0), myView, myTurtleManager,
 					colors);
 		case "Backward":
@@ -44,13 +45,13 @@ public class CommandFactory {
 		case "Home":
 			return new Home(statements.get(0), myView, myTurtleManager, colors);
 		case "Sum":
-			System.out.println("Making sum object");
+			//System.out.println("Making sum object");
 			return new Sum(statements.get(0), myView);
 		case "Difference":
-			System.out.println("Making difference object");
+			//System.out.println("Making difference object");
 			return new Difference(statements.get(0), myView);
 		case "Quotient":
-			System.out.println("Making quotient object");
+			//System.out.println("Making quotient object");
 			return new Quotient(statements.get(0), myView);
 		case "XCoordinate":
 			return new XCor(myView, myTurtleManager);
@@ -131,7 +132,7 @@ public class CommandFactory {
 		case "IfElse":
 			return new IfElse(statements);
 		default:
-			throw new ParserException("Command not valid.");
+			throw new ParserException(ErrorMessage.INVALID_COMMAND.getVal());
 		}
 	}
 }
