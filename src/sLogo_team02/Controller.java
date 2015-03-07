@@ -105,7 +105,7 @@ public class Controller {
 	}
 
         public void setToggleActive (int iD) {
-            myWorkspaceList.get(myTabNumber.getValue()).getModel().processToggle(iD);
+            myWorkspaceList.get(myTabNumber.getValue()).getModel().toggleActive(iD);
         }
 
         public void saveXML (String path) {

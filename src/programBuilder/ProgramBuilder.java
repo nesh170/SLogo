@@ -95,56 +95,8 @@ public class ProgramBuilder {
 	 */
 	public Statement recursiveStatementBuilder(ParseNode node)
 			throws ParserException {
-//		String nodeName = node.getName();
-		// get type string: if constant --> "constant", if variable -->
-		// "variable", if userdefined --> "user"
-		// other wise type = node name
-//		String type = myRegex.matchSyntax(nodeName);
-//		List<List<Statement>> paramLists = new ArrayList<>();
-//		switch (type) {
-//		case "Constant":
 			return node.buildStatement(this, myView, myTurtleManager,
 					myVariableManager, myRegex, myMethodManager, myColors,
 					myShapes);
-//		case "Variable":
-//			return node.buildStatement(this, myView, myTurtleManager,
-//					myVariableManager, myRegex, myMethodManager, myColors,
-//					myShapes);
-//		default:
-//			List<Statement> baseList = new ArrayList<>();
-//			paramLists.add(baseList);
-//			List<Statement> curList = baseList;
-//			int looptimes = node.getChildCount();
-//			if (node.getName().equals("to")) {
-//				looptimes--;
-//				baseList.add(new MethodName(node.getChildren().get(0).getName()));
-//				node.removeChild(0);
-//				curList = new ArrayList<>();
-//				paramLists.add(curList);
-//			}
-//			for (int i = 0; i < looptimes; i++) {
-//				ParseNode curChild = node.getChildren().get(i);
-//				if (curChild.getName().equals("Group")) {
-//					if (i != 0) {
-//						curList = new ArrayList<>();
-//						paramLists.add(curList);
-//					}
-//					for (ParseNode groupKid : curChild.getChildren()) {
-//						curList.add(recursiveStatementBuilder(groupKid));
-//					}
-//				} else {
-//					baseList.add(recursiveStatementBuilder(curChild));
-//				}
-//			}
-//			return node.buildStatement(this, myView, myTurtleManager,
-//					myVariableManager, myRegex, myMethodManager, myColors,
-//					myShapes);
-//		}
-//		String commandType = myRegex.matchCommand(nodeName);
-//		// if commandType is null, check if it is a user defined before sending
-//		// to command factory
-//		return CommandFactory.generateCommand(commandType, paramLists, myView,
-//				myTurtleManager, myVariableManager, myRegex, myMethodManager,
-//				myColors, myShapes);
 	}
 }
