@@ -1,12 +1,7 @@
 package sLogo_team02;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.stream.XMLStreamException;
-
-import com.sun.xml.internal.bind.marshaller.XMLWriter;
 
 import parser.*;
 import slogoEnums.ViewConstants;
