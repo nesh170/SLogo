@@ -1,14 +1,14 @@
 package Statements.query;
 
-import Model.TurtleManager;
+import Model.MultipleTurtles;
 import Statements.Statement;
 import view.ViewAbstract;
 
 public abstract class Query extends Statement{
-	protected TurtleManager myTurtleManager;
+	protected MultipleTurtles myTurtleManager;
 	protected ViewAbstract myView;
 	
-	public Query(ViewAbstract view, TurtleManager manager){
+	public Query(ViewAbstract view, MultipleTurtles manager){
 		myView = view;
 		myTurtleManager = manager;
 	}

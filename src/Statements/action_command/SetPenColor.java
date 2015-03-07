@@ -10,7 +10,7 @@ import exceptions.*;
 public class SetPenColor extends ActionCommand{
 	private List<String> myColors;
 
-	public SetPenColor(List<Statement> statements, ViewAbstract view, TurtleManager turtles, List<String> colors) {
+	public SetPenColor(List<Statement> statements, ViewAbstract view, ITurtle turtles, List<String> colors) {
 		super(statements, view, turtles);
 		myColors = colors;
 	}
@@ -22,7 +22,7 @@ public class SetPenColor extends ActionCommand{
 			if(index >= myColors.size() || index < 0){
 				throw new ExecutionException("Invalid index for set pen color.");
 			}else{
-				myTurtleManager.doToActiveTurtles(e -> e.setPenColor(index));
+				myTurtles.setPenColor(index);
 			}
 		}catch(ExecutionException e){
 			myView.printError(e.toString());

@@ -8,13 +8,13 @@ import java.util.function.Consumer;
 import view.*;
 import Constants.*;
 
-public class TurtleManager {
-	private Map<Integer, ModelTurtle> myTurtles;
+public class MultipleTurtles implements ITurtle {
+	private Map<Integer, SingleTurtle> myTurtles;
 	private List<Integer> myActiveTurtleIDs;
-	private List<ModelTurtle> myActiveTurtles;
+	private List<SingleTurtle> myActiveTurtles;
 	private ViewAbstract myView;
 
-	public TurtleManager(ViewAbstract view){
+	public MultipleTurtles(ViewAbstract view){
 		myTurtles = new HashMap<>();
 		myActiveTurtleIDs = new ArrayList<>();
 		myActiveTurtles =   new ArrayList<>();
@@ -53,23 +53,27 @@ public class TurtleManager {
 		return myActiveTurtleIDs;
 	}
 	
-	public List<ModelTurtle> getActiveTurtles(){
+	public List<SingleTurtle> getActiveTurtles(){
 		return myActiveTurtles;
 	}
 
-	public void doToActiveTurtles(Consumer<? super ModelTurtle> action){
-		myActiveTurtles.forEach((Consumer<? super ModelTurtle>)action);
+	public void doToActiveTurtles(Consumer<? super SingleTurtle> action){
+		myActiveTurtles.forEach(action);
+	}
+	
+	private void doToSpecifiedTurtles(List<SingleTurtle> turtles, Consumer<? super SingleTurtle> action){
+		turtles.forEach(action);
 	}
 
 	public void addTurtle(Integer turtleID){
-		myTurtles.put(turtleID, new ModelTurtle(turtleID));
+		myTurtles.put(turtleID, new SingleTurtle(turtleID));
 		//automatically activates new turtles
 		myActiveTurtleIDs.add(turtleID);
 		myActiveTurtles.add(myTurtles.get(turtleID));
 		myView.addShape(Constants.DEFAULT_SHAPE, 0, 0, turtleID);
 	}
 
-	public ModelTurtle getTurtle(Integer ID){
+	public SingleTurtle getTurtle(Integer ID){
 		return myTurtles.get(ID);
 	}
 	
@@ -94,8 +98,14 @@ public class TurtleManager {
 	}
 	//ITurtle Methods
 	
-	public void moveTurtle(double distance, double angle){
-		myActiveTurtles.forEach(e -> e.moveTurtle(distance, angle));
+	public double moveTurtle(double distance, double angle){
+		doToActiveExceptFirst(e -> e.moveTurtle(distance, angle));
+		return myActiveTurtles.get(0).moveTurtle(distance, angle);
+	}
+	
+	public double relocateTurtle(double x, double y){
+		doToActiveExceptFirst(t -> t.relocateTurtle(x, y));
+		return myActiveTurtles.get(0).relocateTurtle(x, y);
 	}
 	
 	public void setShapeIndex(int index){
@@ -115,5 +125,24 @@ public class TurtleManager {
 	
 	public void setPenSize(double pixels){
 		myActiveTurtles.forEach(e -> e.setPenSize(pixels));
+	}
+	
+	public void jump(double x, double y){
+		myActiveTurtles.forEach(e -> e.jump(x, y));
+	}
+	
+	public void rotate(double angle){
+		myActiveTurtles.forEach(e -> e.rotate(angle));
+	}
+	
+	public double setAngle(double angle){
+		doToActiveExceptFirst(e -> e.setAngle(angle));
+		return myActiveTurtles.get(0).setAngle(angle);
+	}
+	
+	private void doToActiveExceptFirst(Consumer<? super SingleTurtle> action){
+		List<SingleTurtle> activeCopy = new ArrayList<>(myActiveTurtles);
+		activeCopy.remove(0);
+		doToSpecifiedTurtles(activeCopy, action);
 	}
 }

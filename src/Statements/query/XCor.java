@@ -1,11 +1,11 @@
 package Statements.query;
 
 import view.ViewAbstract;
-import Model.TurtleManager;
+import Model.MultipleTurtles;
 
 public class XCor extends Query{
 
-	public XCor(ViewAbstract view, TurtleManager manager) {
+	public XCor(ViewAbstract view, MultipleTurtles manager) {
 		super(view, manager);
 	}
 

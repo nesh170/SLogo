@@ -1,11 +1,11 @@
 package Statements.query;
 
 import view.ViewAbstract;
-import Model.TurtleManager;
+import Model.MultipleTurtles;
 
 public class ClearStamps extends Query {
 
-	public ClearStamps(ViewAbstract view, TurtleManager manager) {
+	public ClearStamps(ViewAbstract view, MultipleTurtles manager) {
 		super(view, manager);
 	}
 

@@ -2,11 +2,11 @@ package Statements.query;
 
 import view.ViewAbstract;
 import Constants.Constants;
-import Model.TurtleManager;
+import Model.MultipleTurtles;
 
 public class ShowingP extends Query {
 
-	public ShowingP(ViewAbstract view, TurtleManager manager) {
+	public ShowingP(ViewAbstract view, MultipleTurtles manager) {
 		super(view, manager);
 	}
 

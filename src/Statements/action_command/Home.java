@@ -4,13 +4,13 @@ import java.util.List;
 
 import Constants.Constants;
 import view.ViewAbstract;
-import Model.TurtleManager;
+import Model.*;
 import Statements.Statement;
 
 public class Home extends SetPosition {
 
 	public Home(List<Statement> statements, ViewAbstract view,
-			TurtleManager turtleManager, List<String> colors) {
+			ITurtle turtleManager, List<String> colors) {
 		super(statements, view, turtleManager, colors);
 	}
 
@@ -19,5 +19,4 @@ public class Home extends SetPosition {
 		myExecuteResultY = Constants.STARTING_YCOR;
 		return super.execute();
 	}
-
 }

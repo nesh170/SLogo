@@ -62,7 +62,7 @@ public class CommandFactory {
 	// change my
 	public static Statement generateCommand(String commandType,
 			List<List<Statement>> statements, ViewAbstract myView,
-			TurtleManager myTurtleManager, VariableManager myVariableManager,
+			MultipleTurtles myTurtleManager, VariableManager myVariableManager,
 			Regex myRegex, MethodManager myMethodManager, List<String> colors,
 			List<String> shapes) throws ParserException {
 

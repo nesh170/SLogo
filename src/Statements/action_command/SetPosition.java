@@ -6,34 +6,20 @@ import view.ViewAbstract;
 import Model.*;
 import Statements.Statement;
 
-public abstract class SetPosition extends ActionCommand {
+public abstract class SetPosition extends Relocate {
 	protected double myExecuteResultX;
 	protected double myExecuteResultY;
-	private List<String> myColors;
 
 	public SetPosition(List<Statement> statements, ViewAbstract view,
-			TurtleManager turtleManager, List<String> colors) {
-		super(statements, view, turtleManager);
-		myColors = colors;
+			ITurtle turtleManager, List<String> colors) {
+		super(statements, view, turtleManager, colors);
 	}
 
 	@Override
 	public double execute() {
-		double distanceTraveled = 0;
-		for (Integer ID : myTurtleManager.getActiveTurtleIDs()) {
-			ModelTurtle currentTurtle = myTurtleManager.getTurtle(ID);
-			distanceTraveled = currentTurtle.relocateTurtle(myExecuteResultX, myExecuteResultY);
-			if (!currentTurtle.isDrawing()) {
-				myView.moveShape(currentTurtle.getX(), currentTurtle.getY(),
-						currentTurtle.getID());
-			} else {
-				Pen curPen = currentTurtle.getPen();
-				myView.drawShape(currentTurtle.getX(), currentTurtle.getY(),
-						currentTurtle.getID(), myColors.get(curPen.getColorIndex()),
-						curPen.getThickness(), curPen.getPenStroke());
-			}
-		}
-		return distanceTraveled;
+		double result = myTurtles.relocateTurtle(myExecuteResultX, myExecuteResultY);
+		myTurtles.doToActiveTurtles(e -> updateView(e));
+		return result;
 	}
 
 }

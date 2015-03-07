@@ -1,12 +1,12 @@
 package Statements.query;
 
 import view.ViewAbstract;
-import Model.TurtleManager;
+import Model.MultipleTurtles;
 import Constants.*;
 
 public class ClearScreen extends Query {
 
-	public ClearScreen(ViewAbstract view, TurtleManager manager) {
+	public ClearScreen(ViewAbstract view, MultipleTurtles manager) {
 		super(view, manager);
 	}
 

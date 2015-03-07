@@ -2,11 +2,11 @@ package Statements.query;
 
 import view.ViewAbstract;
 import Constants.*;
-import Model.TurtleManager;
+import Model.MultipleTurtles;
 
 public class Heading extends Query{
 
-	public Heading(ViewAbstract view, TurtleManager manager) {
+	public Heading(ViewAbstract view, MultipleTurtles manager) {
 		super(view, manager);
 	}
 

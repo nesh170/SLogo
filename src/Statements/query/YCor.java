@@ -1,11 +1,11 @@
 package Statements.query;
 
 import view.ViewAbstract;
-import Model.TurtleManager;
+import Model.MultipleTurtles;
 
 public class YCor extends Query{
 
-	public YCor(ViewAbstract view, TurtleManager manager) {
+	public YCor(ViewAbstract view, MultipleTurtles manager) {
 		super(view, manager);
 	}
 

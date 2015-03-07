@@ -7,7 +7,7 @@ import exceptions.ParserException;
 import Constants.Constants;
 import Model.MethodManager;
 import Model.Program;
-import Model.TurtleManager;
+import Model.MultipleTurtles;
 import Model.VariableManager;
 import Statements.*;
 import view.ViewAbstract;
@@ -15,14 +15,14 @@ import parser.*;
 
 public class ProgramBuilder {
 	private ViewAbstract myView;
-	private TurtleManager myTurtleManager;
+	private MultipleTurtles myTurtleManager;
 	private VariableManager myVariableManager;
 	private Regex myRegex;
 	private MethodManager myMethodManager;
 	private List<String> myColors;
 	private List<String> myShapes;
 
-	public ProgramBuilder(ViewAbstract view, TurtleManager turtles,
+	public ProgramBuilder(ViewAbstract view, MultipleTurtles turtles,
 			VariableManager vars, Regex regex, MethodManager methodManager,
 			List<String> colors, List<String> shapes) {
 		myView = view;

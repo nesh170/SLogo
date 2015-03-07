@@ -2,11 +2,11 @@ package Statements.query;
 
 import view.ViewAbstract;
 import Constants.Constants;
-import Model.TurtleManager;
+import Model.MultipleTurtles;
 
 public class SetPenDown extends Query {
 
-	public SetPenDown(ViewAbstract view, TurtleManager manager) {
+	public SetPenDown(ViewAbstract view, MultipleTurtles manager) {
 		super(view, manager);
 	}
 
