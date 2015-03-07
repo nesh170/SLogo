@@ -11,8 +11,8 @@ import Statements.*;
 import view.ViewAbstract;
 import parser.*;
 
-// TODO: Auto-generated Javadoc
-/**
+/**This class traverses the built syntax tree and converts each node to a command statement.
+ * @author Yancheng, Sierra
  * The Class ProgramBuilder.
  */
 public class ProgramBuilder {

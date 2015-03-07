@@ -3,7 +3,11 @@ package Statements.operator;
 import java.util.List;
 
 import Statements.Statement;
-
+/**
+ * 
+ * @author Sivaneshwaran
+ *
+ */
 public class LessThan extends Operator{
 
 	public LessThan(List<Statement> statements) {

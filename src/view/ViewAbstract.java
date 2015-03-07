@@ -4,43 +4,152 @@ import java.util.List;
 import Model.Pen;
 import javafx.scene.Group;
 
+
+/**
+ * The abstract class is used so if the user wants to use Swing instead of JavaFX, he/she is able to
+ * extend this class and write the implementation of it in their own desired language.
+ * 
+ * @author Sivaneshwaran
+ */
 public abstract class ViewAbstract {
 
-	public abstract void drawShape(double X, double Y, int ID, String penColor,
-			double strokeWidth, String strokeType);
+    /**
+     * Method drawShape.
+     * 
+     * @param X double
+     * @param Y double
+     * @param ID int
+     * @param penColor String
+     * @param strokeWidth double
+     * @param strokeType String
+     */
+    public abstract void drawShape (double X, double Y, int ID, String penColor,
+                                    double strokeWidth, String strokeType);
 
-	public abstract void moveShape(double X, double Y, int ID);
+    /**
+     * Method moveShape.
+     * 
+     * @param X double
+     * @param Y double
+     * @param ID int
+     */
+    public abstract void moveShape (double X, double Y, int ID);
 
-	public abstract void rotateShape(double angle, int ID);
+    /**
+     * Method rotateShape.
+     * 
+     * @param angle double
+     * @param ID int
+     */
+    public abstract void rotateShape (double angle, int ID);
 
-	public abstract void clearScreen();
+    public abstract void clearScreen ();
 
-	public abstract void printError(String message);
+    /**
+     * Method printError.
+     * 
+     * @param message String
+     */
+    public abstract void printError (String message);
 
-	public abstract void printMessage(String message);
+    /**
+     * Method printMessage.
+     * 
+     * @param message String
+     */
+    public abstract void printMessage (String message);
 
-	public abstract void addShape(String shapeType, double X, double Y, int ID);
+    /**
+     * Method addShape.
+     * 
+     * @param shapeType String
+     * @param X double
+     * @param Y double
+     * @param ID int
+     */
+    public abstract void addShape (String shapeType, double X, double Y, int ID);
 
-	public abstract void addVariable(String variableName, double value);
+    /**
+     * Method addVariable.
+     * 
+     * @param variableName String
+     * @param value double
+     */
+    public abstract void addVariable (String variableName, double value);
 
-	public abstract void addMethodVariable(String methodName);
+    /**
+     * Method addMethodVariable.
+     * 
+     * @param methodName String
+     */
+    public abstract void addMethodVariable (String methodName);
 
-	public abstract void visibleShape(boolean hideOrShow, int ID);
+    /**
+     * Method visibleShape.
+     * 
+     * @param hideOrShow boolean
+     * @param ID int
+     */
+    public abstract void visibleShape (boolean hideOrShow, int ID);
 
-	public abstract void visualActiveShape(boolean activeOrInactive, int ID);
+    /**
+     * Method visualActiveShape.
+     * 
+     * @param activeOrInactive boolean
+     * @param ID int
+     */
+    public abstract void visualActiveShape (boolean activeOrInactive, int ID);
 
-	public abstract Group getRoot();
-	
-	public abstract void stamp(int ID);
-	
-	public abstract void changeShape(String shapeType, int ID);
-	
-	public abstract void updateColorListView(List<String> colorList);
+    /**
+     * Method getRoot.
+     * 
+     * @return Group
+     */
+    public abstract Group getRoot ();
 
-	public abstract boolean clearStamps();
-	
-	public abstract void setUpDialogBox(Pen pen, int ID, List<String> colorList);
-	
-	public abstract void changeBackgroundColor(String color);
-        
-    }
+    /**
+     * Method stamp.
+     * 
+     * @param ID int
+     */
+    public abstract void stamp (int ID);
+
+    /**
+     * Method changeShape.
+     * 
+     * @param shapeType String
+     * @param ID int
+     */
+    public abstract void changeShape (String shapeType, int ID);
+
+    /**
+     * Method updateColorListView.
+     * 
+     * @param colorList List<String>
+     */
+    public abstract void updateColorListView (List<String> colorList);
+
+    /**
+     * Method clearStamps.
+     * 
+     * @return boolean
+     */
+    public abstract boolean clearStamps ();
+
+    /**
+     * Method setUpDialogBox.
+     * 
+     * @param pen Pen
+     * @param ID int
+     * @param colorList List<String>
+     */
+    public abstract void setUpDialogBox (Pen pen, int ID, List<String> colorList);
+
+    /**
+     * Method changeBackgroundColor.
+     * 
+     * @param color String
+     */
+    public abstract void changeBackgroundColor (String color);
+
+}

@@ -1,11 +1,13 @@
 package Statements.view_command;
 
+/**
+ * @author Sierra, Yancheng
+ */
 import java.util.List;
 
 import Statements.Statement;
 import Statements.command.Command;
 import view.ViewAbstract;
-import Constants.*;
 
 public class ATan extends Command{
 
@@ -19,9 +21,5 @@ public class ATan extends Command{
 		getMyView().printMessage("" + result);
 		return result;
 	}
-
-//	public static int getNumParams() {
-//		return Constants.ATAN_PARAMS;
-//	}
 
 }

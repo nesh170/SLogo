@@ -41,9 +41,4 @@ public class Repeat extends Loop{
 		return result;
 	}
 
-//	@Override
-//	public int getNumParams() {
-//		return Constants.REPEAT_PARAMS;
-//	}
-
 }

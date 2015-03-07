@@ -15,9 +15,9 @@ import Statements.query.*;
 import Statements.view_command.*;
 import exceptions.*;
 
-// TODO: Auto-generated Javadoc
-/**
+/**This class returns different statements based on the command string names.
  * A factory for creating Command objects.
+ * @author Yancheng, Sierra
  */
 public class CommandFactory {
 

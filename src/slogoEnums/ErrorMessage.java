@@ -3,6 +3,11 @@ package slogoEnums;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * This enum class reads in from the resource bundle and gets the appropriate error message from the resources bundle
+ * @author Sierra,Yancheng
+ *
+ */
 public enum ErrorMessage {
 	INCORRECT_SYNTAX("syntax_cannot_find"),
 	INVALID_COMMAND("invalid_command"),

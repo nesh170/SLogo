@@ -3,7 +3,11 @@ package Statements.operator;
 import java.util.List;
 
 import Statements.Statement;
-
+/**
+ * 
+ * @author Sivaneshwaran
+ *
+ */
 public class Not extends Operator{
 
     public Not(List<Statement> statements){

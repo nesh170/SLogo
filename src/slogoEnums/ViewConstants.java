@@ -2,7 +2,12 @@ package slogoEnums;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
-
+/**
+ * This is the enum class which generates the constants from reading in from the bundle
+ * @author Sivaneshwaran
+ * @author Jangsoon Park
+ *
+ */
 public enum ViewConstants {
 	BUTTON_START_Y("buttonStartY"),BUTTON_WIDTH("buttonWidth"),BUTTON_HEIGHT("buttonHeight"),
 	HISTORY_START_X("historyStartX"),HISTORY_WIDTH("historyWidth"),HISTORY_HEIGHT("historyHeight"),
