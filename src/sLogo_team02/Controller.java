@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import parser.*;
 import slogoEnums.ViewConstants;
-import Model.Pen;
 import Model.Program;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
