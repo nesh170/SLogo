@@ -10,11 +10,16 @@ import view.ViewAbstract;
 public abstract class ActionCommand extends Command{
 	
 	//turtle manager object
-	protected ITurtle myTurtles;
+	private ITurtle myTurtles;
 	
+
 	public ActionCommand(List<Statement> statements, ViewAbstract view, ITurtle turtleManager) {
 		super(statements, view);
 		myTurtles = turtleManager;
 	}
 
+	public ITurtle getMyTurtles() {
+		return myTurtles;
+	}
+	
 }

@@ -12,9 +12,9 @@ public class HideTurtle extends Query {
 	@Override
 	public double execute() {
 		System.out.println("Hide Turtle");
-		for(SingleTurtle t: myTurtleManager.getActiveTurtles()){
+		for(SingleTurtle t: getMyTurtleManager().getActiveTurtles()){
 			t.setHiding(true);
-			myView.visibleShape(!t.isHiding(), t.getID());
+			getMyView().visibleShape(!t.isHiding(), t.getID());
 		}
 		return 0;
 	}

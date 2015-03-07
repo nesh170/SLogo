@@ -14,7 +14,7 @@ public class SetHeading extends SetAngle {
 
 	@Override
 	public double execute() {
-		myExecuteResult = myStatements.get(0).execute();
+		setMyExecuteResult(getMyStatements().get(0).execute());
 		return super.execute();
 	}
 }

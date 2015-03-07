@@ -16,7 +16,7 @@ public class SetPenColor extends SetVisual{
 
 	@Override
 	public void completeOperation(int index) {
-		myTurtles.setPenColor(index);
+		getMyTurtles().setPenColor(index);
 	}
 
 	

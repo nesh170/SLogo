@@ -14,8 +14,8 @@ public class SetXY extends SetPosition{
 	}
 	
 	public double execute(){
-		myExecuteResultX = myStatements.get(0).execute();
-		myExecuteResultY = myStatements.get(1).execute();
+		myExecuteResultX = getMyStatements().get(0).execute();
+		myExecuteResultY = getMyStatements().get(1).execute();
 		return super.execute();
 	}
 

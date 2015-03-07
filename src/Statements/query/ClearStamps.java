@@ -11,7 +11,7 @@ public class ClearStamps extends Query {
 
 	@Override
 	public double execute() {
-		return myView.clearStamps()?1:0;
+		return getMyView().clearStamps()?1:0;
 	}
 
 }

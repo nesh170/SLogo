@@ -16,7 +16,7 @@ public class Pi extends Command{
 	@Override
 	public double execute() {
 		double pi = Math.PI;
-		myView.printMessage("" + pi);
+		getMyView().printMessage("" + pi);
 		return pi;
 	}
 

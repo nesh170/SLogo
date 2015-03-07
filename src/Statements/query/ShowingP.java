@@ -12,13 +12,13 @@ public class ShowingP extends Query {
 
 	@Override
 	public double execute() {
-		if (myTurtleManager
-				.getTurtle(myTurtleManager.getActiveTurtleIDs().get(0))
+		if (getMyTurtleManager()
+				.getTurtle(getMyTurtleManager().getActiveTurtleIDs().get(0))
 				.isHiding()) {
-			myView.printMessage(Constants.HIDING_VALUE + "");
+			getMyView().printMessage(Constants.HIDING_VALUE + "");
 			return Constants.HIDING_VALUE;
 		}
-		myView.printMessage(Constants.SHOWING_VALUE + "");
+		getMyView().printMessage(Constants.SHOWING_VALUE + "");
 		return Constants.SHOWING_VALUE;
 	}
 

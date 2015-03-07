@@ -13,12 +13,12 @@ public class PenDownP extends Query {
 
 	@Override
 	public double execute() {
-		if (myTurtleManager
-				.getTurtle(myTurtleManager.getActiveTurtleIDs().get(0)).isDrawing()) {
-			myView.printMessage(Constants.PEN_UP_VALUE + "");
+		if (getMyTurtleManager()
+				.getTurtle(getMyTurtleManager().getActiveTurtleIDs().get(0)).isDrawing()) {
+			getMyView().printMessage(Constants.PEN_UP_VALUE + "");
 			return Constants.PEN_UP_VALUE;
 		}
-		myView.printMessage(Constants.PEN_DOWN_VALUE + "");
+		getMyView().printMessage(Constants.PEN_DOWN_VALUE + "");
 		return Constants.PEN_DOWN_VALUE;
 	}
 

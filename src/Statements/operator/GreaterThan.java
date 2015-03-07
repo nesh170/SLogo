@@ -12,7 +12,7 @@ public class GreaterThan extends Operator{
 
 	@Override
 	public double execute() {
-		if(myStatements.get(0).execute() > myStatements.get(1).execute()){
+		if(getMyStatements().get(0).execute() > getMyStatements().get(1).execute()){
 			return 1;
 		}
 		return 0;

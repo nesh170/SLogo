@@ -17,24 +17,24 @@ public class SetPalette extends Command {
 
 	@Override
 	public double execute() {
-		int index = (int) myStatements.get(0).execute();
+		int index = (int) getMyStatements().get(0).execute();
 		try {
 			if (index < 0 || index > myColors.size()) {
 				throw new ExecutionException(
 						"Specified index for new color is out of bounds.");
 			} else if(index<myColors.size()) {
-				myColors.set(index,calculateStringColor((int) myStatements.get(1)
-						.execute(), (int) myStatements.get(2).execute(),
-						(int) myStatements.get(3).execute()));
-				myView.updateColorListView(myColors);
+				myColors.set(index,calculateStringColor((int) getMyStatements().get(1)
+						.execute(), (int) getMyStatements().get(2).execute(),
+						(int) getMyStatements().get(3).execute()));
+				getMyView().updateColorListView(myColors);
 			} else if(index==myColors.size()){
-                                myColors.add(calculateStringColor((int) myStatements.get(1)
-                                               .execute(), (int) myStatements.get(2).execute(),
-                                                (int) myStatements.get(3).execute()));
-                                myView.updateColorListView(myColors);
+                                myColors.add(calculateStringColor((int) getMyStatements().get(1)
+                                               .execute(), (int) getMyStatements().get(2).execute(),
+                                                (int) getMyStatements().get(3).execute()));
+                                getMyView().updateColorListView(myColors);
 			}
 		} catch (ExecutionException e) {
-			myView.printError(e.toString());
+			getMyView().printError(e.toString());
 		}
 		return (double) index;
 	}

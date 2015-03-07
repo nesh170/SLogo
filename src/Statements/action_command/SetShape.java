@@ -17,7 +17,7 @@ public class SetShape extends SetVisual {
 
 	@Override
 	public void completeOperation(int index) {
-		myTurtles.setShapeIndex(index);
-		myTurtles.doToActiveTurtles(e -> myView.changeShape(getVisualList().get(index), e.getID()));;
+		getMyTurtles().setShapeIndex(index);
+		getMyTurtles().doToActiveTurtles(e -> getMyView().changeShape(getVisualList().get(index), e.getID()));;
 	}
 }

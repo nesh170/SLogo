@@ -8,8 +8,9 @@ import Model.*;
 import Statements.Statement;
 
 public abstract class SetAngle extends ActionCommand {
-	protected double myExecuteResult;
+	private double myExecuteResult;
 	
+
 	public SetAngle(List<Statement> statements, ViewAbstract view,
 			ITurtle turtleManager) {
 		super(statements, view, turtleManager);
@@ -18,9 +19,16 @@ public abstract class SetAngle extends ActionCommand {
 	@Override
 	public double execute() {
 		myExecuteResult = Constants.FULL_CIRCLE + myExecuteResult % Constants.FULL_CIRCLE;
-		double toReturn = myTurtles.setAngle(myExecuteResult);
-		myTurtles.doToActiveTurtles(t -> myView.rotateShape(t.getAngle(), t.getID()));
+		double toReturn = getMyTurtles().setAngle(myExecuteResult);
+		getMyTurtles().doToActiveTurtles(t -> getMyView().rotateShape(t.getAngle(), t.getID()));
 		return toReturn;
 	}
 
+	public double getMyExecuteResult() {
+		return myExecuteResult;
+	}
+	
+	public void setMyExecuteResult(double myExecuteResult) {
+		this.myExecuteResult = myExecuteResult;
+	}
 }

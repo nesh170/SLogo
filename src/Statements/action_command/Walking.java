@@ -7,8 +7,9 @@ import Model.*;
 import Statements.Statement;
 
 public abstract class Walking extends Relocate{
-	protected double myAngle;
+	private double myAngle;
 	
+
 	public Walking(List<Statement> statements, ViewAbstract view,
 			ITurtle turtleManager, List<String> colors) {
 		super(statements, view, turtleManager, colors);
@@ -16,9 +17,17 @@ public abstract class Walking extends Relocate{
 
 	@Override
 	public double execute() {
-		double executeResult = myStatements.get(0).execute();
-		myTurtles.moveTurtle(executeResult, myAngle);
-		myTurtles.doToActiveTurtles(e -> updateView(e));
+		double executeResult = getMyStatements().get(0).execute();
+		getMyTurtles().moveTurtle(executeResult, myAngle);
+		getMyTurtles().doToActiveTurtles(e -> updateView(e));
 		return executeResult;
+	}
+	
+	public double getMyAngle() {
+		return myAngle;
+	}
+	
+	public void setMyAngle(double myAngle) {
+		this.myAngle = myAngle;
 	}
 }

@@ -5,9 +5,18 @@ import java.util.List;
 import Statements.Statement;
 
 public abstract class Operator extends Statement{
-	protected List<Statement> myStatements;
+	private List<Statement> myStatements;
 	
 	public Operator(List<Statement> statements){
 		myStatements = statements;
 	}
+	
+	public List<Statement> getMyStatements() {
+		return myStatements;
+	}
+	
+	public void setMyStatements(List<Statement> myStatements) {
+		this.myStatements = myStatements;
+	}
+	
 }

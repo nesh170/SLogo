@@ -16,8 +16,8 @@ public class Minus extends Command{
 
 	@Override
 	public double execute() {
-		double result = Constants.REVERSE_SIGN * myStatements.get(0).execute();
-		myView.printMessage("" + result);
+		double result = Constants.REVERSE_SIGN * getMyStatements().get(0).execute();
+		getMyView().printMessage("" + result);
 		return result;
 	}
 

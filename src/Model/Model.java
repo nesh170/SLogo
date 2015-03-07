@@ -65,7 +65,7 @@ public class Model {
 
 	public void updateVariable(String name, double newValue){
 		myVariableManager.addVariable(name, newValue);
-		System.out.println("added variable to manager: " + myVariableManager.getVarValue(name));
+		//System.out.println("added variable to manager: " + myVariableManager.getVarValue(name));
 	}
 	
 	public void sendInfoForDialog(int ID){

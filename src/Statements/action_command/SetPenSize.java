@@ -16,15 +16,15 @@ public class SetPenSize extends ActionCommand {
 
 	@Override
 	public double execute() {
-		double newSize = myStatements.get(0).execute();
+		double newSize = getMyStatements().get(0).execute();
 		try{
 			if(newSize < 0){
 				throw new ExecutionException("Pen width can't be negative");
 			}else{
-				myTurtles.setPenSize(newSize);
+				getMyTurtles().setPenSize(newSize);
 			}
 		}catch (ExecutionException e){
-			myView.printError(e.toString());
+			getMyView().printError(e.toString());
 		}
 		return newSize;
 	}

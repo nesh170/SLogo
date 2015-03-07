@@ -18,8 +18,8 @@ public class MakeVariable extends Command{
 
 	@Override
 	public double execute() {
-		double value = myStatements.get(1).execute();
-		myManager.addVariable(((Variable)myStatements.get(0)).getName(), value);
+		double value = getMyStatements().get(1).execute();
+		myManager.addVariable(((Variable)getMyStatements().get(0)).getName(), value);
 //		myView.addVariable(((Variable)myStatements.get(0)).getName(), value);
 		return value;
 	}

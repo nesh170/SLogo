@@ -12,8 +12,8 @@ public class Heading extends Query{
 
 	@Override
 	public double execute() {
-		double result = (myTurtleManager.getTurtle(myTurtleManager.getActiveTurtleIDs().get(0))).getAngle();
-		myView.printMessage(result + "");
+		double result = (getMyTurtleManager().getTurtle(getMyTurtleManager().getActiveTurtleIDs().get(0))).getAngle();
+		getMyView().printMessage(result + "");
 		return result;
 	}
 
