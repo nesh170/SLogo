@@ -75,7 +75,6 @@ public class Controller {
 	}
 
 	public void executeProgram(String codeData) {
-		System.out.println(codeData);
 		try{
 			List<ParseNode> topNodes = myWorkspaceList.get(myTabNumber.getValue()).getParser().parse(codeData);
 			System.out.println("Printing after parsing: " + topNodes.size());
@@ -89,7 +88,6 @@ public class Controller {
 	}
 
 	public void changeLanguage(String languagePath) {
-		System.out.println(languagePath);
 		myWorkspaceList.get(myTabNumber.getValue()).getParser().changeLanguage(languagePath);
 	}
 
@@ -103,6 +101,11 @@ public class Controller {
 
         public void loadXML (String path) {
             // TODO Auto-generated method stub
+        }
+
+        public void initiateDialogBox (int iD) {
+            // TODO Auto-generated method stub
+            
         }
   
 }

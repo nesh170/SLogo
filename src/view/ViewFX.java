@@ -125,8 +125,7 @@ public class ViewFX extends ViewAbstract {
         @Override
         public void handle (MouseEvent mouseButton) {
             if(mouseButton.getButton()==MouseButton.PRIMARY){
-                //TODO open Dialog
-                System.out.println("Primary");
+                myController.initiateDialogBox(ID);
             }
             else if(mouseButton.getButton()==MouseButton.SECONDARY){
                 myController.setToggleActive(ID);
@@ -251,14 +250,14 @@ public class ViewFX extends ViewAbstract {
     }
 
     @Override
-    public void setUpDialogBox (Pen pen, String ID) {
+    public void setUpDialogBox (Pen pen, int ID, List<String> colorList) {
         Stage dialog = new Stage();
         VBox dialogBox = new VBox(ViewConstants.VARIABLE_TABLE_SPACING.getVal());
         dialog.initModality(Modality.APPLICATION_MODAL);
-        //PenPropertiesDialogBox penPropBox = new PenPropertiesDialogBox(myPenRGB,myStrokeWidth,myStrokeType,myPenStatus);
-        //TurtlePropertiesDialogBox turtlePropBox = new TurtlePropertiesDialogBox(myImagePath,new double[]{myShape.getTranslateX(),myShape.getTranslateY()},myShape.rotateProperty().get());
-       // dialog.setTitle(myStringResources.getString("idText") + myID);
-        //dialogBox.getChildren().addAll(penPropBox.getVBox(),turtlePropBox.getVBox());
+        PenPropertiesDialogBox penPropBox = new PenPropertiesDialogBox(pen,colorList);
+        TurtlePropertiesDialogBox turtlePropBox = new TurtlePropertiesDialogBox(myShapeMap.get(ID));
+        dialog.setTitle(myStringResources.getString("idText") + ID);
+        dialogBox.getChildren().addAll(penPropBox.getVBox(),turtlePropBox.getVBox());
         dialog.setScene(new Scene(dialogBox, ViewConstants.DBOX_WIDTH.getVal(), ViewConstants.DBOX_HEIGHT.getVal()));
         dialog.show();
     }
