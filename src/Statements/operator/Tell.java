@@ -6,6 +6,10 @@ import java.util.List;
 import Model.MultipleTurtles;
 import Statements.Statement;
 
+/**
+ * @author Sierra, Yancheng
+ */
+
 public class Tell extends Operator{
 
 	private MultipleTurtles myTurtleManager;

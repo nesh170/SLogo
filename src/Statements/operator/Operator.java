@@ -4,6 +4,10 @@ import java.util.List;
 
 import Statements.Statement;
 
+/**Serves as the template for any commands that takes in parameters.
+ * @author Sierra, Yancheng
+ */
+
 public abstract class Operator extends Statement{
 	private List<Statement> myStatements;
 	
