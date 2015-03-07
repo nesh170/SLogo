@@ -88,7 +88,7 @@ public class MultipleTurtles implements ITurtle {
 	 * @return List<SingleTurtle>
 	 */
 	public List<SingleTurtle> getActiveTurtles(){
-		return myActiveTurtles;
+		return Collections.unmodifiableList(myActiveTurtles);
 	}
 
 	/**
