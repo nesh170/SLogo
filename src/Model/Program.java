@@ -6,19 +6,20 @@ import view.*;
 
 import Statements.Statement;
 
-// TODO: Auto-generated Javadoc
+
 /**
- * The Class Program.
+ * The Program class is holds a list of statement objects and executes them when instructed to.
+ * It can run the same set of statements as many times as needed by multiple calls to execute.
+ * @author Sierra, Yancheng
  */
 public class Program {
 	
-	/** The my statements. */
+	/** The list of statements. */
 	private List<Statement> myStatements;
 	
-	/** The my view. */
+	/** The view that displays the turtles for this model and that the commands will operate on. */
 	private ViewAbstract myView;
 	
-	// execute all of the statement objects
 	/**
 	 * Instantiates a new program.
 	 *
@@ -30,7 +31,7 @@ public class Program {
 	}
 
 	/**
-	 * Adds the statment.
+	 * Adds a statement to the end of list of statements in the program
 	 *
 	 * @param toAdd the to add
 	 */
@@ -39,11 +40,10 @@ public class Program {
 	}
 	
 	/**
-	 * Execute.
+	 * Executes the list of statements in the program in order and prints the results of the
+	 * top statements to the terminal in the view.
 	 */
 	public void execute() {
-		System.out.println("Size of the statement: " + myStatements.size());
-		System.out.println(myStatements.get(0).getClass().toString());
 		for (Statement statement : myStatements) {
 			myView.printMessage(statement.execute()+ "");
 		}
