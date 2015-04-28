@@ -468,7 +468,7 @@ public class ViewFX extends ViewAbstract {
     }
     
     public Map<Integer, Shape> getTurtleMap() {
-        return Collections.unmodifiableMap(myShapeMap);
+        return myShapeMap;
     }
 
 }

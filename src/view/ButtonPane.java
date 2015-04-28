@@ -33,6 +33,7 @@ public class ButtonPane {
     private ResourceBundle myStringResources = ResourceBundle.getBundle(
                                                                         "resources.View.ViewText",
                                                                         new Locale("en", "US"));;
+    private TurtleDisplay myTurtleDisplay;
 
     /**
      * Constructor for ButtonPane.
@@ -50,6 +51,7 @@ public class ButtonPane {
                        EventHandler<ActionEvent> loadHandler, Callable<Map<Integer,Shape>> getTurtleMap) {
         myRoot = root;
         initializeButtonPane(listener, handler, saveHandler, loadHandler);
+        myTurtleDisplay = new TurtleDisplay(getTurtleMap);
     }
 
 
@@ -60,6 +62,7 @@ public class ButtonPane {
      * @param handler EventHandler<ActionEvent> event handler to change background image
      * @param saveHandler EventHandler<ActionEvent> event handler for saving XML
      * @param loadHandler EventHandler<ActionEvent> event handler for loading XML
+     * @param getTurtleMap 
      */
     private void initializeButtonPane (ChangeListener<Number> listener,
                                        EventHandler<ActionEvent> handler,
@@ -73,7 +76,8 @@ public class ButtonPane {
                             createButton(e -> loadHelpPage(),
                                          myStringResources.getString("helpScreen")),
                             createButton(saveHandler, myStringResources.getString("saveButton")),
-                            createButton(loadHandler, myStringResources.getString("loadButton")) };
+                            createButton(loadHandler, myStringResources.getString("loadButton")),
+                            createButton(e -> myTurtleDisplay.createDisplay(), myStringResources.getString("turtleDisplay"))};
         for (int col = 0; col < nodeArray.length; col++) {
             buttonPane.add(nodeArray[col], col, 1);
         }
