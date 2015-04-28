@@ -2,11 +2,13 @@ package view;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.concurrent.Callable;
 import Model.Pen;
 import sLogo_team02.Controller;
 import javafx.beans.value.ChangeListener;
@@ -79,7 +81,7 @@ public class ViewFX extends ViewAbstract {
                 changeLanuageinController(newValue.intValue());
             }
         }, e -> myController.saveXML(ViewFX.openFileChooser(false)), e -> myController
-                .loadXML(ViewFX.openFileChooser(true)));
+                .loadXML(ViewFX.openFileChooser(true)), () -> getTurtleMap());
         myPlayground = new TurtlePlayground(myRoot);
         myCodeElements = new CodePane(myRoot, e -> pushCodeToController());
         setUpVariablePane();
@@ -463,6 +465,10 @@ public class ViewFX extends ViewAbstract {
     @Override
     public void changeBackgroundColor (String color) {
         myPlayground.changeColorBackground(color);
+    }
+    
+    public Map<Integer, Shape> getTurtleMap() {
+        return Collections.unmodifiableMap(myShapeMap);
     }
 
 }

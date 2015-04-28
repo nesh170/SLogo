@@ -3,7 +3,9 @@ package view;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.concurrent.Callable;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -13,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import slogoEnums.ViewConstants;
 
@@ -44,10 +47,11 @@ public class ButtonPane {
                        EventHandler<ActionEvent> handler,
                        ChangeListener<Number> listener,
                        EventHandler<ActionEvent> saveHandler,
-                       EventHandler<ActionEvent> loadHandler) {
+                       EventHandler<ActionEvent> loadHandler, Callable<Map<Integer,Shape>> getTurtleMap) {
         myRoot = root;
         initializeButtonPane(listener, handler, saveHandler, loadHandler);
     }
+
 
     /**
      * Method initializeButtonPane. This method just creates the button pant
