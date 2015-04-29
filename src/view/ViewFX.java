@@ -82,7 +82,7 @@ public class ViewFX extends ViewAbstract {
             }
         }, e -> myController.saveXML(ViewFX.openFileChooser(false)), e -> myController
                 .loadXML(ViewFX.openFileChooser(true)), () -> getTurtleMap(), () -> renderTurtleGroup());
-        //myPlayground = new TurtlePlayground(myRoot);
+        myPlayground = new TurtlePlayground(myRoot);
         myCodeElements = new CodePane(myRoot, e -> pushCodeToController());
         setUpVariablePane();
         myRoot.getChildren().addAll(myLineRoot, myShapeRoot, myStampRoot);
