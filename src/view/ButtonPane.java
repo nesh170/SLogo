@@ -6,6 +6,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.Callable;
+import java.util.function.Consumer;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -34,7 +35,7 @@ public class ButtonPane {
                                                                         "resources.View.ViewText",
                                                                         new Locale("en", "US"));;
     private TurtleDisplay myTurtleDisplay;
-
+    
     /**
      * Constructor for ButtonPane.
      * 
@@ -48,10 +49,10 @@ public class ButtonPane {
                        EventHandler<ActionEvent> handler,
                        ChangeListener<Number> listener,
                        EventHandler<ActionEvent> saveHandler,
-                       EventHandler<ActionEvent> loadHandler, Callable<Map<Integer,Shape>> getTurtleMap) {
+                       EventHandler<ActionEvent> loadHandler, Callable<Map<Integer,Shape>> getTurtleMap, Runnable renderTurtles) {
         myRoot = root;
         initializeButtonPane(listener, handler, saveHandler, loadHandler);
-        myTurtleDisplay = new TurtleDisplay(getTurtleMap);
+        myTurtleDisplay = new TurtleDisplay(getTurtleMap, renderTurtles);
     }
 
 

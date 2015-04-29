@@ -81,8 +81,8 @@ public class ViewFX extends ViewAbstract {
                 changeLanuageinController(newValue.intValue());
             }
         }, e -> myController.saveXML(ViewFX.openFileChooser(false)), e -> myController
-                .loadXML(ViewFX.openFileChooser(true)), () -> getTurtleMap());
-        myPlayground = new TurtlePlayground(myRoot);
+                .loadXML(ViewFX.openFileChooser(true)), () -> getTurtleMap(), () -> renderTurtleGroup());
+        //myPlayground = new TurtlePlayground(myRoot);
         myCodeElements = new CodePane(myRoot, e -> pushCodeToController());
         setUpVariablePane();
         myRoot.getChildren().addAll(myLineRoot, myShapeRoot, myStampRoot);
@@ -468,7 +468,18 @@ public class ViewFX extends ViewAbstract {
     }
     
     public Map<Integer, Shape> getTurtleMap() {
-        return myShapeMap;
+        return Collections.unmodifiableMap(myShapeMap);
+    }
+    
+    public void renderTurtleGroup(){
+        System.out.println("Run");
+        myShapeMap.forEach((key,value)-> {
+            value.relocate(ViewConstants.ORIGIN_X.getVal()-ViewConstants.SIZE.getVal(), ViewConstants.ORIGIN_Y.getVal()-ViewConstants.SIZE.getVal());
+            value.setTranslateX(myShapeMap.get(key).getTranslateX());
+            value.setTranslateY(myShapeMap.get(key).getTranslateY());
+        });
+        myShapeRoot.getChildren().clear();
+        myShapeMap.values().stream().forEach(turtle -> myShapeRoot.getChildren().add(turtle));
     }
 
 }
