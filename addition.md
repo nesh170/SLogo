@@ -8,7 +8,7 @@ I think it will take me about 30 minutes to complete this feature as I was famil
 
 2) How many files will you need to add or update? Why?
 	
-I will need to add 1 file and edit 3 files. One of the file is a property file to set the width of the button so it would fit in the gridpane. The other 2 classes I need to edit is ViewFX to add a getShapesMap method to pass to the new view and I also need to edit the buttonPane to create a button for the new view. Lastly, I would need to add a new class which contains this new view of turtles.
+I will need to add 1 file and edit 3 files. One of the file is a property file to set the width of the button so it would fit in the pane. The other 2 classes I need to edit is ViewFX to add a getShapesMap method to pass to the new view and I also need to edit the buttonPane to create a button for the new view. Lastly, I would need to add a new class which contains this new view of turtles.
 
 ##Review
 1) How long did it take you to complete this new feature?
@@ -17,7 +17,7 @@ It took me about 1.5 hours to complete this new feature. I had the feature up re
 
 2) Did you get it completely right on the first try?
 
-I did not due to the bug explained due to the bug above.
+I did not due to the bug explained above.
 
 3) How many files did you need to add or update? Why?
 
