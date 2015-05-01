@@ -6,7 +6,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.Callable;
-import java.util.function.Consumer;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
